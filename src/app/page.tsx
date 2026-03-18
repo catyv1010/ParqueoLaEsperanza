@@ -700,22 +700,27 @@ export default function Home() {
         .tarifas .section-label { color: var(--verde-claro); }
         .tarifas .section-title { color: var(--blanco); }
         .tarifas .section-title .accent { color: var(--verde-claro); }
-        .tarifas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .tarifas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; position: relative; z-index: 2; max-width: 1000px; margin: 0 auto; align-items: stretch; }
         .tarifa-card {
-          background: rgba(255,255,255,0.04); border: 1px solid rgba(82,183,136,0.15);
-          border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
-          position: relative; transition: all 0.4s ease; overflow: hidden;
+          background: rgba(255,255,255,0.06);
+          backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(82,183,136,0.15);
+          border-radius: 24px; padding: 2.5rem 1.8rem; text-align: center;
+          position: relative; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
+          display: flex; flex-direction: column;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
         }
         .tarifa-card::after {
           content: ''; position: absolute; inset: 0;
-          background: linear-gradient(180deg, rgba(82,183,136,0.05), transparent);
-          opacity: 0; transition: opacity 0.4s ease;
+          background: linear-gradient(180deg, rgba(82,183,136,0.06), transparent);
+          opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
         }
         .tarifa-card:hover::after { opacity: 1; }
-        .tarifa-card:hover { transform: translateY(-6px); border-color: rgba(82,183,136,0.4); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-        .tarifa-card.featured { background: rgba(82,183,136,0.1); border-color: var(--verde-claro); transform: scale(1.04); animation: featuredGlow 3s ease-in-out infinite alternate; }
-        .tarifa-card.featured:hover { transform: scale(1.04) translateY(-6px); }
-        @keyframes featuredGlow { 0% { box-shadow: 0 0 20px rgba(82,183,136,0.1); } 100% { box-shadow: 0 0 40px rgba(82,183,136,0.25), 0 20px 60px rgba(0,0,0,0.3); } }
+        .tarifa-card:hover { transform: translateY(-8px); border-color: rgba(82,183,136,0.4); box-shadow: 0 24px 64px rgba(0,0,0,0.25), 0 0 30px rgba(82,183,136,0.1); }
+        .tarifa-card.featured { background: rgba(82,183,136,0.1); border-color: rgba(82,183,136,0.4); box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 0 20px rgba(82,183,136,0.1), inset 0 1px 0 rgba(255,255,255,0.08); animation: featuredGlow 3s ease-in-out infinite alternate; }
+        .tarifa-card.featured:hover { transform: translateY(-8px); box-shadow: 0 24px 64px rgba(0,0,0,0.3), 0 0 40px rgba(82,183,136,0.2); }
+        .tarifa-features { flex: 1; }
+        @keyframes featuredGlow { 0% { box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 0 20px rgba(82,183,136,0.1); } 100% { box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 0 40px rgba(82,183,136,0.25); } }
         .tarifa-badge { position: absolute; top: -1px; right: 1.5rem; background: var(--verde-claro); color: var(--oscuro); font-size: 0.7rem; font-weight: 700; padding: 0.4rem 1rem; border-radius: 0 0 10px 10px; letter-spacing: 0.05em; text-transform: uppercase; }
         .tarifa-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
         .tarifa-name { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--blanco); margin-bottom: 0.5rem; }
@@ -847,8 +852,7 @@ export default function Home() {
         /* RESPONSIVE */
         @media (max-width: 1024px) {
           .services-grid { grid-template-columns: repeat(2, 1fr); }
-          .tarifas-grid { grid-template-columns: repeat(2, 1fr); }
-          .tarifa-card.featured { transform: scale(1); }
+          .tarifas-grid { grid-template-columns: repeat(3, 1fr); }
           .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
         }
         @media (max-width: 768px) {
@@ -856,7 +860,7 @@ export default function Home() {
           .hamburger { display: flex; }
           .hero-grasshopper { width: 120px; height: 120px; right: 5%; bottom: 10%; }
           .services-grid { grid-template-columns: 1fr; max-width: 100%; }
-          .tarifas-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+          .tarifas-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
           .porque-grid { grid-template-columns: 1fr; }
           .porque-visual { height: 300px; }
           .ubicacion-wrapper { grid-template-columns: 1fr; }
@@ -1059,7 +1063,24 @@ export default function Home() {
             <div className="section-line" />
           </div>
           <div className="tarifas-grid">
-            {/* Día o Noche */}
+            {/* Por hora */}
+            <div className="tarifa-card reveal">
+              <span className="tarifa-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#52B788" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+              </span>
+              <div className="tarifa-name">Por hora</div>
+              <div className="tarifa-desc">Para diligencias r&aacute;pidas</div>
+              <div className="tarifa-price">&#8353;1,000<span>/hora</span></div>
+              <div className="tarifa-period">Cobro proporcional por fracci&oacute;n</div>
+              <ul className="tarifa-features">
+                <li><CheckIcon /> Sin reserva previa</li>
+                <li><CheckIcon /> Vigilancia incluida</li>
+                <li><CheckIcon /> Acceso inmediato</li>
+                <li><CheckIcon /> Pago al salir</li>
+              </ul>
+              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20hora%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
+            </div>
+            {/* Día o Noche - Más Popular */}
             <div className="tarifa-card featured reveal">
               <div className="tarifa-badge">M&aacute;s popular</div>
               <span className="tarifa-icon">
@@ -1070,11 +1091,10 @@ export default function Home() {
               <div className="tarifa-price">&#8353;5,000<span>/d&iacute;a o noche</span></div>
               <div className="tarifa-period">Precio fijo, sin sorpresas</div>
               <ul className="tarifa-features">
-                <li><CheckIcon /> Sin reserva previa</li>
-                <li><CheckIcon /> Vigilancia 24/7 incluida</li>
-                <li><CheckIcon /> Acceso inmediato</li>
                 <li><CheckIcon /> C&aacute;maras CCTV activas</li>
-                <li><CheckIcon /> Pago al salir</li>
+                <li><CheckIcon /> Vigilancia 24/7</li>
+                <li><CheckIcon /> Acceso inmediato</li>
+                <li><CheckIcon /> Precio fijo</li>
               </ul>
               <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20d%C3%ADa%20o%20noche%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-solid" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
             </div>
@@ -1088,7 +1108,6 @@ export default function Home() {
               <div className="tarifa-price">&#8353;60,000<span>/mes</span></div>
               <div className="tarifa-period">Campo fijo garantizado</div>
               <ul className="tarifa-features">
-                <li><CheckIcon /> Espacio reservado 24/7</li>
                 <li><CheckIcon /> Entrada y salida libre</li>
                 <li><CheckIcon /> SINPE M&oacute;vil aceptado</li>
                 <li><CheckIcon /> Prioridad en campos techados</li>
