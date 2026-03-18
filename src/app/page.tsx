@@ -1,11 +1,19 @@
-"use client";
-
-import { useEffect } from "react";
+import { Navbar } from "@/components/navbar";
+import { Hero } from "@/components/hero";
+import { Services } from "@/components/services";
+import { Contact } from "@/components/contact";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
-  useEffect(() => {
-    window.location.replace("/index.html");
-  }, []);
-
-  return null;
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <Services />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
 }
