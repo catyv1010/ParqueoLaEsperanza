@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Parqueo y Lavacar La Esperanza",
+  title: "Parqueo y Lavacar La Esperanza — Tu parqueo y lavacar de confianza",
   description:
-    "Estacionamiento seguro y servicio profesional de lavado de autos. Vigilancia 24/7 y lavado premium.",
+    "Parqueo y Lavacar La Esperanza — Tu parqueo y lavacar de confianza en Costa Rica. Servicios de parqueo por hora, mensual y nocturno. Lavado exterior, interior y premium. Seguro, accesible y con la mejor atención.",
 };
 
 export default function RootLayout({
@@ -15,12 +15,17 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦗</text></svg>"
+        />
       </head>
-      <body className="antialiased">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
