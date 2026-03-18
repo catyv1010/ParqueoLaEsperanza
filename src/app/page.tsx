@@ -625,41 +625,69 @@ export default function Home() {
         .stat-label { font-size: 0.85rem; color: var(--oscuro-suave); margin-top: 0.3rem; letter-spacing: 0.02em; }
 
         /* SERVICES */
-        .services { background: var(--blanco); }
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .service-card {
-          background: var(--blanco-puro); border: 1px solid rgba(45,106,79,0.08);
-          border-radius: 16px; padding: 2.5rem 2rem; position: relative; overflow: hidden;
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important; cursor: default;
+        .services { background: linear-gradient(180deg, var(--blanco) 0%, var(--verde-palido) 100%); }
+        .services-grid {
+          display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+          max-width: 900px; margin: 0 auto;
         }
+        .service-card {
+          background: rgba(255,255,255,0.25);
+          backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+          border: 1px solid rgba(255,255,255,0.5);
+          border-radius: 28px; padding: 2.8rem 2.2rem; position: relative; overflow: hidden;
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important; cursor: default;
+          box-shadow: 0 8px 32px rgba(45,106,79,0.06), 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+        .service-card:nth-child(1) { transition-delay: 0s !important; }
+        .service-card:nth-child(2) { transition-delay: 0.12s !important; }
+        .service-card:nth-child(3) { transition-delay: 0.24s !important; }
+        .service-card:nth-child(4) { transition-delay: 0.36s !important; }
         .service-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0;
-          height: 4px; background: linear-gradient(90deg, var(--verde-esperanza), var(--verde-claro));
-          transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+          height: 4px; background: linear-gradient(90deg, var(--verde-esperanza), var(--verde-claro), var(--verde-brillante));
+          transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .service-card:hover::before { transform: scaleX(1); }
         .service-card:hover {
-          transform: translateY(-12px) scale(1.02) !important;
-          box-shadow: 0 25px 80px var(--sombra), 0 0 30px rgba(82,183,136,0.1) !important;
-          border-color: transparent;
+          transform: translateY(-14px) scale(1.03) !important;
+          box-shadow: 0 30px 80px rgba(45,106,79,0.15), 0 0 40px rgba(82,183,136,0.12), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+          border-color: rgba(82,183,136,0.3);
+          background: rgba(255,255,255,0.55);
         }
         .service-card::after {
-          content: ''; position: absolute; inset: 0; border-radius: 16px;
-          background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(82,183,136,0.08), transparent 60%);
+          content: ''; position: absolute; inset: 0; border-radius: 28px;
+          background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(82,183,136,0.12), transparent 60%);
           opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
         }
         .service-card:hover::after { opacity: 1; }
         .service-icon {
-          width: 56px; height: 56px;
-          background: linear-gradient(135deg, var(--verde-palido), var(--verde-suave));
-          border-radius: 14px; display: flex; align-items: center; justify-content: center;
-          margin-bottom: 1.5rem; transition: transform 0.3s ease;
+          width: 88px; height: 88px;
+          background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
+          border-radius: 24px; display: flex; align-items: center; justify-content: center;
+          margin-bottom: 1.8rem;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 12px 32px rgba(45,106,79,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
         }
-        .service-card:hover .service-icon { transform: scale(1.1) rotate(-5deg); }
-        .service-icon svg { width: 26px; height: 26px; color: var(--verde-esperanza); }
-        .service-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--oscuro); }
-        .service-card p { font-size: 0.92rem; color: var(--oscuro-suave); line-height: 1.7; }
-        .service-tag { display: inline-block; margin-top: 1.2rem; font-size: 0.75rem; font-weight: 600; color: var(--verde-esperanza); background: var(--verde-palido); padding: 0.3rem 0.8rem; border-radius: 20px; letter-spacing: 0.03em; }
+        .service-card:hover .service-icon {
+          transform: scale(1.15) rotate(-5deg);
+          box-shadow: 0 16px 40px rgba(45,106,79,0.35);
+        }
+        .service-icon svg { width: 42px; height: 42px; color: white; }
+        .service-card h3 {
+          font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700;
+          margin-bottom: 0.8rem; color: var(--oscuro);
+          transition: color 0.3s ease;
+        }
+        .service-card:hover h3 { color: var(--verde-esperanza); }
+        .service-card p { font-size: 0.95rem; color: var(--oscuro-suave); line-height: 1.7; }
+        .service-tag {
+          display: inline-block; margin-top: 1.2rem; font-size: 0.75rem; font-weight: 600;
+          color: white; background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
+          padding: 0.4rem 1.1rem; border-radius: 20px; letter-spacing: 0.03em;
+          box-shadow: 0 4px 12px rgba(45,106,79,0.2);
+          transition: all 0.3s ease;
+        }
+        .service-card:hover .service-tag { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(45,106,79,0.3); }
 
         /* TARIFAS */
         .tarifas { background: var(--oscuro); position: relative; overflow: hidden; }
@@ -672,7 +700,7 @@ export default function Home() {
         .tarifas .section-label { color: var(--verde-claro); }
         .tarifas .section-title { color: var(--blanco); }
         .tarifas .section-title .accent { color: var(--verde-claro); }
-        .tarifas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; position: relative; z-index: 2; }
+        .tarifas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
         .tarifa-card {
           background: rgba(255,255,255,0.04); border: 1px solid rgba(82,183,136,0.15);
           border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
@@ -818,7 +846,8 @@ export default function Home() {
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
-          .services-grid, .tarifas-grid { grid-template-columns: repeat(2, 1fr); }
+          .services-grid { grid-template-columns: repeat(2, 1fr); }
+          .tarifas-grid { grid-template-columns: repeat(2, 1fr); }
           .tarifa-card.featured { transform: scale(1); }
           .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
         }
@@ -826,7 +855,7 @@ export default function Home() {
           .nav-links, .nav-cta { display: none !important; }
           .hamburger { display: flex; }
           .hero-grasshopper { width: 120px; height: 120px; right: 5%; bottom: 10%; }
-          .services-grid { grid-template-columns: 1fr; }
+          .services-grid { grid-template-columns: 1fr; max-width: 100%; }
           .tarifas-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
           .porque-grid { grid-template-columns: 1fr; }
           .porque-visual { height: 300px; }
@@ -987,15 +1016,15 @@ export default function Home() {
           <div className="services-grid">
             <div className="service-card reveal">
               <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
               </div>
               <h3>Parqueo d&iacute;a o noche</h3>
               <p>Deje su carro seguro de d&iacute;a o de noche. Vigilancia las 24 horas con c&aacute;maras y personal de seguridad presente.</p>
-              <span className="service-tag">Flexible</span>
+              <span className="service-tag">24/7 Seguro</span>
             </div>
             <div className="service-card reveal">
               <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" /></svg>
               </div>
               <h3>Plan mensual</h3>
               <p>Para quienes necesitan un espacio fijo. Su campo reservado todos los d&iacute;as, sin preocupaciones ni sorpresas.</p>
@@ -1003,27 +1032,19 @@ export default function Home() {
             </div>
             <div className="service-card reveal">
               <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10" /><path d="M20 4l-2 6-6-2" /><path d="M15 9c-1.5-1.5-4-1.5-5.5 0" /><path d="M9 15a4 4 0 0 0 6 0" /></svg>
               </div>
               <h3>Lavado Exterior</h3>
-              <p>Lavado completo exterior con los mejores productos del mercado. Su veh&iacute;culo quedar&aacute; como nuevo.</p>
-              <span className="service-tag">Calidad</span>
+              <p>Lavado completo exterior con los mejores productos del mercado. Su veh&iacute;culo quedar&aacute; como nuevo y reluciente.</p>
+              <span className="service-tag">Calidad Premium</span>
             </div>
             <div className="service-card reveal">
               <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9h12M6 9a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2M6 9V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" /><path d="M12 8v4l2 2" /><path d="M7.5 16.5L5 19" /><path d="M16.5 16.5L19 19" /><circle cx="12" cy="12" r="1" fill="currentColor" /></svg>
               </div>
               <h3>Lavado Interior</h3>
-              <p>Limpieza profunda del interior, aspirado y desinfecci&oacute;n. Aire fresco y limpio para su viaje.</p>
+              <p>Limpieza profunda del interior, aspirado y desinfecci&oacute;n. Aire fresco y limpio para cada viaje.</p>
               <span className="service-tag">Detallado</span>
-            </div>
-            <div className="service-card reveal">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-              </div>
-              <h3>Parqueo por hora</h3>
-              <p>Ideal para diligencias r&aacute;pidas. Entre y salga con total flexibilidad. Tarifa accesible desde la primera hora.</p>
-              <span className="service-tag">&#8353;1,000/hora</span>
             </div>
           </div>
         </div>
@@ -1038,23 +1059,6 @@ export default function Home() {
             <div className="section-line" />
           </div>
           <div className="tarifas-grid">
-            {/* Por hora */}
-            <div className="tarifa-card reveal">
-              <span className="tarifa-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#52B788" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-              </span>
-              <div className="tarifa-name">Por hora</div>
-              <div className="tarifa-desc">Para diligencias r&aacute;pidas</div>
-              <div className="tarifa-price">&#8353;1,000<span>/hora</span></div>
-              <div className="tarifa-period">Cobro proporcional por fracci&oacute;n</div>
-              <ul className="tarifa-features">
-                <li><CheckIcon /> Sin reserva previa</li>
-                <li><CheckIcon /> Vigilancia incluida</li>
-                <li><CheckIcon /> Acceso inmediato</li>
-                <li><CheckIcon /> Pago al salir</li>
-              </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20hora%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
-            </div>
             {/* Día o Noche */}
             <div className="tarifa-card featured reveal">
               <div className="tarifa-badge">M&aacute;s popular</div>
@@ -1283,10 +1287,10 @@ export default function Home() {
           </div>
           <div className="footer-col">
             <h4>Servicios</h4>
-            <a href="#tarifas">D&iacute;a o Noche</a>
-            <a href="#tarifas">Mensual</a>
-            <a href="#servicios">Por hora</a>
-            <a href="#servicios">Lavacar</a>
+            <a href="#servicios">D&iacute;a o Noche</a>
+            <a href="#servicios">Plan Mensual</a>
+            <a href="#servicios">Lavado Exterior</a>
+            <a href="#servicios">Lavado Interior</a>
           </div>
           <div className="footer-col">
             <h4>Navegaci&oacute;n</h4>
