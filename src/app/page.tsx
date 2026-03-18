@@ -1019,11 +1019,11 @@ export default function Home() {
             </div>
             <div className="service-card reveal">
               <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
               </div>
-              <h3>Parqueo de motos</h3>
-              <p>Espacio seguro y vigilado para su moto. Acceso f&aacute;cil y r&aacute;pido con tarifa especial para motocicletas.</p>
-              <span className="service-tag">Motos</span>
+              <h3>Parqueo por hora</h3>
+              <p>Ideal para diligencias r&aacute;pidas. Entre y salga con total flexibilidad. Tarifa accesible desde la primera hora.</p>
+              <span className="service-tag">&#8353;1,000/hora</span>
             </div>
           </div>
         </div>
@@ -1238,7 +1238,7 @@ export default function Home() {
                     <option value="">Seleccione una opci&oacute;n</option>
                     <option value="dia-noche">Parqueo d&iacute;a o noche</option>
                     <option value="mensual">Plan mensual</option>
-                    <option value="motos">Parqueo de motos</option>
+                    <option value="hora">Parqueo por hora</option>
                     <option value="lavado">Lavacar</option>
                     <option value="otro">Otro / Consulta general</option>
                   </select>
@@ -1268,8 +1268,8 @@ export default function Home() {
             <h4>Servicios</h4>
             <a href="#tarifas">D&iacute;a o Noche</a>
             <a href="#tarifas">Mensual</a>
+            <a href="#servicios">Por hora</a>
             <a href="#servicios">Lavacar</a>
-            <a href="#servicios">Motos</a>
           </div>
           <div className="footer-col">
             <h4>Navegaci&oacute;n</h4>
