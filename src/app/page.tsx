@@ -958,7 +958,7 @@ export default function Home() {
       <div className="stats-bar">
         <div className="stats-grid">
           <div className="stat-item reveal">
-            <div className="stat-number"><span className="counter" data-target="20">0</span>+</div>
+            <div className="stat-number"><span className="counter" data-target="24">0</span></div>
             <div className="stat-label">Espacios disponibles</div>
           </div>
           <div className="stat-item reveal">
@@ -966,7 +966,7 @@ export default function Home() {
             <div className="stat-label">Vigilancia continua</div>
           </div>
           <div className="stat-item reveal">
-            <div className="stat-number"><span className="counter" data-target="8">0</span>+</div>
+            <div className="stat-number"><span className="counter" data-target="26">0</span>+</div>
             <div className="stat-label">A&ntilde;os de servicio</div>
           </div>
           <div className="stat-item reveal">
@@ -989,8 +989,8 @@ export default function Home() {
               <div className="service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
               </div>
-              <h3>Parqueo por hora</h3>
-              <p>Ideal para diligencias r&aacute;pidas. Entre y salga con total flexibilidad. Tarifas accesibles desde la primera hora.</p>
+              <h3>Parqueo d&iacute;a o noche</h3>
+              <p>Deje su carro seguro de d&iacute;a o de noche. Vigilancia las 24 horas con c&aacute;maras y personal de seguridad presente.</p>
               <span className="service-tag">Flexible</span>
             </div>
             <div className="service-card reveal">
@@ -1003,19 +1003,11 @@ export default function Home() {
             </div>
             <div className="service-card reveal">
               <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-              </div>
-              <h3>Parqueo nocturno</h3>
-              <p>Deje su carro seguro toda la noche. Vigilancia las 24 horas con c&aacute;maras y personal de seguridad presente.</p>
-              <span className="service-tag">Seguro</span>
-            </div>
-            <div className="service-card reveal">
-              <div className="service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
               </div>
               <h3>Lavado Exterior</h3>
               <p>Lavado completo exterior con los mejores productos del mercado. Su veh&iacute;culo quedar&aacute; como nuevo.</p>
-              <span className="service-tag">Premium</span>
+              <span className="service-tag">Calidad</span>
             </div>
             <div className="service-card reveal">
               <div className="service-icon">
@@ -1027,11 +1019,11 @@ export default function Home() {
             </div>
             <div className="service-card reveal">
               <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
               </div>
-              <h3>Lavado Premium</h3>
-              <p>El paquete completo: exterior, interior, motor y encerado. El tratamiento VIP que su carro merece.</p>
-              <span className="service-tag">Completo</span>
+              <h3>Parqueo de motos</h3>
+              <p>Espacio seguro y vigilado para su moto. Acceso f&aacute;cil y r&aacute;pido con tarifa especial para motocicletas.</p>
+              <span className="service-tag">Motos</span>
             </div>
           </div>
         </div>
@@ -1045,23 +1037,24 @@ export default function Home() {
             <h2 className="section-title">Planes a su <span className="accent">medida</span></h2>
             <div className="section-line" />
           </div>
-          <div className="tarifas-grid">
-            {/* Por hora */}
+          <div className="tarifas-grid" style={{ gridTemplateColumns: "repeat(2, 1fr)", maxWidth: "800px", margin: "0 auto" }}>
+            {/* Día o Noche */}
             <div className="tarifa-card reveal">
               <span className="tarifa-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#52B788" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
               </span>
-              <div className="tarifa-name">Por hora</div>
-              <div className="tarifa-desc">Para visitas cortas y diligencias</div>
-              <div className="tarifa-price">&#8353;1,000<span>/hora</span></div>
-              <div className="tarifa-period">Cobro proporcional por fracci&oacute;n</div>
+              <div className="tarifa-name">D&iacute;a o Noche</div>
+              <div className="tarifa-desc">Parqueo por d&iacute;a o por noche</div>
+              <div className="tarifa-price">&#8353;5,000<span>/d&iacute;a o noche</span></div>
+              <div className="tarifa-period">Precio fijo, sin sorpresas</div>
               <ul className="tarifa-features">
                 <li><CheckIcon /> Sin reserva previa</li>
-                <li><CheckIcon /> Vigilancia incluida</li>
+                <li><CheckIcon /> Vigilancia 24/7 incluida</li>
                 <li><CheckIcon /> Acceso inmediato</li>
+                <li><CheckIcon /> C&aacute;maras CCTV activas</li>
                 <li><CheckIcon /> Pago al salir</li>
               </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20hora%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
+              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20d%C3%ADa%20o%20noche%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
             </div>
             {/* Mensual */}
             <div className="tarifa-card featured reveal">
@@ -1071,7 +1064,7 @@ export default function Home() {
               </span>
               <div className="tarifa-name">Mensual</div>
               <div className="tarifa-desc">Su campo reservado todo el mes</div>
-              <div className="tarifa-price">&#8353;45,000<span>/mes</span></div>
+              <div className="tarifa-price">&#8353;60,000<span>/mes</span></div>
               <div className="tarifa-period">Campo fijo garantizado</div>
               <ul className="tarifa-features">
                 <li><CheckIcon /> Espacio reservado 24/7</li>
@@ -1081,23 +1074,6 @@ export default function Home() {
                 <li><CheckIcon /> Descuento por trimestre</li>
               </ul>
               <a href="https://wa.me/50688322660?text=Hola!%20Me%20interesa%20el%20plan%20mensual%20de%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-solid" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
-            </div>
-            {/* Nocturno */}
-            <div className="tarifa-card reveal">
-              <span className="tarifa-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#52B788" strokeWidth="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-              </span>
-              <div className="tarifa-name">Nocturno</div>
-              <div className="tarifa-desc">De 6pm a 6am, toda la noche</div>
-              <div className="tarifa-price">&#8353;3,500<span>/noche</span></div>
-              <div className="tarifa-period">Ideal para zonas comerciales</div>
-              <ul className="tarifa-features">
-                <li><CheckIcon /> Guarda nocturno presente</li>
-                <li><CheckIcon /> C&aacute;maras CCTV activas</li>
-                <li><CheckIcon /> Iluminaci&oacute;n completa</li>
-                <li><CheckIcon /> Precio fijo por noche</li>
-              </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20nocturno%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
             </div>
           </div>
         </div>
@@ -1109,7 +1085,7 @@ export default function Home() {
           <div className="porque-grid">
             <div className="porque-visual reveal-left">
               <div className="porque-visual-inner">
-                <div className="porque-big-number">8+</div>
+                <div className="porque-big-number">26+</div>
                 <div className="porque-big-text">A&ntilde;os cuidando<br />su veh&iacute;culo</div>
               </div>
               <div className="porque-float">
@@ -1260,9 +1236,10 @@ export default function Home() {
                   <label htmlFor="servicio">Servicio de inter&eacute;s</label>
                   <select id="servicio" defaultValue="">
                     <option value="">Seleccione una opci&oacute;n</option>
-                    <option value="hora">Parqueo por hora</option>
+                    <option value="dia-noche">Parqueo d&iacute;a o noche</option>
                     <option value="mensual">Plan mensual</option>
-                    <option value="nocturno">Parqueo nocturno</option>
+                    <option value="motos">Parqueo de motos</option>
+                    <option value="lavado">Lavacar</option>
                     <option value="otro">Otro / Consulta general</option>
                   </select>
                 </div>
@@ -1285,14 +1262,14 @@ export default function Home() {
               <GrasshopperSVG />
               La Esperanza
             </a>
-            <p>Donde su veh&iacute;culo descansa tranquilo. M&aacute;s de 8 a&ntilde;os brindando seguridad y confianza a nuestros clientes en Costa Rica.</p>
+            <p>Donde su veh&iacute;culo descansa tranquilo. M&aacute;s de 26 a&ntilde;os brindando seguridad y confianza a nuestros clientes en Costa Rica.</p>
           </div>
           <div className="footer-col">
             <h4>Servicios</h4>
-            <a href="#servicios">Por hora</a>
+            <a href="#tarifas">D&iacute;a o Noche</a>
             <a href="#tarifas">Mensual</a>
-            <a href="#tarifas">Nocturno</a>
-            <a href="#servicios">Seguridad 24/7</a>
+            <a href="#servicios">Lavacar</a>
+            <a href="#servicios">Motos</a>
           </div>
           <div className="footer-col">
             <h4>Navegaci&oacute;n</h4>
