@@ -1037,11 +1037,29 @@ export default function Home() {
             <h2 className="section-title">Planes a su <span className="accent">medida</span></h2>
             <div className="section-line" />
           </div>
-          <div className="tarifas-grid" style={{ gridTemplateColumns: "repeat(2, 1fr)", maxWidth: "800px", margin: "0 auto" }}>
-            {/* Día o Noche */}
+          <div className="tarifas-grid">
+            {/* Por hora */}
             <div className="tarifa-card reveal">
               <span className="tarifa-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#52B788" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+              </span>
+              <div className="tarifa-name">Por hora</div>
+              <div className="tarifa-desc">Para diligencias r&aacute;pidas</div>
+              <div className="tarifa-price">&#8353;1,000<span>/hora</span></div>
+              <div className="tarifa-period">Cobro proporcional por fracci&oacute;n</div>
+              <ul className="tarifa-features">
+                <li><CheckIcon /> Sin reserva previa</li>
+                <li><CheckIcon /> Vigilancia incluida</li>
+                <li><CheckIcon /> Acceso inmediato</li>
+                <li><CheckIcon /> Pago al salir</li>
+              </ul>
+              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20hora%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
+            </div>
+            {/* Día o Noche */}
+            <div className="tarifa-card featured reveal">
+              <div className="tarifa-badge">M&aacute;s popular</div>
+              <span className="tarifa-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#52B788" strokeWidth="1.5"><path d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.95 7.95l-.71-.71M4.05 4.05l-.71-.71" /><circle cx="12" cy="12" r="4" /></svg>
               </span>
               <div className="tarifa-name">D&iacute;a o Noche</div>
               <div className="tarifa-desc">Parqueo por d&iacute;a o por noche</div>
@@ -1054,11 +1072,10 @@ export default function Home() {
                 <li><CheckIcon /> C&aacute;maras CCTV activas</li>
                 <li><CheckIcon /> Pago al salir</li>
               </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20d%C3%ADa%20o%20noche%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
+              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20d%C3%ADa%20o%20noche%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-solid" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
             </div>
             {/* Mensual */}
-            <div className="tarifa-card featured reveal">
-              <div className="tarifa-badge">M&aacute;s popular</div>
+            <div className="tarifa-card reveal">
               <span className="tarifa-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#52B788" strokeWidth="1.5"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
               </span>
@@ -1073,7 +1090,7 @@ export default function Home() {
                 <li><CheckIcon /> Prioridad en campos techados</li>
                 <li><CheckIcon /> Descuento por trimestre</li>
               </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Me%20interesa%20el%20plan%20mensual%20de%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-solid" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
+              <a href="https://wa.me/50688322660?text=Hola!%20Me%20interesa%20el%20plan%20mensual%20de%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
             </div>
           </div>
         </div>
