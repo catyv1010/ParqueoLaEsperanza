@@ -272,7 +272,7 @@ export default function Home() {
   useEffect(() => {
     /* ── Card tilt + glow follow ── */
     if (window.innerWidth <= 768) return;
-    const cards = document.querySelectorAll<HTMLElement>(".service-card");
+    const cards = document.querySelectorAll<HTMLElement>(".service-premium-card");
     const handlers: Array<() => void> = [];
     cards.forEach((card) => {
       const onMove = (e: MouseEvent) => {
@@ -644,68 +644,114 @@ export default function Home() {
 
         /* SERVICES */
         .services { background: linear-gradient(180deg, var(--blanco) 0%, var(--verde-palido) 100%); }
-        .services-grid {
+        .services-premium-grid {
           display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
           max-width: 900px; margin: 0 auto;
         }
-        .service-card {
-          background: rgba(255,255,255,0.25);
-          backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-          border: 1px solid rgba(255,255,255,0.5);
-          border-radius: 28px; padding: 2.8rem 2.2rem; position: relative; overflow: hidden;
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important; cursor: default;
-          box-shadow: 0 8px 32px rgba(45,106,79,0.06), 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+        .service-premium-card {
+          background: linear-gradient(165deg, rgba(255,255,255,0.45) 0%, rgba(216,243,220,0.25) 50%, rgba(255,255,255,0.35) 100%);
+          backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+          border: 1px solid rgba(82,183,136,0.2);
+          border-radius: 28px; position: relative; overflow: hidden;
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 8px 40px rgba(45,106,79,0.08), 0 2px 10px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+          display: flex; flex-direction: column;
         }
-        .service-card:nth-child(1) { transition-delay: 0s !important; }
-        .service-card:nth-child(2) { transition-delay: 0.12s !important; }
-        .service-card:nth-child(3) { transition-delay: 0.24s !important; }
-        .service-card:nth-child(4) { transition-delay: 0.36s !important; }
-        .service-card::before {
+        .service-premium-card::before {
+          content: ''; position: absolute; inset: 0; border-radius: 28px; z-index: 0;
+          background: radial-gradient(ellipse at 30% 0%, rgba(82,183,136,0.12), transparent 60%);
+          opacity: 0; transition: opacity 0.5s ease;
+        }
+        .service-premium-card:hover::before { opacity: 1; }
+        .service-premium-card::after {
           content: ''; position: absolute; top: 0; left: 0; right: 0;
           height: 4px; background: linear-gradient(90deg, var(--verde-esperanza), var(--verde-claro), var(--verde-brillante));
           transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .service-card:hover::before { transform: scaleX(1); }
-        .service-card:hover {
-          transform: translateY(-14px) scale(1.03) !important;
-          box-shadow: 0 30px 80px rgba(45,106,79,0.15), 0 0 40px rgba(82,183,136,0.12), inset 0 1px 0 rgba(255,255,255,0.9) !important;
-          border-color: rgba(82,183,136,0.3);
-          background: rgba(255,255,255,0.55);
+        .service-premium-card:hover::after { transform: scaleX(1); }
+        .service-premium-card:hover {
+          transform: translateY(-12px) scale(1.02);
+          box-shadow: 0 30px 80px rgba(45,106,79,0.18), 0 0 50px rgba(82,183,136,0.12), inset 0 1px 0 rgba(255,255,255,0.9);
+          border-color: rgba(82,183,136,0.4);
         }
-        .service-card::after {
-          content: ''; position: absolute; inset: 0; border-radius: 28px;
-          background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(82,183,136,0.12), transparent 60%);
-          opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+        .service-premium-sparkles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .service-premium-sparkle {
+          position: absolute; width: 4px; height: 4px; border-radius: 50%;
+          background: rgba(82,183,136,0.4); animation: lavadoSparkle 4s ease-in-out infinite;
         }
-        .service-card:hover::after { opacity: 1; }
-        .service-icon {
-          width: 88px; height: 88px;
+        .service-premium-sparkle:nth-child(1) { top: 18%; left: 15%; animation-delay: 0s; }
+        .service-premium-sparkle:nth-child(2) { top: 30%; right: 12%; animation-delay: 1.5s; width: 3px; height: 3px; }
+        .service-premium-sparkle:nth-child(3) { bottom: 25%; left: 22%; animation-delay: 3s; width: 5px; height: 5px; background: rgba(116,198,157,0.35); }
+        .service-premium-visual {
+          padding: 2.5rem 2rem 1.5rem; text-align: center; position: relative; z-index: 2;
+        }
+        .service-premium-icon-wrap {
+          width: 110px; height: 110px; margin: 0 auto 1.2rem;
           background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
-          border-radius: 24px; display: flex; align-items: center; justify-content: center;
-          margin-bottom: 1.8rem;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 0 12px 32px rgba(45,106,79,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+          border-radius: 32px; display: flex; align-items: center; justify-content: center;
+          position: relative; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 16px 48px rgba(45,106,79,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
         }
-        .service-card:hover .service-icon {
-          transform: scale(1.15) rotate(-5deg);
-          box-shadow: 0 16px 40px rgba(45,106,79,0.35);
+        .service-premium-icon-wrap::before {
+          content: ''; position: absolute; inset: -4px; border-radius: 36px;
+          background: linear-gradient(135deg, rgba(82,183,136,0.3), transparent 60%);
+          z-index: -1; transition: all 0.5s ease;
         }
-        .service-icon svg { width: 42px; height: 42px; color: white; }
-        .service-card h3 {
-          font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700;
-          margin-bottom: 0.8rem; color: var(--oscuro);
-          transition: color 0.3s ease;
+        .service-premium-card:hover .service-premium-icon-wrap {
+          transform: scale(1.12) rotate(-5deg);
+          box-shadow: 0 20px 60px rgba(45,106,79,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
         }
-        .service-card:hover h3 { color: var(--verde-esperanza); }
-        .service-card p { font-size: 0.95rem; color: var(--oscuro-suave); line-height: 1.7; }
-        .service-tag {
-          display: inline-block; margin-top: 1.2rem; font-size: 0.75rem; font-weight: 600;
+        .service-premium-card:hover .service-premium-icon-wrap::before {
+          inset: -8px; background: linear-gradient(135deg, rgba(82,183,136,0.4), transparent 60%);
+        }
+        .service-premium-icon-wrap svg { width: 52px; height: 52px; color: white; }
+        .service-premium-subtitle {
+          font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600;
+          color: var(--verde-claro); margin-bottom: 0.3rem;
+        }
+        .service-premium-title {
+          font-family: 'DM Serif Display', serif; font-size: 1.7rem; color: var(--oscuro);
+          line-height: 1.2;
+        }
+        .service-premium-divider {
+          height: 1px; margin: 0 2rem; position: relative;
+          background: linear-gradient(90deg, transparent, rgba(82,183,136,0.3), transparent);
+        }
+        .service-premium-divider::after {
+          content: ''; position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+          width: 36px; height: 5px; background: linear-gradient(90deg, var(--verde-claro), var(--verde-brillante));
+          border-radius: 3px;
+        }
+        .service-premium-body {
+          padding: 1.5rem 2rem 2rem; position: relative; z-index: 2; flex: 1;
+          display: flex; flex-direction: column;
+        }
+        .service-premium-body p {
+          font-size: 0.95rem; color: var(--oscuro-suave); line-height: 1.7; margin-bottom: 1.2rem;
+        }
+        .service-premium-features {
+          display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem;
+        }
+        .service-premium-features span {
+          display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 500;
+          color: var(--verde-esperanza); background: rgba(82,183,136,0.08);
+          padding: 0.35rem 0.8rem; border-radius: 20px; border: 1px solid rgba(82,183,136,0.15);
+        }
+        .service-premium-features .tarifa-check {
+          width: 14px; height: 14px; background: rgba(82,183,136,0.2);
+        }
+        .service-premium-features .tarifa-check svg { width: 8px; height: 8px; color: var(--verde-claro); }
+        .service-premium-tag {
+          display: inline-block; margin-top: auto; font-size: 0.75rem; font-weight: 700;
           color: white; background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
-          padding: 0.4rem 1.1rem; border-radius: 20px; letter-spacing: 0.03em;
-          box-shadow: 0 4px 12px rgba(45,106,79,0.2);
-          transition: all 0.3s ease;
+          padding: 0.5rem 1.4rem; border-radius: 20px; letter-spacing: 0.06em;
+          text-transform: uppercase;
+          box-shadow: 0 6px 20px rgba(45,106,79,0.25);
+          transition: all 0.4s ease; align-self: flex-start;
         }
-        .service-card:hover .service-tag { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(45,106,79,0.3); }
+        .service-premium-card:hover .service-premium-tag {
+          transform: translateY(-3px); box-shadow: 0 10px 28px rgba(45,106,79,0.35);
+        }
 
         /* ═══════════ LAVADO ULTRA-PREMIUM CARDS ═══════════ */
         .lavado-showcase {
@@ -847,8 +893,8 @@ export default function Home() {
           background-clip: text;
         }
         .lavado-card-title {
-          font-family: 'DM Serif Display', serif;
-          font-size: 1.9rem; color: var(--oscuro); text-align: center;
+          font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+          font-size: 1.5rem; color: var(--oscuro); text-align: center;
           letter-spacing: -0.01em;
         }
 
@@ -1149,7 +1195,7 @@ export default function Home() {
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
-          .services-grid { grid-template-columns: repeat(2, 1fr); }
+          .services-premium-grid { grid-template-columns: repeat(2, 1fr); }
           .tarifas-grid { grid-template-columns: repeat(3, 1fr); }
           .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
         }
@@ -1157,7 +1203,10 @@ export default function Home() {
           .nav-links, .nav-cta { display: none !important; }
           .hamburger { display: flex; }
           .hero-grasshopper { width: 120px; height: 120px; right: 5%; bottom: 10%; }
-          .services-grid { grid-template-columns: 1fr; max-width: 100%; }
+          .services-premium-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+          .service-premium-icon-wrap { width: 96px; height: 96px; border-radius: 26px; }
+          .service-premium-icon-wrap svg { width: 46px; height: 46px; }
+          .service-premium-title { font-size: 1.5rem; }
           .tarifas-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
           .porque-grid { grid-template-columns: 1fr; }
           .porque-visual { height: 300px; }
@@ -1315,22 +1364,69 @@ export default function Home() {
             <h2 className="section-title">Todo lo que su <span className="accent">veh&iacute;culo necesita</span></h2>
             <div className="section-line" />
           </div>
-          <div className="services-grid">
-            <div className="service-card reveal">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+          <div className="services-premium-grid">
+            <div className="service-premium-card">
+              <div className="service-premium-sparkles">
+                <div className="service-premium-sparkle" />
+                <div className="service-premium-sparkle" />
+                <div className="service-premium-sparkle" />
               </div>
-              <h3>Parqueo d&iacute;a o noche</h3>
-              <p>Deje su carro seguro de d&iacute;a o de noche. Vigilancia las 24 horas con c&aacute;maras y personal de seguridad presente.</p>
-              <span className="service-tag">24/7 Seguro</span>
+              <div className="service-premium-visual">
+                <div className="service-premium-icon-wrap">
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M32 56s20-10 20-26V14l-20-8-20 8v16c0 16 20 26 20 26z" fill="rgba(255,255,255,0.15)" />
+                    <path d="M32 56s20-10 20-26V14l-20-8-20 8v16c0 16 20 26 20 26z" />
+                    <path d="M22 30l7 7 13-13" strokeWidth="2.5" />
+                  </svg>
+                </div>
+                <div className="service-premium-subtitle">Vigilancia 24/7</div>
+                <div className="service-premium-title">Parqueo D&iacute;a o Noche</div>
+              </div>
+              <div className="service-premium-divider" />
+              <div className="service-premium-body">
+                <p>Deje su carro seguro de d&iacute;a o de noche. Vigilancia las 24 horas con c&aacute;maras y personal de seguridad presente.</p>
+                <div className="service-premium-features">
+                  <span><CheckIcon /> C&aacute;maras HD</span>
+                  <span><CheckIcon /> Personal 24h</span>
+                  <span><CheckIcon /> Acceso controlado</span>
+                </div>
+                <span className="service-premium-tag">24/7 Seguro</span>
+              </div>
             </div>
-            <div className="service-card reveal">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" /></svg>
+            <div className="service-premium-card">
+              <div className="service-premium-sparkles">
+                <div className="service-premium-sparkle" />
+                <div className="service-premium-sparkle" />
+                <div className="service-premium-sparkle" />
               </div>
-              <h3>Plan mensual</h3>
-              <p>Para quienes necesitan un espacio fijo. Su campo reservado todos los d&iacute;as, sin preocupaciones ni sorpresas.</p>
-              <span className="service-tag">M&aacute;s popular</span>
+              <div className="service-premium-visual">
+                <div className="service-premium-icon-wrap">
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="8" y="12" width="48" height="44" rx="6" fill="rgba(255,255,255,0.15)" />
+                    <rect x="8" y="12" width="48" height="44" rx="6" />
+                    <line x1="8" y1="26" x2="56" y2="26" />
+                    <line x1="22" y1="6" x2="22" y2="18" strokeWidth="2.5" />
+                    <line x1="42" y1="6" x2="42" y2="18" strokeWidth="2.5" />
+                    <circle cx="22" cy="36" r="2.5" fill="rgba(255,255,255,0.4)" />
+                    <circle cx="32" cy="36" r="2.5" fill="rgba(255,255,255,0.4)" />
+                    <circle cx="42" cy="36" r="2.5" fill="rgba(255,255,255,0.4)" />
+                    <circle cx="22" cy="46" r="2.5" fill="rgba(255,255,255,0.4)" />
+                    <circle cx="32" cy="46" r="2.5" fill="rgba(255,255,255,0.4)" />
+                  </svg>
+                </div>
+                <div className="service-premium-subtitle">Su campo fijo</div>
+                <div className="service-premium-title">Plan Mensual</div>
+              </div>
+              <div className="service-premium-divider" />
+              <div className="service-premium-body">
+                <p>Para quienes necesitan un espacio fijo. Su campo reservado todos los d&iacute;as, sin preocupaciones ni sorpresas.</p>
+                <div className="service-premium-features">
+                  <span><CheckIcon /> Campo garantizado</span>
+                  <span><CheckIcon /> Sin sorpresas</span>
+                  <span><CheckIcon /> Mejor precio</span>
+                </div>
+                <span className="service-premium-tag">M&aacute;s popular</span>
+              </div>
             </div>
           </div>
 
@@ -1365,8 +1461,8 @@ export default function Home() {
                       <path d="M14 42h8M42 42h8" strokeWidth="2.5" />
                     </svg>
                   </div>
-                  <div className="lavado-card-subtitle">SUV &bull; Pick-up &bull; Familiar</div>
-                  <div className="lavado-card-title">Carro Grande</div>
+                  <div className="lavado-card-subtitle">Veh&iacute;culos grandes</div>
+                  <div className="lavado-card-title">SUV &middot; Pick-Up &middot; Familiar</div>
                 </div>
                 <div className="lavado-divider" />
                 <div className="lavado-card-body">
@@ -1419,8 +1515,8 @@ export default function Home() {
                       <path d="M17 44h6M41 44h6" strokeWidth="2.5" />
                     </svg>
                   </div>
-                  <div className="lavado-card-subtitle">Sed&aacute;n &bull; Hatchback &bull; Compacto</div>
-                  <div className="lavado-card-title">Carro Peque&ntilde;o</div>
+                  <div className="lavado-card-subtitle">Veh&iacute;culos compactos</div>
+                  <div className="lavado-card-title">Sed&aacute;n &middot; Hatchback &middot; Compacto</div>
                 </div>
                 <div className="lavado-divider" />
                 <div className="lavado-card-body">
@@ -1709,8 +1805,8 @@ export default function Home() {
             <h4>Servicios</h4>
             <a href="#servicios">D&iacute;a o Noche</a>
             <a href="#servicios">Plan Mensual</a>
-            <a href="#servicios">Carro Grande</a>
-            <a href="#servicios">Carro Peque&ntilde;o</a>
+            <a href="#servicios">SUV &middot; Pick-Up</a>
+            <a href="#servicios">Sed&aacute;n &middot; Compacto</a>
           </div>
           <div className="footer-col">
             <h4>Navegaci&oacute;n</h4>
