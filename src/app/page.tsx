@@ -40,7 +40,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-const WA_LINK = "https://wa.me/50688322660?text=Hola!%20Me%20interesa%20informaci%C3%B3n%20sobre%20Parqueo%20y%20Lavacar%20La%20Esperanza";
+const WA_LINK = "https://wa.me/50670207762?text=Hola!%20Me%20interesa%20informaci%C3%B3n%20sobre%20Parqueo%20y%20Lavacar%20La%20Esperanza";
 
 export default function Home() {
   const preloaderRef = useRef<HTMLDivElement>(null);
@@ -689,6 +689,95 @@ export default function Home() {
         }
         .service-card:hover .service-tag { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(45,106,79,0.3); }
 
+        /* LAVADO PRICING */
+        .lavado-section {
+          margin-top: 4rem;
+          background: rgba(255,255,255,0.35);
+          backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+          border: 1px solid rgba(255,255,255,0.6);
+          border-radius: 28px; padding: 2.5rem;
+          box-shadow: 0 8px 32px rgba(45,106,79,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+        .lavado-header {
+          display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;
+          padding-bottom: 1.5rem; border-bottom: 2px solid rgba(82,183,136,0.15);
+        }
+        .lavado-header-icon {
+          width: 56px; height: 56px; border-radius: 16px;
+          background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
+          display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+          box-shadow: 0 8px 24px rgba(45,106,79,0.25);
+        }
+        .lavado-header-icon svg { width: 28px; height: 28px; color: white; }
+        .lavado-header h3 {
+          font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700;
+          color: var(--oscuro); margin-bottom: 0.2rem;
+        }
+        .lavado-header p { font-size: 0.9rem; color: var(--oscuro-suave); }
+        .lavado-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .lavado-card {
+          background: rgba(255,255,255,0.7);
+          border: 1px solid rgba(82,183,136,0.15);
+          border-radius: 20px; padding: 1.8rem; transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+          box-shadow: 0 4px 16px rgba(45,106,79,0.06);
+        }
+        .lavado-card:hover {
+          transform: translateY(-6px);
+          border-color: rgba(82,183,136,0.35);
+          box-shadow: 0 16px 48px rgba(45,106,79,0.12), 0 0 20px rgba(82,183,136,0.08);
+        }
+        .lavado-card-type {
+          display: flex; align-items: center; gap: 0.8rem;
+          margin-bottom: 1.5rem; padding-bottom: 1rem;
+          border-bottom: 1px solid rgba(45,106,79,0.1);
+        }
+        .lavado-card-type svg { color: var(--verde-esperanza); }
+        .lavado-card-type span {
+          font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--oscuro);
+        }
+        .lavado-card-prices { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .lavado-price-row {
+          display: flex; justify-content: space-between; align-items: center;
+          padding: 0.8rem 1rem; border-radius: 12px;
+          background: rgba(82,183,136,0.04);
+          transition: all 0.3s ease;
+        }
+        .lavado-price-row:hover { background: rgba(82,183,136,0.1); }
+        .lavado-price-featured {
+          background: rgba(82,183,136,0.1) !important;
+          border: 1px solid rgba(82,183,136,0.2);
+        }
+        .lavado-price-featured:hover { background: rgba(82,183,136,0.18) !important; }
+        .lavado-service-name {
+          display: flex; align-items: center; gap: 0.6rem;
+          font-size: 0.95rem; color: var(--oscuro); font-weight: 500;
+        }
+        .lavado-service-name .tarifa-check {
+          width: 20px; height: 20px; background: rgba(82,183,136,0.2);
+        }
+        .lavado-price {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.3rem; font-weight: 700; color: var(--verde-esperanza);
+        }
+        .lavado-cta {
+          display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+          width: 100%; padding: 0.85rem; border-radius: 14px;
+          background: #25D366; color: white; text-decoration: none;
+          font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(37,211,102,0.25);
+        }
+        .lavado-cta:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+        }
+        .lavado-cta-icon { width: 20px; height: 20px; }
+        @media (max-width: 768px) {
+          .lavado-cards { grid-template-columns: 1fr; }
+          .lavado-section { padding: 1.5rem; }
+          .lavado-header { flex-direction: column; text-align: center; }
+        }
+
         /* TARIFAS */
         .tarifas { background: var(--oscuro); position: relative; overflow: hidden; }
         .tarifas::before {
@@ -1034,21 +1123,74 @@ export default function Home() {
               <p>Para quienes necesitan un espacio fijo. Su campo reservado todos los d&iacute;as, sin preocupaciones ni sorpresas.</p>
               <span className="service-tag">M&aacute;s popular</span>
             </div>
-            <div className="service-card reveal">
-              <div className="service-icon">
+          </div>
+
+          {/* TARIFAS DE LAVADO */}
+          <div className="lavado-section reveal">
+            <div className="lavado-header">
+              <div className="lavado-header-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10" /><path d="M20 4l-2 6-6-2" /><path d="M15 9c-1.5-1.5-4-1.5-5.5 0" /><path d="M9 15a4 4 0 0 0 6 0" /></svg>
               </div>
-              <h3>Lavado Exterior</h3>
-              <p>Lavado completo exterior con los mejores productos del mercado. Su veh&iacute;culo quedar&aacute; como nuevo y reluciente.</p>
-              <span className="service-tag">Calidad Premium</span>
-            </div>
-            <div className="service-card reveal">
-              <div className="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" /><path d="M12 8v4l2 2" /><path d="M7.5 16.5L5 19" /><path d="M16.5 16.5L19 19" /><circle cx="12" cy="12" r="1" fill="currentColor" /></svg>
+              <div>
+                <h3>Servicio de Lavado Profesional</h3>
+                <p>Productos de alta calidad &mdash; su veh&iacute;culo queda como nuevo</p>
               </div>
-              <h3>Lavado Interior</h3>
-              <p>Limpieza profunda del interior, aspirado y desinfecci&oacute;n. Aire fresco y limpio para cada viaje.</p>
-              <span className="service-tag">Detallado</span>
+            </div>
+            <div className="lavado-cards">
+              {/* Carro Grande */}
+              <div className="lavado-card">
+                <div className="lavado-card-type">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="32" height="32"><rect x="1" y="9" width="22" height="9" rx="3" /><path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="17.5" cy="18" r="2.5" /></svg>
+                  <span>Carro Grande</span>
+                </div>
+                <div className="lavado-card-prices">
+                  <div className="lavado-price-row">
+                    <div className="lavado-service-name">
+                      <CheckIcon />
+                      <span>Lavado</span>
+                    </div>
+                    <div className="lavado-price">&#8353;8,000</div>
+                  </div>
+                  <div className="lavado-price-row lavado-price-featured">
+                    <div className="lavado-service-name">
+                      <CheckIcon />
+                      <span>Lavado + Encerado</span>
+                    </div>
+                    <div className="lavado-price">&#8353;10,000</div>
+                  </div>
+                </div>
+                <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20grande%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-cta" target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon className="lavado-cta-icon" />
+                  Agendar lavado
+                </a>
+              </div>
+              {/* Carro Pequeño */}
+              <div className="lavado-card">
+                <div className="lavado-card-type">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="3" y="10" width="18" height="7" rx="2.5" /><path d="M6 10V8.5A1.5 1.5 0 017.5 7h9A1.5 1.5 0 0118 8.5V10" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>
+                  <span>Carro Peque&ntilde;o</span>
+                </div>
+                <div className="lavado-card-prices">
+                  <div className="lavado-price-row">
+                    <div className="lavado-service-name">
+                      <CheckIcon />
+                      <span>Lavado</span>
+                    </div>
+                    <div className="lavado-price">&#8353;6,000</div>
+                  </div>
+                  <div className="lavado-price-row lavado-price-featured">
+                    <div className="lavado-service-name">
+                      <CheckIcon />
+                      <span>Lavado + Encerado</span>
+                    </div>
+                    <div className="lavado-price">&#8353;8,000</div>
+                  </div>
+                </div>
+                <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20peque%C3%B1o%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-cta" target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon className="lavado-cta-icon" />
+                  Agendar lavado
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -1078,7 +1220,7 @@ export default function Home() {
                 <li><CheckIcon /> Acceso inmediato</li>
                 <li><CheckIcon /> Pago al salir</li>
               </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20hora%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
+              <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20hora%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Consultar</a>
             </div>
             {/* Día o Noche - Más Popular */}
             <div className="tarifa-card featured reveal">
@@ -1096,7 +1238,7 @@ export default function Home() {
                 <li><CheckIcon /> Acceso inmediato</li>
                 <li><CheckIcon /> Precio fijo</li>
               </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20d%C3%ADa%20o%20noche%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-solid" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
+              <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20info%20sobre%20parqueo%20por%20d%C3%ADa%20o%20noche%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-solid" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
             </div>
             {/* Mensual */}
             <div className="tarifa-card reveal">
@@ -1113,7 +1255,7 @@ export default function Home() {
                 <li><CheckIcon /> Prioridad en campos techados</li>
                 <li><CheckIcon /> Descuento por trimestre</li>
               </ul>
-              <a href="https://wa.me/50688322660?text=Hola!%20Me%20interesa%20el%20plan%20mensual%20de%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
+              <a href="https://wa.me/50670207762?text=Hola!%20Me%20interesa%20el%20plan%20mensual%20de%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="tarifa-btn tarifa-btn-outline" target="_blank" rel="noopener noreferrer">Apartar mi campo</a>
             </div>
           </div>
         </div>
@@ -1226,7 +1368,7 @@ export default function Home() {
                   </div>
                   <div>
                     <strong>Tel&eacute;fono</strong>
-                    <span>+506 8832-2660</span>
+                    <span>+506 7020-7762 / 8832-2660</span>
                   </div>
                 </div>
               </div>
@@ -1321,8 +1463,8 @@ export default function Home() {
           </div>
           <div className="footer-col">
             <h4>Contacto</h4>
-            <a href="https://wa.me/50688322660" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            <a href="tel:+50688322660">+506 8832-2660</a>
+            <a href="https://wa.me/50670207762" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="tel:+50670207762">+506 7020-7762</a>
             <a href="mailto:info@parqueolaesperanza.com">Email</a>
           </div>
         </div>
@@ -1333,7 +1475,7 @@ export default function Home() {
       </footer>
 
       {/* FLOATING WHATSAPP */}
-      <a href="https://wa.me/50688322660?text=Hola!%20Necesito%20informaci%C3%B3n%20sobre%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="floating-wa" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <a href="https://wa.me/50670207762?text=Hola!%20Necesito%20informaci%C3%B3n%20sobre%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="floating-wa" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
         <WhatsAppIcon />
         <span className="floating-wa-tooltip">Chateemos por WhatsApp</span>
       </a>

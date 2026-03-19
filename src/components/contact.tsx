@@ -8,8 +8,8 @@ const contactInfo = [
   {
     icon: <Phone className="h-5 w-5" />,
     label: "Telefono",
-    value: "+502 0000-0000",
-    href: "tel:+50200000000",
+    value: "+506 7020-7762 / 8832-2660",
+    href: "tel:+50670207762",
   },
   {
     icon: <Mail className="h-5 w-5" />,
