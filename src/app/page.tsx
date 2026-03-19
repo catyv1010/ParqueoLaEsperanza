@@ -1438,60 +1438,6 @@ export default function Home() {
             </div>
             <div className="lavado-showcase-grid">
 
-              {/* Carro Grande */}
-              <div className="lavado-ultra-card">
-                <div className="lavado-sparkle-field">
-                  <div className="lavado-sparkle" />
-                  <div className="lavado-sparkle" />
-                  <div className="lavado-sparkle" />
-                  <div className="lavado-sparkle" />
-                  <div className="lavado-sparkle" />
-                </div>
-                <div className="lavado-card-visual">
-                  <div className="lavado-car-icon">
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M8 38h48v10a4 4 0 01-4 4H12a4 4 0 01-4-4V38z" fill="rgba(255,255,255,0.15)" />
-                      <path d="M14 38l5-14a4 4 0 013.8-2.8h18.4A4 4 0 0145 24l5 14" />
-                      <rect x="8" y="38" width="48" height="14" rx="4" />
-                      <circle cx="20" cy="52" r="5" fill="rgba(255,255,255,0.2)" />
-                      <circle cx="20" cy="52" r="2" />
-                      <circle cx="44" cy="52" r="5" fill="rgba(255,255,255,0.2)" />
-                      <circle cx="44" cy="52" r="2" />
-                      <line x1="24" y1="32" x2="40" y2="32" strokeWidth="1.5" opacity="0.5" />
-                      <path d="M14 42h8M42 42h8" strokeWidth="2.5" />
-                    </svg>
-                  </div>
-                  <div className="lavado-card-subtitle">Veh&iacute;culos grandes</div>
-                  <div className="lavado-card-title">SUV &middot; Pick-Up &middot; Familiar</div>
-                </div>
-                <div className="lavado-divider" />
-                <div className="lavado-card-body">
-                  <div className="lavado-tier lavado-tier-basic">
-                    <div className="lavado-tier-info">
-                      <div className="lavado-tier-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" /></svg>
-                      </div>
-                      <span className="lavado-tier-label">Lavado</span>
-                    </div>
-                    <div className="lavado-tier-price">&#8353;8,000</div>
-                  </div>
-                  <div className="lavado-tier lavado-tier-premium">
-                    <div className="lavado-tier-badge">Top</div>
-                    <div className="lavado-tier-info">
-                      <div className="lavado-tier-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.5 4.5H18l-3.5 2.7 1.3 4.3L12 12l-3.8 2.5 1.3-4.3L6 7.5h4.5z" /></svg>
-                      </div>
-                      <span className="lavado-tier-label">Lavado + Encerado</span>
-                    </div>
-                    <div className="lavado-tier-price">&#8353;10,000</div>
-                  </div>
-                  <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20grande%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-wa-cta" target="_blank" rel="noopener noreferrer">
-                    <WhatsAppIcon />
-                    Agendar lavado
-                  </a>
-                </div>
-              </div>
-
               {/* Carro Pequeno */}
               <div className="lavado-ultra-card">
                 <div className="lavado-sparkle-field">
@@ -1540,6 +1486,60 @@ export default function Home() {
                     <div className="lavado-tier-price">&#8353;8,000</div>
                   </div>
                   <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20peque%C3%B1o%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-wa-cta" target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon />
+                    Agendar lavado
+                  </a>
+                </div>
+              </div>
+
+              {/* Carro Grande */}
+              <div className="lavado-ultra-card">
+                <div className="lavado-sparkle-field">
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                </div>
+                <div className="lavado-card-visual">
+                  <div className="lavado-car-icon">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M8 38h48v10a4 4 0 01-4 4H12a4 4 0 01-4-4V38z" fill="rgba(255,255,255,0.15)" />
+                      <path d="M14 38l5-14a4 4 0 013.8-2.8h18.4A4 4 0 0145 24l5 14" />
+                      <rect x="8" y="38" width="48" height="14" rx="4" />
+                      <circle cx="20" cy="52" r="5" fill="rgba(255,255,255,0.2)" />
+                      <circle cx="20" cy="52" r="2" />
+                      <circle cx="44" cy="52" r="5" fill="rgba(255,255,255,0.2)" />
+                      <circle cx="44" cy="52" r="2" />
+                      <line x1="24" y1="32" x2="40" y2="32" strokeWidth="1.5" opacity="0.5" />
+                      <path d="M14 42h8M42 42h8" strokeWidth="2.5" />
+                    </svg>
+                  </div>
+                  <div className="lavado-card-subtitle">Veh&iacute;culos grandes</div>
+                  <div className="lavado-card-title">SUV &middot; Pick-Up &middot; Familiar</div>
+                </div>
+                <div className="lavado-divider" />
+                <div className="lavado-card-body">
+                  <div className="lavado-tier lavado-tier-basic">
+                    <div className="lavado-tier-info">
+                      <div className="lavado-tier-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" /></svg>
+                      </div>
+                      <span className="lavado-tier-label">Lavado</span>
+                    </div>
+                    <div className="lavado-tier-price">&#8353;8,000</div>
+                  </div>
+                  <div className="lavado-tier lavado-tier-premium">
+                    <div className="lavado-tier-badge">Top</div>
+                    <div className="lavado-tier-info">
+                      <div className="lavado-tier-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.5 4.5H18l-3.5 2.7 1.3 4.3L12 12l-3.8 2.5 1.3-4.3L6 7.5h4.5z" /></svg>
+                      </div>
+                      <span className="lavado-tier-label">Lavado + Encerado</span>
+                    </div>
+                    <div className="lavado-tier-price">&#8353;10,000</div>
+                  </div>
+                  <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20grande%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-wa-cta" target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon />
                     Agendar lavado
                   </a>
