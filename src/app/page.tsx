@@ -341,6 +341,24 @@ export default function Home() {
     return () => hero.removeEventListener("mousemove", onMove);
   }, []);
 
+  useEffect(() => {
+    /* ── Lavado card scroll reveal ── */
+    const lavadoCards = document.querySelectorAll(".lavado-ultra-card");
+    const lavadoObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            lavadoObs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+    lavadoCards.forEach((card) => lavadoObs.observe(card));
+    return () => lavadoObs.disconnect();
+  }, []);
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const btn = formRef.current?.querySelector(".form-submit") as HTMLButtonElement | null;
@@ -689,227 +707,286 @@ export default function Home() {
         }
         .service-card:hover .service-tag { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(45,106,79,0.3); }
 
-        /* ═══════════ LAVADO PREMIUM CARDS ═══════════ */
+        /* ═══════════ LAVADO ULTRA-PREMIUM CARDS ═══════════ */
         .lavado-showcase {
-          margin-top: 4.5rem; position: relative;
+          margin-top: 5rem; position: relative;
+          text-align: center;
         }
-        .lavado-showcase-header {
-          text-align: center; margin-bottom: 3rem;
-        }
+        .lavado-showcase-header { margin-bottom: 3rem; }
         .lavado-showcase-header h3 {
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--oscuro);
-          margin-bottom: 0.5rem;
+          font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--oscuro);
+          margin-bottom: 0.6rem;
         }
         .lavado-showcase-header h3 .accent { color: var(--verde-esperanza); }
         .lavado-showcase-header p {
-          font-size: 1rem; color: var(--oscuro-suave); max-width: 480px; margin: 0 auto;
+          font-size: 1.05rem; color: var(--oscuro-suave); max-width: 520px; margin: 0 auto;
+          line-height: 1.6;
         }
         .lavado-showcase-grid {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-          max-width: 920px; margin: 0 auto;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+          max-width: 1000px; margin: 0 auto;
         }
 
-        /* Individual Card */
-        .lavado-premium-card {
+        /* Card Container */
+        .lavado-ultra-card {
           position: relative; overflow: hidden;
-          background: rgba(255,255,255,0.22);
-          backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
-          border: 1.5px solid rgba(255,255,255,0.55);
-          border-radius: 32px;
+          background: linear-gradient(165deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 50%, rgba(82,183,136,0.06) 100%);
+          backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+          border: 1.5px solid rgba(255,255,255,0.7);
+          border-radius: 36px;
           padding: 0;
-          transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+          transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
           box-shadow:
-            0 12px 40px rgba(45,106,79,0.08),
-            0 4px 12px rgba(0,0,0,0.04),
-            inset 0 1px 0 rgba(255,255,255,0.95);
+            0 16px 56px rgba(45,106,79,0.1),
+            0 6px 16px rgba(0,0,0,0.04),
+            inset 0 1px 0 rgba(255,255,255,1),
+            inset 0 -1px 0 rgba(82,183,136,0.05);
           cursor: default;
+          opacity: 0; transform: translateY(60px) scale(0.92);
         }
-        .lavado-premium-card:nth-child(1) { transition-delay: 0s !important; }
-        .lavado-premium-card:nth-child(2) { transition-delay: 0.15s !important; }
-
-        /* Top shimmer stripe */
-        .lavado-premium-card::before {
-          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
-          background: linear-gradient(90deg, var(--verde-esperanza), var(--verde-claro), var(--verde-brillante), var(--verde-claro), var(--verde-esperanza));
-          background-size: 200% 100%;
-          animation: shimmerStripe 3s ease-in-out infinite;
-          z-index: 2;
-        }
-        @keyframes shimmerStripe {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
+        .lavado-ultra-card:nth-child(2) { transition-delay: 0.2s; }
+        .lavado-ultra-card.revealed {
+          opacity: 1; transform: translateY(0) scale(1);
         }
 
-        /* Radial glow on hover */
-        .lavado-premium-card::after {
-          content: ''; position: absolute; inset: 0; border-radius: 32px;
-          background: radial-gradient(ellipse at 50% 0%, rgba(82,183,136,0.15), transparent 65%);
-          opacity: 0; transition: opacity 0.5s ease; pointer-events: none; z-index: 1;
+        /* Animated gradient border on top */
+        .lavado-ultra-card::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+          background: linear-gradient(90deg, #2D6A4F, #40916C, #52B788, #74C69D, #B7E4C7, #74C69D, #52B788, #40916C, #2D6A4F);
+          background-size: 300% 100%;
+          animation: ultraShimmer 4s ease-in-out infinite;
+          z-index: 5;
         }
-        .lavado-premium-card:hover::after { opacity: 1; }
+        @keyframes ultraShimmer {
+          0% { background-position: 300% 0; }
+          100% { background-position: -300% 0; }
+        }
 
-        .lavado-premium-card:hover {
-          transform: translateY(-16px) scale(1.03);
-          border-color: rgba(82,183,136,0.4);
+        /* Floating orb glow */
+        .lavado-ultra-card::after {
+          content: ''; position: absolute; top: -60%; left: 50%; width: 180%; height: 120%;
+          transform: translateX(-50%);
+          background: radial-gradient(ellipse, rgba(82,183,136,0.12) 0%, transparent 55%);
+          opacity: 0; transition: opacity 0.6s ease; pointer-events: none; z-index: 1;
+        }
+        .lavado-ultra-card:hover::after { opacity: 1; }
+
+        .lavado-ultra-card:hover {
+          transform: translateY(-20px) scale(1.04);
+          border-color: rgba(82,183,136,0.5);
           box-shadow:
-            0 32px 80px rgba(45,106,79,0.18),
-            0 0 50px rgba(82,183,136,0.12),
-            inset 0 1px 0 rgba(255,255,255,0.95);
+            0 40px 100px rgba(45,106,79,0.2),
+            0 0 60px rgba(82,183,136,0.1),
+            0 0 120px rgba(82,183,136,0.05),
+            inset 0 1px 0 rgba(255,255,255,1);
         }
 
-        /* Card top: car illustration area */
+        /* Floating sparkles */
+        .lavado-sparkle-field {
+          position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+        }
+        .lavado-sparkle {
+          position: absolute; width: 4px; height: 4px; border-radius: 50%;
+          background: rgba(82,183,136,0.4);
+          animation: sparkleFloat2 6s ease-in-out infinite;
+        }
+        .lavado-sparkle:nth-child(1) { top: 15%; left: 12%; animation-delay: 0s; }
+        .lavado-sparkle:nth-child(2) { top: 25%; right: 15%; animation-delay: 1.5s; width: 3px; height: 3px; }
+        .lavado-sparkle:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 3s; width: 5px; height: 5px; background: rgba(116,198,157,0.35); }
+        .lavado-sparkle:nth-child(4) { bottom: 15%; right: 18%; animation-delay: 4.5s; width: 3px; height: 3px; }
+        .lavado-sparkle:nth-child(5) { top: 50%; left: 80%; animation-delay: 2s; background: rgba(183,228,199,0.5); }
+        @keyframes sparkleFloat2 {
+          0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+          25% { opacity: 1; transform: translateY(-12px) scale(1); }
+          50% { opacity: 0.6; transform: translateY(-6px) scale(0.8); }
+          75% { opacity: 1; transform: translateY(-18px) scale(1.1); }
+        }
+
+        /* Card Visual top */
         .lavado-card-visual {
           position: relative; z-index: 2;
-          padding: 2.2rem 2rem 1.2rem;
-          display: flex; flex-direction: column; align-items: center; gap: 1rem;
+          padding: 2.5rem 2rem 1.5rem;
+          display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
         }
         .lavado-car-icon {
-          width: 100px; height: 100px;
-          background: linear-gradient(145deg, var(--verde-esperanza), var(--verde-claro));
-          border-radius: 28px; display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 16px 40px rgba(45,106,79,0.3), inset 0 2px 0 rgba(255,255,255,0.2);
-          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          position: relative;
+          width: 120px; height: 120px;
+          background: linear-gradient(145deg, #2D6A4F, #52B788);
+          border-radius: 34px; display: flex; align-items: center; justify-content: center;
+          box-shadow:
+            0 20px 50px rgba(45,106,79,0.35),
+            0 8px 20px rgba(82,183,136,0.15),
+            inset 0 2px 0 rgba(255,255,255,0.2),
+            inset 0 -2px 4px rgba(0,0,0,0.1);
+          transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .lavado-premium-card:hover .lavado-car-icon {
-          transform: scale(1.12) rotate(-5deg);
-          box-shadow: 0 24px 56px rgba(45,106,79,0.4), inset 0 2px 0 rgba(255,255,255,0.25);
+        .lavado-car-icon::before {
+          content: ''; position: absolute; inset: -6px; border-radius: 38px;
+          border: 2px dashed rgba(82,183,136,0.25);
+          animation: iconRingSpin 20s linear infinite;
         }
-        .lavado-car-icon svg { width: 52px; height: 52px; color: white; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); }
+        @keyframes iconRingSpin { 100% { transform: rotate(360deg); } }
+        .lavado-ultra-card:hover .lavado-car-icon {
+          transform: scale(1.15) rotate(-6deg);
+          box-shadow:
+            0 28px 64px rgba(45,106,79,0.45),
+            0 0 40px rgba(82,183,136,0.2),
+            inset 0 2px 0 rgba(255,255,255,0.25);
+        }
+        .lavado-car-icon svg {
+          width: 60px; height: 60px; color: white;
+          filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));
+        }
+
+        .lavado-card-subtitle {
+          font-size: 0.8rem; color: var(--oscuro-suave);
+          text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700;
+          background: linear-gradient(90deg, var(--oscuro-suave), var(--verde-esperanza));
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
         .lavado-card-title {
           font-family: 'DM Serif Display', serif;
-          font-size: 1.6rem; color: var(--oscuro); text-align: center;
-        }
-        .lavado-card-subtitle {
-          font-size: 0.82rem; color: var(--oscuro-suave);
-          text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+          font-size: 1.9rem; color: var(--oscuro); text-align: center;
+          letter-spacing: -0.01em;
         }
 
-        /* Divider with sparkle */
+        /* Divider */
         .lavado-divider {
           position: relative; z-index: 2;
-          height: 1px; margin: 0 2rem;
-          background: linear-gradient(90deg, transparent, rgba(82,183,136,0.3), transparent);
+          height: 1px; margin: 0 2.5rem;
+          background: linear-gradient(90deg, transparent 0%, rgba(82,183,136,0.35) 30%, rgba(82,183,136,0.35) 70%, transparent 100%);
         }
         .lavado-divider::after {
-          content: '✦'; position: absolute; top: 50%; left: 50%;
+          content: ''; position: absolute; top: 50%; left: 50%;
           transform: translate(-50%, -50%);
-          background: var(--verde-palido); padding: 0 0.8rem;
-          font-size: 0.7rem; color: var(--verde-esperanza);
+          width: 8px; height: 8px; border-radius: 50%;
+          background: var(--verde-esperanza);
+          box-shadow: 0 0 12px rgba(82,183,136,0.5), 0 0 24px rgba(82,183,136,0.2);
         }
 
-        /* Pricing rows area */
+        /* Pricing Area */
         .lavado-card-body {
           position: relative; z-index: 2;
-          padding: 1.5rem 2rem 2rem;
+          padding: 1.8rem 2rem 2.2rem;
         }
         .lavado-tier {
           display: flex; justify-content: space-between; align-items: center;
-          padding: 1rem 1.2rem; border-radius: 16px;
-          transition: all 0.35s ease; position: relative;
+          padding: 1.2rem 1.4rem; border-radius: 20px;
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+          position: relative;
         }
-        .lavado-tier + .lavado-tier { margin-top: 0.8rem; }
+        .lavado-tier + .lavado-tier { margin-top: 1rem; }
 
-        /* Basic tier */
         .lavado-tier-basic {
-          background: rgba(82,183,136,0.05);
-          border: 1px solid rgba(82,183,136,0.08);
+          background: linear-gradient(135deg, rgba(82,183,136,0.04), rgba(183,228,199,0.08));
+          border: 1px solid rgba(82,183,136,0.1);
         }
         .lavado-tier-basic:hover {
-          background: rgba(82,183,136,0.1);
-          border-color: rgba(82,183,136,0.2);
-        }
-
-        /* Premium tier — highlighted */
-        .lavado-tier-premium {
-          background: linear-gradient(135deg, rgba(82,183,136,0.12), rgba(45,106,79,0.08));
-          border: 1.5px solid rgba(82,183,136,0.25);
-          box-shadow: 0 4px 20px rgba(82,183,136,0.08);
-        }
-        .lavado-tier-premium:hover {
-          background: linear-gradient(135deg, rgba(82,183,136,0.2), rgba(45,106,79,0.12));
-          border-color: rgba(82,183,136,0.4);
-          box-shadow: 0 8px 30px rgba(82,183,136,0.15);
+          background: linear-gradient(135deg, rgba(82,183,136,0.1), rgba(183,228,199,0.12));
+          border-color: rgba(82,183,136,0.25);
           transform: translateX(4px);
         }
+
+        .lavado-tier-premium {
+          background: linear-gradient(135deg, rgba(82,183,136,0.14), rgba(45,106,79,0.1));
+          border: 2px solid rgba(82,183,136,0.3);
+          box-shadow: 0 6px 24px rgba(82,183,136,0.1), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+        .lavado-tier-premium:hover {
+          background: linear-gradient(135deg, rgba(82,183,136,0.22), rgba(45,106,79,0.14));
+          border-color: rgba(82,183,136,0.5);
+          box-shadow: 0 10px 36px rgba(82,183,136,0.18);
+          transform: translateX(6px);
+        }
         .lavado-tier-badge {
-          position: absolute; top: -8px; right: 12px;
-          background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
-          color: white; font-size: 0.65rem; font-weight: 700;
-          padding: 0.2rem 0.7rem; border-radius: 8px;
-          letter-spacing: 0.05em; text-transform: uppercase;
-          box-shadow: 0 4px 12px rgba(45,106,79,0.25);
+          position: absolute; top: -10px; right: 14px;
+          background: linear-gradient(135deg, #2D6A4F, #52B788);
+          color: white; font-size: 0.62rem; font-weight: 800;
+          padding: 0.25rem 0.8rem; border-radius: 10px;
+          letter-spacing: 0.08em; text-transform: uppercase;
+          box-shadow: 0 6px 16px rgba(45,106,79,0.3);
         }
 
         .lavado-tier-info {
-          display: flex; align-items: center; gap: 0.7rem;
+          display: flex; align-items: center; gap: 0.8rem;
         }
-        .lavado-tier-dot {
-          width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+        .lavado-tier-icon {
+          width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center;
         }
-        .lavado-tier-basic .lavado-tier-dot {
-          background: var(--verde-claro);
-          box-shadow: 0 0 8px rgba(116,198,157,0.4);
+        .lavado-tier-basic .lavado-tier-icon {
+          background: linear-gradient(135deg, rgba(116,198,157,0.15), rgba(183,228,199,0.2));
+          color: var(--verde-esperanza);
         }
-        .lavado-tier-premium .lavado-tier-dot {
-          background: var(--verde-esperanza);
-          box-shadow: 0 0 12px rgba(82,183,136,0.5);
-          animation: dotPulse 2s ease-in-out infinite;
+        .lavado-tier-premium .lavado-tier-icon {
+          background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
+          color: white;
+          box-shadow: 0 4px 12px rgba(82,183,136,0.3);
         }
-        @keyframes dotPulse {
-          0%, 100% { box-shadow: 0 0 8px rgba(82,183,136,0.4); }
-          50% { box-shadow: 0 0 16px rgba(82,183,136,0.7), 0 0 30px rgba(82,183,136,0.2); }
-        }
+        .lavado-tier-icon svg { width: 18px; height: 18px; }
         .lavado-tier-label {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.95rem; font-weight: 600; color: var(--oscuro);
+          font-size: 1rem; font-weight: 600; color: var(--oscuro);
         }
+
         .lavado-tier-price {
           font-family: 'DM Serif Display', serif;
-          font-size: 1.7rem; font-weight: 700; color: var(--verde-esperanza);
+          font-size: 2rem; font-weight: 700; color: var(--verde-esperanza);
           line-height: 1; white-space: nowrap;
+          text-shadow: 0 2px 8px rgba(82,183,136,0.15);
         }
         .lavado-tier-premium .lavado-tier-price {
-          font-size: 1.9rem;
-          background: linear-gradient(135deg, var(--verde-esperanza), #40916C);
+          font-size: 2.3rem;
+          background: linear-gradient(135deg, #2D6A4F, #52B788, #40916C);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
+          filter: drop-shadow(0 2px 4px rgba(45,106,79,0.15));
         }
 
         /* WhatsApp CTA */
         .lavado-wa-cta {
-          display: flex; align-items: center; justify-content: center; gap: 0.7rem;
-          width: 100%; padding: 1rem; margin-top: 1.5rem;
-          border-radius: 16px; border: none;
+          display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+          width: 100%; padding: 1.1rem; margin-top: 1.8rem;
+          border-radius: 18px; border: none;
           background: linear-gradient(135deg, #25D366, #128C7E);
           color: white; text-decoration: none;
-          font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
-          letter-spacing: 0.02em;
-          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-          box-shadow: 0 8px 24px rgba(37,211,102,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+          font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 700;
+          letter-spacing: 0.03em;
+          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          box-shadow:
+            0 10px 32px rgba(37,211,102,0.3),
+            0 4px 12px rgba(18,140,126,0.2),
+            inset 0 1px 0 rgba(255,255,255,0.2);
           position: relative; overflow: hidden;
         }
         .lavado-wa-cta::before {
           content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-          transition: left 0.6s ease;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+          transition: left 0.7s ease;
         }
         .lavado-wa-cta:hover::before { left: 100%; }
         .lavado-wa-cta:hover {
-          transform: translateY(-3px) scale(1.02);
-          box-shadow: 0 12px 36px rgba(37,211,102,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+          transform: translateY(-4px) scale(1.03);
+          box-shadow:
+            0 16px 44px rgba(37,211,102,0.45),
+            0 6px 18px rgba(18,140,126,0.25),
+            inset 0 1px 0 rgba(255,255,255,0.3);
         }
-        .lavado-wa-cta svg { width: 22px; height: 22px; }
+        .lavado-wa-cta svg { width: 24px; height: 24px; }
 
         /* Responsive */
         @media (max-width: 768px) {
-          .lavado-showcase-grid { grid-template-columns: 1fr; max-width: 420px; }
-          .lavado-card-body { padding: 1.2rem 1.5rem 1.5rem; }
-          .lavado-card-visual { padding: 1.8rem 1.5rem 1rem; }
-          .lavado-car-icon { width: 80px; height: 80px; border-radius: 22px; }
-          .lavado-car-icon svg { width: 42px; height: 42px; }
+          .lavado-showcase-grid { grid-template-columns: 1fr; max-width: 440px; }
+          .lavado-card-body { padding: 1.4rem 1.5rem 1.8rem; }
+          .lavado-card-visual { padding: 2rem 1.5rem 1.2rem; }
+          .lavado-car-icon { width: 96px; height: 96px; border-radius: 26px; }
+          .lavado-car-icon svg { width: 48px; height: 48px; }
+          .lavado-tier-price { font-size: 1.7rem; }
+          .lavado-tier-premium .lavado-tier-price { font-size: 2rem; }
+          .lavado-card-title { font-size: 1.6rem; }
         }
-
         /* TARIFAS */
         .tarifas { background: var(--oscuro); position: relative; overflow: hidden; }
         .tarifas::before {
@@ -1257,7 +1334,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* TARIFAS DE LAVADO — PREMIUM */}
+          {/* TARIFAS DE LAVADO — ULTRA PREMIUM */}
           <div className="lavado-showcase">
             <div className="lavado-showcase-header reveal">
               <h3>Servicio de <span className="accent">Lavado Profesional</span></h3>
@@ -1265,8 +1342,15 @@ export default function Home() {
             </div>
             <div className="lavado-showcase-grid">
 
-              {/* ── Carro Grande ── */}
-              <div className="lavado-premium-card reveal">
+              {/* Carro Grande */}
+              <div className="lavado-ultra-card">
+                <div className="lavado-sparkle-field">
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                </div>
                 <div className="lavado-card-visual">
                   <div className="lavado-car-icon">
                     <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1288,7 +1372,9 @@ export default function Home() {
                 <div className="lavado-card-body">
                   <div className="lavado-tier lavado-tier-basic">
                     <div className="lavado-tier-info">
-                      <div className="lavado-tier-dot" />
+                      <div className="lavado-tier-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" /></svg>
+                      </div>
                       <span className="lavado-tier-label">Lavado</span>
                     </div>
                     <div className="lavado-tier-price">&#8353;8,000</div>
@@ -1296,7 +1382,9 @@ export default function Home() {
                   <div className="lavado-tier lavado-tier-premium">
                     <div className="lavado-tier-badge">Top</div>
                     <div className="lavado-tier-info">
-                      <div className="lavado-tier-dot" />
+                      <div className="lavado-tier-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.5 4.5H18l-3.5 2.7 1.3 4.3L12 12l-3.8 2.5 1.3-4.3L6 7.5h4.5z" /></svg>
+                      </div>
                       <span className="lavado-tier-label">Lavado + Encerado</span>
                     </div>
                     <div className="lavado-tier-price">&#8353;10,000</div>
@@ -1308,8 +1396,15 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* ── Carro Pequeño ── */}
-              <div className="lavado-premium-card reveal">
+              {/* Carro Pequeno */}
+              <div className="lavado-ultra-card">
+                <div className="lavado-sparkle-field">
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                  <div className="lavado-sparkle" />
+                </div>
                 <div className="lavado-card-visual">
                   <div className="lavado-car-icon">
                     <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1331,7 +1426,9 @@ export default function Home() {
                 <div className="lavado-card-body">
                   <div className="lavado-tier lavado-tier-basic">
                     <div className="lavado-tier-info">
-                      <div className="lavado-tier-dot" />
+                      <div className="lavado-tier-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" /></svg>
+                      </div>
                       <span className="lavado-tier-label">Lavado</span>
                     </div>
                     <div className="lavado-tier-price">&#8353;6,000</div>
@@ -1339,7 +1436,9 @@ export default function Home() {
                   <div className="lavado-tier lavado-tier-premium">
                     <div className="lavado-tier-badge">Top</div>
                     <div className="lavado-tier-info">
-                      <div className="lavado-tier-dot" />
+                      <div className="lavado-tier-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.5 4.5H18l-3.5 2.7 1.3 4.3L12 12l-3.8 2.5 1.3-4.3L6 7.5h4.5z" /></svg>
+                      </div>
                       <span className="lavado-tier-label">Lavado + Encerado</span>
                     </div>
                     <div className="lavado-tier-price">&#8353;8,000</div>
@@ -1610,8 +1709,8 @@ export default function Home() {
             <h4>Servicios</h4>
             <a href="#servicios">D&iacute;a o Noche</a>
             <a href="#servicios">Plan Mensual</a>
-            <a href="#servicios">Lavado Exterior</a>
-            <a href="#servicios">Lavado Interior</a>
+            <a href="#servicios">Carro Grande</a>
+            <a href="#servicios">Carro Peque&ntilde;o</a>
           </div>
           <div className="footer-col">
             <h4>Navegaci&oacute;n</h4>
