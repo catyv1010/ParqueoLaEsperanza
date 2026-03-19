@@ -689,93 +689,225 @@ export default function Home() {
         }
         .service-card:hover .service-tag { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(45,106,79,0.3); }
 
-        /* LAVADO PRICING */
-        .lavado-section {
-          margin-top: 4rem;
-          background: rgba(255,255,255,0.35);
-          backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-          border: 1px solid rgba(255,255,255,0.6);
-          border-radius: 28px; padding: 2.5rem;
-          box-shadow: 0 8px 32px rgba(45,106,79,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+        /* ═══════════ LAVADO PREMIUM CARDS ═══════════ */
+        .lavado-showcase {
+          margin-top: 4.5rem; position: relative;
         }
-        .lavado-header {
-          display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;
-          padding-bottom: 1.5rem; border-bottom: 2px solid rgba(82,183,136,0.15);
+        .lavado-showcase-header {
+          text-align: center; margin-bottom: 3rem;
         }
-        .lavado-header-icon {
-          width: 56px; height: 56px; border-radius: 16px;
-          background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
-          display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-          box-shadow: 0 8px 24px rgba(45,106,79,0.25);
+        .lavado-showcase-header h3 {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--oscuro);
+          margin-bottom: 0.5rem;
         }
-        .lavado-header-icon svg { width: 28px; height: 28px; color: white; }
-        .lavado-header h3 {
-          font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700;
-          color: var(--oscuro); margin-bottom: 0.2rem;
+        .lavado-showcase-header h3 .accent { color: var(--verde-esperanza); }
+        .lavado-showcase-header p {
+          font-size: 1rem; color: var(--oscuro-suave); max-width: 480px; margin: 0 auto;
         }
-        .lavado-header p { font-size: 0.9rem; color: var(--oscuro-suave); }
-        .lavado-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .lavado-card {
-          background: rgba(255,255,255,0.7);
-          border: 1px solid rgba(82,183,136,0.15);
-          border-radius: 20px; padding: 1.8rem; transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-          box-shadow: 0 4px 16px rgba(45,106,79,0.06);
+        .lavado-showcase-grid {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+          max-width: 920px; margin: 0 auto;
         }
-        .lavado-card:hover {
-          transform: translateY(-6px);
-          border-color: rgba(82,183,136,0.35);
-          box-shadow: 0 16px 48px rgba(45,106,79,0.12), 0 0 20px rgba(82,183,136,0.08);
+
+        /* Individual Card */
+        .lavado-premium-card {
+          position: relative; overflow: hidden;
+          background: rgba(255,255,255,0.22);
+          backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+          border: 1.5px solid rgba(255,255,255,0.55);
+          border-radius: 32px;
+          padding: 0;
+          transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+          box-shadow:
+            0 12px 40px rgba(45,106,79,0.08),
+            0 4px 12px rgba(0,0,0,0.04),
+            inset 0 1px 0 rgba(255,255,255,0.95);
+          cursor: default;
         }
-        .lavado-card-type {
-          display: flex; align-items: center; gap: 0.8rem;
-          margin-bottom: 1.5rem; padding-bottom: 1rem;
-          border-bottom: 1px solid rgba(45,106,79,0.1);
+        .lavado-premium-card:nth-child(1) { transition-delay: 0s !important; }
+        .lavado-premium-card:nth-child(2) { transition-delay: 0.15s !important; }
+
+        /* Top shimmer stripe */
+        .lavado-premium-card::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+          background: linear-gradient(90deg, var(--verde-esperanza), var(--verde-claro), var(--verde-brillante), var(--verde-claro), var(--verde-esperanza));
+          background-size: 200% 100%;
+          animation: shimmerStripe 3s ease-in-out infinite;
+          z-index: 2;
         }
-        .lavado-card-type svg { color: var(--verde-esperanza); }
-        .lavado-card-type span {
-          font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--oscuro);
+        @keyframes shimmerStripe {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
         }
-        .lavado-card-prices { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
-        .lavado-price-row {
+
+        /* Radial glow on hover */
+        .lavado-premium-card::after {
+          content: ''; position: absolute; inset: 0; border-radius: 32px;
+          background: radial-gradient(ellipse at 50% 0%, rgba(82,183,136,0.15), transparent 65%);
+          opacity: 0; transition: opacity 0.5s ease; pointer-events: none; z-index: 1;
+        }
+        .lavado-premium-card:hover::after { opacity: 1; }
+
+        .lavado-premium-card:hover {
+          transform: translateY(-16px) scale(1.03);
+          border-color: rgba(82,183,136,0.4);
+          box-shadow:
+            0 32px 80px rgba(45,106,79,0.18),
+            0 0 50px rgba(82,183,136,0.12),
+            inset 0 1px 0 rgba(255,255,255,0.95);
+        }
+
+        /* Card top: car illustration area */
+        .lavado-card-visual {
+          position: relative; z-index: 2;
+          padding: 2.2rem 2rem 1.2rem;
+          display: flex; flex-direction: column; align-items: center; gap: 1rem;
+        }
+        .lavado-car-icon {
+          width: 100px; height: 100px;
+          background: linear-gradient(145deg, var(--verde-esperanza), var(--verde-claro));
+          border-radius: 28px; display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 16px 40px rgba(45,106,79,0.3), inset 0 2px 0 rgba(255,255,255,0.2);
+          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .lavado-premium-card:hover .lavado-car-icon {
+          transform: scale(1.12) rotate(-5deg);
+          box-shadow: 0 24px 56px rgba(45,106,79,0.4), inset 0 2px 0 rgba(255,255,255,0.25);
+        }
+        .lavado-car-icon svg { width: 52px; height: 52px; color: white; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); }
+        .lavado-card-title {
+          font-family: 'DM Serif Display', serif;
+          font-size: 1.6rem; color: var(--oscuro); text-align: center;
+        }
+        .lavado-card-subtitle {
+          font-size: 0.82rem; color: var(--oscuro-suave);
+          text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+        }
+
+        /* Divider with sparkle */
+        .lavado-divider {
+          position: relative; z-index: 2;
+          height: 1px; margin: 0 2rem;
+          background: linear-gradient(90deg, transparent, rgba(82,183,136,0.3), transparent);
+        }
+        .lavado-divider::after {
+          content: '✦'; position: absolute; top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          background: var(--verde-palido); padding: 0 0.8rem;
+          font-size: 0.7rem; color: var(--verde-esperanza);
+        }
+
+        /* Pricing rows area */
+        .lavado-card-body {
+          position: relative; z-index: 2;
+          padding: 1.5rem 2rem 2rem;
+        }
+        .lavado-tier {
           display: flex; justify-content: space-between; align-items: center;
-          padding: 0.8rem 1rem; border-radius: 12px;
-          background: rgba(82,183,136,0.04);
-          transition: all 0.3s ease;
+          padding: 1rem 1.2rem; border-radius: 16px;
+          transition: all 0.35s ease; position: relative;
         }
-        .lavado-price-row:hover { background: rgba(82,183,136,0.1); }
-        .lavado-price-featured {
-          background: rgba(82,183,136,0.1) !important;
-          border: 1px solid rgba(82,183,136,0.2);
+        .lavado-tier + .lavado-tier { margin-top: 0.8rem; }
+
+        /* Basic tier */
+        .lavado-tier-basic {
+          background: rgba(82,183,136,0.05);
+          border: 1px solid rgba(82,183,136,0.08);
         }
-        .lavado-price-featured:hover { background: rgba(82,183,136,0.18) !important; }
-        .lavado-service-name {
-          display: flex; align-items: center; gap: 0.6rem;
-          font-size: 0.95rem; color: var(--oscuro); font-weight: 500;
+        .lavado-tier-basic:hover {
+          background: rgba(82,183,136,0.1);
+          border-color: rgba(82,183,136,0.2);
         }
-        .lavado-service-name .tarifa-check {
-          width: 20px; height: 20px; background: rgba(82,183,136,0.2);
+
+        /* Premium tier — highlighted */
+        .lavado-tier-premium {
+          background: linear-gradient(135deg, rgba(82,183,136,0.12), rgba(45,106,79,0.08));
+          border: 1.5px solid rgba(82,183,136,0.25);
+          box-shadow: 0 4px 20px rgba(82,183,136,0.08);
         }
-        .lavado-price {
+        .lavado-tier-premium:hover {
+          background: linear-gradient(135deg, rgba(82,183,136,0.2), rgba(45,106,79,0.12));
+          border-color: rgba(82,183,136,0.4);
+          box-shadow: 0 8px 30px rgba(82,183,136,0.15);
+          transform: translateX(4px);
+        }
+        .lavado-tier-badge {
+          position: absolute; top: -8px; right: 12px;
+          background: linear-gradient(135deg, var(--verde-esperanza), var(--verde-claro));
+          color: white; font-size: 0.65rem; font-weight: 700;
+          padding: 0.2rem 0.7rem; border-radius: 8px;
+          letter-spacing: 0.05em; text-transform: uppercase;
+          box-shadow: 0 4px 12px rgba(45,106,79,0.25);
+        }
+
+        .lavado-tier-info {
+          display: flex; align-items: center; gap: 0.7rem;
+        }
+        .lavado-tier-dot {
+          width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+        }
+        .lavado-tier-basic .lavado-tier-dot {
+          background: var(--verde-claro);
+          box-shadow: 0 0 8px rgba(116,198,157,0.4);
+        }
+        .lavado-tier-premium .lavado-tier-dot {
+          background: var(--verde-esperanza);
+          box-shadow: 0 0 12px rgba(82,183,136,0.5);
+          animation: dotPulse 2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+          0%, 100% { box-shadow: 0 0 8px rgba(82,183,136,0.4); }
+          50% { box-shadow: 0 0 16px rgba(82,183,136,0.7), 0 0 30px rgba(82,183,136,0.2); }
+        }
+        .lavado-tier-label {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 1.3rem; font-weight: 700; color: var(--verde-esperanza);
+          font-size: 0.95rem; font-weight: 600; color: var(--oscuro);
         }
-        .lavado-cta {
-          display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-          width: 100%; padding: 0.85rem; border-radius: 14px;
-          background: #25D366; color: white; text-decoration: none;
-          font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(37,211,102,0.25);
+        .lavado-tier-price {
+          font-family: 'DM Serif Display', serif;
+          font-size: 1.7rem; font-weight: 700; color: var(--verde-esperanza);
+          line-height: 1; white-space: nowrap;
         }
-        .lavado-cta:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+        .lavado-tier-premium .lavado-tier-price {
+          font-size: 1.9rem;
+          background: linear-gradient(135deg, var(--verde-esperanza), #40916C);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
-        .lavado-cta-icon { width: 20px; height: 20px; }
+
+        /* WhatsApp CTA */
+        .lavado-wa-cta {
+          display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+          width: 100%; padding: 1rem; margin-top: 1.5rem;
+          border-radius: 16px; border: none;
+          background: linear-gradient(135deg, #25D366, #128C7E);
+          color: white; text-decoration: none;
+          font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+          letter-spacing: 0.02em;
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+          box-shadow: 0 8px 24px rgba(37,211,102,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+          position: relative; overflow: hidden;
+        }
+        .lavado-wa-cta::before {
+          content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.6s ease;
+        }
+        .lavado-wa-cta:hover::before { left: 100%; }
+        .lavado-wa-cta:hover {
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 12px 36px rgba(37,211,102,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+        .lavado-wa-cta svg { width: 22px; height: 22px; }
+
+        /* Responsive */
         @media (max-width: 768px) {
-          .lavado-cards { grid-template-columns: 1fr; }
-          .lavado-section { padding: 1.5rem; }
-          .lavado-header { flex-direction: column; text-align: center; }
+          .lavado-showcase-grid { grid-template-columns: 1fr; max-width: 420px; }
+          .lavado-card-body { padding: 1.2rem 1.5rem 1.5rem; }
+          .lavado-card-visual { padding: 1.8rem 1.5rem 1rem; }
+          .lavado-car-icon { width: 80px; height: 80px; border-radius: 22px; }
+          .lavado-car-icon svg { width: 42px; height: 42px; }
         }
 
         /* TARIFAS */
@@ -1125,72 +1257,100 @@ export default function Home() {
             </div>
           </div>
 
-          {/* TARIFAS DE LAVADO */}
-          <div className="lavado-section reveal">
-            <div className="lavado-header">
-              <div className="lavado-header-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10" /><path d="M20 4l-2 6-6-2" /><path d="M15 9c-1.5-1.5-4-1.5-5.5 0" /><path d="M9 15a4 4 0 0 0 6 0" /></svg>
-              </div>
-              <div>
-                <h3>Servicio de Lavado Profesional</h3>
-                <p>Productos de alta calidad &mdash; su veh&iacute;culo queda como nuevo</p>
-              </div>
+          {/* TARIFAS DE LAVADO — PREMIUM */}
+          <div className="lavado-showcase">
+            <div className="lavado-showcase-header reveal">
+              <h3>Servicio de <span className="accent">Lavado Profesional</span></h3>
+              <p>Productos premium y manos expertas &mdash; su veh&iacute;culo sale como reci&eacute;n comprado</p>
             </div>
-            <div className="lavado-cards">
-              {/* Carro Grande */}
-              <div className="lavado-card">
-                <div className="lavado-card-type">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="32" height="32"><rect x="1" y="9" width="22" height="9" rx="3" /><path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="17.5" cy="18" r="2.5" /></svg>
-                  <span>Carro Grande</span>
-                </div>
-                <div className="lavado-card-prices">
-                  <div className="lavado-price-row">
-                    <div className="lavado-service-name">
-                      <CheckIcon />
-                      <span>Lavado</span>
-                    </div>
-                    <div className="lavado-price">&#8353;8,000</div>
+            <div className="lavado-showcase-grid">
+
+              {/* ── Carro Grande ── */}
+              <div className="lavado-premium-card reveal">
+                <div className="lavado-card-visual">
+                  <div className="lavado-car-icon">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M8 38h48v10a4 4 0 01-4 4H12a4 4 0 01-4-4V38z" fill="rgba(255,255,255,0.15)" />
+                      <path d="M14 38l5-14a4 4 0 013.8-2.8h18.4A4 4 0 0145 24l5 14" />
+                      <rect x="8" y="38" width="48" height="14" rx="4" />
+                      <circle cx="20" cy="52" r="5" fill="rgba(255,255,255,0.2)" />
+                      <circle cx="20" cy="52" r="2" />
+                      <circle cx="44" cy="52" r="5" fill="rgba(255,255,255,0.2)" />
+                      <circle cx="44" cy="52" r="2" />
+                      <line x1="24" y1="32" x2="40" y2="32" strokeWidth="1.5" opacity="0.5" />
+                      <path d="M14 42h8M42 42h8" strokeWidth="2.5" />
+                    </svg>
                   </div>
-                  <div className="lavado-price-row lavado-price-featured">
-                    <div className="lavado-service-name">
-                      <CheckIcon />
-                      <span>Lavado + Encerado</span>
-                    </div>
-                    <div className="lavado-price">&#8353;10,000</div>
-                  </div>
+                  <div className="lavado-card-subtitle">SUV &bull; Pick-up &bull; Familiar</div>
+                  <div className="lavado-card-title">Carro Grande</div>
                 </div>
-                <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20grande%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-cta" target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className="lavado-cta-icon" />
-                  Agendar lavado
-                </a>
+                <div className="lavado-divider" />
+                <div className="lavado-card-body">
+                  <div className="lavado-tier lavado-tier-basic">
+                    <div className="lavado-tier-info">
+                      <div className="lavado-tier-dot" />
+                      <span className="lavado-tier-label">Lavado</span>
+                    </div>
+                    <div className="lavado-tier-price">&#8353;8,000</div>
+                  </div>
+                  <div className="lavado-tier lavado-tier-premium">
+                    <div className="lavado-tier-badge">Top</div>
+                    <div className="lavado-tier-info">
+                      <div className="lavado-tier-dot" />
+                      <span className="lavado-tier-label">Lavado + Encerado</span>
+                    </div>
+                    <div className="lavado-tier-price">&#8353;10,000</div>
+                  </div>
+                  <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20grande%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-wa-cta" target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon />
+                    Agendar lavado
+                  </a>
+                </div>
               </div>
-              {/* Carro Pequeño */}
-              <div className="lavado-card">
-                <div className="lavado-card-type">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="3" y="10" width="18" height="7" rx="2.5" /><path d="M6 10V8.5A1.5 1.5 0 017.5 7h9A1.5 1.5 0 0118 8.5V10" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>
-                  <span>Carro Peque&ntilde;o</span>
-                </div>
-                <div className="lavado-card-prices">
-                  <div className="lavado-price-row">
-                    <div className="lavado-service-name">
-                      <CheckIcon />
-                      <span>Lavado</span>
-                    </div>
-                    <div className="lavado-price">&#8353;6,000</div>
+
+              {/* ── Carro Pequeño ── */}
+              <div className="lavado-premium-card reveal">
+                <div className="lavado-card-visual">
+                  <div className="lavado-car-icon">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 40h40v8a3 3 0 01-3 3H15a3 3 0 01-3-3v-8z" fill="rgba(255,255,255,0.15)" />
+                      <path d="M17 40l4-12a3 3 0 012.9-2.2h16.2A3 3 0 0143 28l4 12" />
+                      <rect x="12" y="40" width="40" height="11" rx="3" />
+                      <circle cx="22" cy="51" r="4.5" fill="rgba(255,255,255,0.2)" />
+                      <circle cx="22" cy="51" r="1.8" />
+                      <circle cx="42" cy="51" r="4.5" fill="rgba(255,255,255,0.2)" />
+                      <circle cx="42" cy="51" r="1.8" />
+                      <line x1="26" y1="34" x2="38" y2="34" strokeWidth="1.5" opacity="0.5" />
+                      <path d="M17 44h6M41 44h6" strokeWidth="2.5" />
+                    </svg>
                   </div>
-                  <div className="lavado-price-row lavado-price-featured">
-                    <div className="lavado-service-name">
-                      <CheckIcon />
-                      <span>Lavado + Encerado</span>
-                    </div>
-                    <div className="lavado-price">&#8353;8,000</div>
-                  </div>
+                  <div className="lavado-card-subtitle">Sed&aacute;n &bull; Hatchback &bull; Compacto</div>
+                  <div className="lavado-card-title">Carro Peque&ntilde;o</div>
                 </div>
-                <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20peque%C3%B1o%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-cta" target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className="lavado-cta-icon" />
-                  Agendar lavado
-                </a>
+                <div className="lavado-divider" />
+                <div className="lavado-card-body">
+                  <div className="lavado-tier lavado-tier-basic">
+                    <div className="lavado-tier-info">
+                      <div className="lavado-tier-dot" />
+                      <span className="lavado-tier-label">Lavado</span>
+                    </div>
+                    <div className="lavado-tier-price">&#8353;6,000</div>
+                  </div>
+                  <div className="lavado-tier lavado-tier-premium">
+                    <div className="lavado-tier-badge">Top</div>
+                    <div className="lavado-tier-info">
+                      <div className="lavado-tier-dot" />
+                      <span className="lavado-tier-label">Lavado + Encerado</span>
+                    </div>
+                    <div className="lavado-tier-price">&#8353;8,000</div>
+                  </div>
+                  <a href="https://wa.me/50670207762?text=Hola!%20Quiero%20agendar%20un%20lavado%20para%20carro%20peque%C3%B1o%20en%20Parqueo%20y%20Lavacar%20La%20Esperanza" className="lavado-wa-cta" target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon />
+                    Agendar lavado
+                  </a>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
