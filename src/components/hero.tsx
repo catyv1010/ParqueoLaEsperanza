@@ -20,13 +20,16 @@ export function Hero() {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
       tl.fromTo(
-        ".hero-image-wrap",
-        { clipPath: "inset(45% 8% 45% 8%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 1.6, ease: "expo.inOut" }
+        ".hero-image-card",
+        { clipPath: "inset(0% 0% 100% 0%)" },
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.6,
+          ease: "expo.inOut",
+        }
       );
-
       tl.fromTo(
-        ".hero-image",
+        ".hero-image-card img",
         { scale: 1.4 },
         { scale: 1.05, duration: 1.6, ease: "expo.out" },
         "<"
@@ -41,7 +44,7 @@ export function Hero() {
           ease: "power3.out",
           stagger: 0.06,
         },
-        "-=0.6"
+        "-=1.2"
       );
 
       tl.from(
@@ -94,10 +97,9 @@ export function Hero() {
 
       tl.from(".hero-marquee", { opacity: 0, duration: 0.8 }, "-=0.3");
 
-      // Ken Burns
-      gsap.to(".hero-image", {
-        scale: 1.25,
-        yPercent: 8,
+      // Ken Burns on image
+      gsap.to(".hero-image-card img", {
+        scale: 1.18,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -107,8 +109,20 @@ export function Hero() {
         },
       });
 
-      // Content parallax
-      gsap.to(".hero-content", {
+      // Image card subtle parallax
+      gsap.to(".hero-image-card", {
+        yPercent: -12,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Content opposite parallax
+      gsap.to(".hero-text", {
         yPercent: -25,
         opacity: 0.2,
         ease: "none",
@@ -120,7 +134,6 @@ export function Hero() {
         },
       });
 
-      // Side parallax
       gsap.to(".hero-side", {
         yPercent: -60,
         ease: "none",
@@ -142,19 +155,11 @@ export function Hero() {
       id="inicio"
       className="relative isolate min-h-[100svh] overflow-hidden bg-emerald-deep"
     >
-      {/* Real lavacar image — car covered in white foam */}
-      <div className="hero-image-wrap absolute inset-0 overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1601925240970-98447081d56e?w=2400&q=85&auto=format&fit=crop"
-          alt="Auto cubierto de espuma en lavacar profesional"
-          fill
-          priority
-          sizes="100vw"
-          className="hero-image ken-burns object-cover"
-        />
-        {/* Cinematic green-tinted overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-deep/30 via-ink/55 to-ink/85" />
-        <div className="absolute inset-0 bg-gradient-to-t from-cream via-transparent to-transparent" />
+      {/* Decorative background gradient */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-deep via-emerald-deep to-ink" />
+        <div className="absolute -left-32 top-1/3 h-[600px] w-[600px] rounded-full bg-emerald/30 blur-[120px]" />
+        <div className="absolute -right-20 -top-20 h-[500px] w-[500px] rounded-full bg-mint/15 blur-[120px]" />
       </div>
 
       {/* Vertical text */}
@@ -165,111 +170,148 @@ export function Hero() {
       </div>
 
       {/* Right side meta */}
-      <div className="hero-side absolute right-4 top-1/2 z-10 hidden -translate-y-1/2 lg:right-8 lg:block">
-        <div className="flex flex-col items-end gap-3 text-bone/70">
-          <span className="font-display text-7xl italic leading-none">
-            N°01
-          </span>
-          <span className="tracking-eyebrow text-[10px]">capítulo</span>
-          <span className="mt-4 inline-block h-32 w-px bg-bone/40" />
-        </div>
-      </div>
-
-      {/* Esperanza floating big — brand mascot */}
-      <div className="hero-grasshopper pointer-events-none absolute right-[8%] top-[18%] z-10 hidden text-mint lg:block">
-        <span className="block animate-hop drop-shadow-[0_8px_30px_rgba(116,198,157,0.4)]">
-          <Grasshopper className="h-44 w-44 xl:h-56 xl:w-56" />
+      <div className="hero-side absolute right-4 top-32 z-30 hidden text-right lg:right-8 lg:block">
+        <span className="font-display text-6xl italic leading-none text-bone/70">
+          N°01
         </span>
+        <div className="mt-2 tracking-eyebrow text-[10px] text-bone/60">
+          capítulo
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="hero-content relative z-10 mx-auto flex min-h-[100svh] max-w-[1500px] flex-col justify-end px-6 pb-32 pt-32 lg:px-16 lg:pb-40 lg:pt-40">
-        <div className="hero-eyebrow mb-8 flex items-center gap-4 text-bone">
-          <span className="inline-block h-px w-12 bg-mint" />
-          <span className="tracking-eyebrow text-xs text-bone/90">
-            🇨🇷 Costa Rica · Parqueo · Lavacar
-          </span>
-        </div>
+      {/* Main grid: text left, real photo right */}
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-[1500px] grid-cols-1 items-center gap-10 px-6 pb-32 pt-32 lg:grid-cols-12 lg:gap-16 lg:px-16 lg:pb-32 lg:pt-32">
+        {/* TEXT */}
+        <div className="hero-text relative lg:col-span-7">
+          <div className="hero-eyebrow mb-8 flex items-center gap-4 text-bone">
+            <span className="inline-block h-px w-12 bg-mint" />
+            <span className="tracking-eyebrow text-xs text-bone/90">
+              🇨🇷 Costa Rica · Parqueo · Lavacar
+            </span>
+          </div>
 
-        <h1 className="hero-h1 max-w-[18ch] font-display text-[15vw] text-bone sm:text-[11vw] lg:text-[8.5rem] xl:text-[10rem]">
-          <SplitWords text="Tu carro," />
-          <br />
-          <span className="italic text-bone/85">
-            <SplitWords text="en buenas" />
-          </span>
-          <br />
-          <span className="italic text-mint">
-            <SplitWords text="manos." />
-          </span>
-        </h1>
+          <h1 className="hero-h1 font-display text-[14vw] text-bone sm:text-[10vw] lg:text-[7.5rem] xl:text-[9rem]">
+            <SplitWords text="Tu carro," />
+            <br />
+            <span className="italic text-bone/85">
+              <SplitWords text="en buenas" />
+            </span>
+            <br />
+            <span className="italic text-mint">
+              <SplitWords text="manos." />
+            </span>
+          </h1>
 
-        <div className="hero-sub mt-12 grid grid-cols-12 gap-6">
-          <p className="col-span-12 max-w-md text-base leading-relaxed text-bone/85 md:col-span-5 lg:text-lg">
-            Parqueo vigilado las{" "}
-            <span className="text-bone underline decoration-mint decoration-2 underline-offset-4">
-              24 horas
-            </span>{" "}
-            y lavacar profesional, hecho con cariño tico. Cuidamos tu vehículo
-            como si fuera el nuestro.
-          </p>
+          {/* Floating grasshopper near headline */}
+          <div className="hero-grasshopper pointer-events-none absolute right-0 top-0 hidden text-mint lg:block">
+            <span className="block animate-hop drop-shadow-[0_8px_30px_rgba(116,198,157,0.4)]">
+              <Grasshopper className="h-28 w-28 xl:h-36 xl:w-36" />
+            </span>
+          </div>
 
-          <div className="col-span-12 flex flex-col items-start gap-4 sm:flex-row md:col-span-7 md:items-center md:justify-end">
-            <a
-              href="#contacto"
-              className="btn-magnet group inline-flex items-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-emerald-deep transition-all duration-500 hover:bg-bone"
-            >
-              Reservar mi espacio
-              <svg
-                viewBox="0 0 24 24"
-                className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
+          <div className="hero-sub mt-10 max-w-md">
+            <p className="text-base leading-relaxed text-bone/85 lg:text-lg">
+              Parqueo vigilado las{" "}
+              <span className="text-bone underline decoration-mint decoration-2 underline-offset-4">
+                24 horas
+              </span>{" "}
+              y lavacar profesional, hecho con cariño tico. Cuidamos tu
+              carro como si fuera el nuestro.
+            </p>
+
+            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+              <a
+                href="#contacto"
+                className="btn-magnet group inline-flex items-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-emerald-deep transition-all duration-500 hover:bg-bone"
               >
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a
-              href="#servicios"
-              className="group inline-flex items-center gap-3 text-sm font-medium text-bone"
-            >
-              <span className="relative">
-                Ver servicios
-                <span className="absolute -bottom-1 left-0 h-px w-full bg-bone/50 transition-all duration-500 group-hover:w-0" />
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-mint transition-all duration-500 group-hover:w-full" />
-              </span>
-            </a>
+                Reservar mi espacio
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
+              <a
+                href="#servicios"
+                className="group inline-flex items-center gap-3 text-sm font-medium text-bone"
+              >
+                <span className="relative">
+                  Ver servicios
+                  <span className="absolute -bottom-1 left-0 h-px w-full bg-bone/50 transition-all duration-500 group-hover:w-0" />
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-mint transition-all duration-500 group-hover:w-full" />
+                </span>
+              </a>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-bone/15 pt-8 sm:grid-cols-4">
+            {[
+              { num: "₡1,000", label: "por hora" },
+              { num: "24/7", label: "vigilancia" },
+              { num: "+5,000", label: "clientes" },
+              { num: "10+", label: "años" },
+            ].map((s) => (
+              <div key={s.label} className="hero-stat">
+                <div className="font-display text-3xl text-bone lg:text-4xl">
+                  {s.num}
+                </div>
+                <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
+                  {s.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="mt-20 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-bone/20 pt-8 md:grid-cols-4">
-          {[
-            { num: "₡1,000", label: "por hora de parqueo" },
-            { num: "24/7", label: "vigilancia activa" },
-            { num: "+5,000", label: "clientes felices" },
-            { num: "10+", label: "años cuidando carros" },
-          ].map((s) => (
-            <div key={s.label} className="hero-stat">
-              <div className="font-display text-4xl text-bone lg:text-5xl">
-                {s.num}
+        {/* REAL PHOTO CARD */}
+        <div className="lg:col-span-5">
+          <figure className="hero-image-card relative aspect-[3/4] overflow-hidden rounded-3xl shadow-2xl shadow-emerald-deep/50 ring-1 ring-bone/10">
+            <Image
+              src="/foto-parqueo.jpg"
+              alt="Parqueo y Lavacar La Esperanza — entrada con vehículos parqueados"
+              fill
+              priority
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover object-top"
+            />
+            {/* Subtle warmth overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/40 via-transparent to-transparent" />
+
+            {/* Caption badge */}
+            <figcaption className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+              <div className="rounded-full bg-bone/95 px-4 py-2 backdrop-blur-sm">
+                <span className="text-[10px] tracking-eyebrow text-emerald-deep">
+                  Foto real · nuestro parqueo
+                </span>
               </div>
-              <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
-                {s.label}
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-mint">
+                <Grasshopper className="h-6 w-6" variant="solid" />
               </div>
+            </figcaption>
+
+            {/* Top corner index */}
+            <div className="absolute left-5 top-5 rounded-full bg-emerald-deep/70 px-3 py-1.5 backdrop-blur-md">
+              <span className="text-[10px] tracking-eyebrow text-bone">
+                San José · CR
+              </span>
             </div>
-          ))}
+          </figure>
         </div>
       </div>
 
       {/* Bottom marquee */}
-      <div className="hero-marquee absolute bottom-0 left-0 right-0 z-10 overflow-hidden border-t border-bone/15 bg-emerald-deep/60 py-3 backdrop-blur-md">
+      <div className="hero-marquee absolute bottom-0 left-0 right-0 z-10 overflow-hidden border-t border-bone/15 bg-emerald-deep/70 py-3 backdrop-blur-md">
         <div className="animate-marquee flex shrink-0 items-center gap-10 whitespace-nowrap font-display text-xl italic text-bone">
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="flex shrink-0 items-center gap-10">
               <span>★ Parqueo vigilado 24/7</span>
               <span className="text-mint">·</span>
-              <span>Lavado con espuma activa y secado a mano</span>
+              <span>Lavacar con espuma activa</span>
               <span className="text-mint">·</span>
               <span>Tarifa nocturna y mensualidad</span>
               <span className="text-mint">·</span>

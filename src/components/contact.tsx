@@ -113,11 +113,11 @@ export function Contact() {
           {/* Photo */}
           <div className="ct-photo relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-line lg:col-span-6 lg:aspect-auto lg:min-h-[640px]">
             <Image
-              src="https://images.unsplash.com/photo-1605618826115-fb9e775cf36b?w=1800&q=85&auto=format&fit=crop"
-              alt="Lavacar profesional con manguera y espuma"
+              src="/foto-parqueo.jpg"
+              alt="Parqueo y Lavacar La Esperanza — entrada del local"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className="object-cover object-top"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 via-transparent to-transparent" />
             <div className="absolute bottom-8 left-8 right-8 text-bone">

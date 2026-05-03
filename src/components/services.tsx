@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Grasshopper } from "@/components/grasshopper";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -17,52 +17,58 @@ const services = [
     desc: "Cámaras y personal capacitado. Por hora, día, noche o mensualidad.",
     price: "₡1,000",
     unit: "/ hora",
-    img: "https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1400&q=85&auto=format&fit=crop",
+    accent: "bg-emerald text-bone",
+    accentText: "text-mint",
   },
   {
     n: "02",
     title: "Lavado Exterior",
     sub: "espuma + presión",
-    desc: "Espuma activa, enjuague a presión y secado a mano con productos que cuidan la pintura.",
+    desc: "Espuma activa, enjuague a presión y secado a mano. Cuida la pintura.",
     price: "₡4,000",
     unit: "",
-    img: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1400&q=85&auto=format&fit=crop",
+    accent: "bg-cream text-emerald-deep",
+    accentText: "text-emerald",
   },
   {
     n: "03",
     title: "Lavado Interior",
     sub: "detalle profundo",
-    desc: "Aspirado, tapicería, tablero y vidrios impecables. Aroma natural a elegir.",
+    desc: "Aspirado, tapicería, tablero y vidrios impecables. Aroma a elegir.",
     price: "₡5,500",
     unit: "",
-    img: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1400&q=85&auto=format&fit=crop",
+    accent: "bg-emerald-deep text-bone",
+    accentText: "text-mint",
   },
   {
     n: "04",
     title: "Premium Cerámico",
-    sub: "protección meses",
-    desc: "Encerado, pulido y sellado cerámico que repele agua y polvo por meses.",
+    sub: "protección por meses",
+    desc: "Encerado, pulido y sellado cerámico que repele agua y polvo.",
     price: "₡18,000",
     unit: "",
-    img: "https://images.unsplash.com/photo-1601925240970-98447081d56e?w=1400&q=85&auto=format&fit=crop",
+    accent: "bg-mint text-emerald-deep",
+    accentText: "text-emerald-deep",
   },
   {
     n: "05",
     title: "Lavado de Motor",
     sub: "desengrase técnico",
-    desc: "Limpieza profesional del motor con productos especializados que cuidan cables.",
+    desc: "Limpieza profesional del motor con productos especializados.",
     price: "₡8,000",
     unit: "",
-    img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1400&q=85&auto=format&fit=crop",
+    accent: "bg-emerald-2 text-bone",
+    accentText: "text-mint",
   },
   {
     n: "06",
     title: "Express",
     sub: "30 minutos",
-    desc: "Lavado completo rápido sin perder calidad. Ideal cuando andás corriendo.",
+    desc: "Lavado completo rápido sin perder calidad. Cuando andás corriendo.",
     price: "₡3,500",
     unit: "",
-    img: "https://images.unsplash.com/photo-1605618826115-fb9e775cf36b?w=1400&q=85&auto=format&fit=crop",
+    accent: "bg-paper text-emerald-deep",
+    accentText: "text-emerald",
   },
 ];
 
@@ -73,7 +79,6 @@ export function Services() {
   useEffect(() => {
     if (!root.current || !track.current) return;
     const ctx = gsap.context(() => {
-      // Header animations
       gsap.from(".svc-eyebrow > *", {
         y: 20,
         opacity: 0,
@@ -92,7 +97,6 @@ export function Services() {
         scrollTrigger: { trigger: ".svc-title", start: "top 80%" },
       });
 
-      // Horizontal scroll on desktop
       const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
       if (isDesktop && track.current && root.current) {
@@ -110,25 +114,7 @@ export function Services() {
             invalidateOnRefresh: true,
           },
         });
-
-        // Cards stagger reveal as they come into view (horizontal)
-        gsap.utils.toArray<HTMLElement>(".svc-card").forEach((card, i) => {
-          gsap.from(card, {
-            opacity: 0,
-            y: 60,
-            duration: 0.9,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "left 80%",
-              containerAnimation: gsap.getById?.("hScroll"),
-              horizontal: true,
-            },
-            delay: i * 0.05,
-          });
-        });
       } else {
-        // Mobile: vertical fade-in
         gsap.utils.toArray<HTMLElement>(".svc-card").forEach((card) => {
           gsap.from(card, {
             opacity: 0,
@@ -150,11 +136,11 @@ export function Services() {
       id="servicios"
       className="relative overflow-hidden bg-cream py-24 lg:h-screen lg:py-0"
     >
-      {/* Header overlay */}
+      {/* Header */}
       <div className="relative z-10 mx-auto max-w-[1500px] px-6 pt-12 lg:absolute lg:left-1/2 lg:top-12 lg:w-full lg:-translate-x-1/2 lg:px-16">
         <div className="grid grid-cols-12 items-end gap-6">
           <div className="svc-eyebrow col-span-12 flex items-center gap-4 lg:col-span-6">
-            <span className="inline-block h-px w-12 bg-terra" />
+            <span className="inline-block h-px w-12 bg-emerald" />
             <span className="tracking-eyebrow text-xs text-stone">
               Capítulo 03 — Servicios
             </span>
@@ -191,7 +177,7 @@ export function Services() {
         </div>
       </div>
 
-      {/* Track — horizontal on desktop, vertical on mobile */}
+      {/* Track */}
       <div className="lg:flex lg:h-screen lg:items-center">
         <div
           ref={track}
@@ -200,59 +186,54 @@ export function Services() {
           {services.map((s) => (
             <article
               key={s.n}
-              className="svc-card group relative flex shrink-0 overflow-hidden rounded-3xl bg-paper shadow-sm shadow-ink/5 lg:h-[60vh] lg:w-[42vw] lg:max-w-[640px]"
+              className={`svc-card group relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl p-8 shadow-lg shadow-emerald-deep/10 transition-transform duration-500 hover:-translate-y-1 lg:h-[60vh] lg:w-[42vw] lg:max-w-[640px] lg:p-12 ${s.accent}`}
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden lg:h-full lg:w-full">
-                <Image
-                  src={s.img}
-                  alt={s.title}
-                  fill
-                  sizes="(min-width: 1024px) 42vw, 100vw"
-                  className="object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105"
-                />
-                {/* Gradient for legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
+              {/* Decorative grasshopper watermark */}
+              <span
+                className={`pointer-events-none absolute -right-6 -top-6 opacity-15 ${s.accentText}`}
+              >
+                <Grasshopper className="h-44 w-44 lg:h-64 lg:w-64" />
+              </span>
 
-                {/* Number top-left */}
-                <div className="absolute left-6 top-6 font-display text-3xl text-bone">
+              {/* Top: number + price */}
+              <div className="relative flex items-start justify-between">
+                <div className={`font-display text-5xl ${s.accentText}`}>
                   {s.n}
                 </div>
-
-                {/* Price top-right */}
-                <div className="absolute right-6 top-6 text-right">
-                  <div className="font-display text-2xl text-bone">
-                    {s.price}
-                  </div>
+                <div className="text-right">
+                  <div className="font-display text-3xl">{s.price}</div>
                   {s.unit && (
-                    <div className="text-[10px] tracking-eyebrow text-bone/70">
+                    <div className="text-[10px] tracking-eyebrow opacity-70">
                       {s.unit}
                     </div>
                   )}
                 </div>
+              </div>
 
-                {/* Bottom text */}
-                <div className="absolute bottom-6 left-6 right-6 text-bone">
-                  <div className="text-[10px] tracking-eyebrow text-bone/70">
-                    {s.sub}
-                  </div>
-                  <h3 className="mt-2 font-display text-4xl leading-tight lg:text-5xl">
-                    {s.title}
-                  </h3>
-                  <p className="mt-3 max-w-sm text-sm text-bone/85">
-                    {s.desc}
-                  </p>
+              {/* Bottom: title + desc */}
+              <div className="relative mt-12">
+                <div
+                  className={`text-[10px] tracking-eyebrow opacity-80 ${s.accentText}`}
+                >
+                  {s.sub}
                 </div>
+                <h3 className="mt-2 font-display text-5xl leading-tight lg:text-6xl">
+                  {s.title}
+                </h3>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-85 lg:text-base">
+                  {s.desc}
+                </p>
               </div>
             </article>
           ))}
 
           {/* End-of-track CTA */}
-          <div className="flex shrink-0 flex-col items-start justify-center gap-6 rounded-3xl bg-ink p-10 text-bone lg:h-[60vh] lg:w-[36vw] lg:max-w-[500px]">
-            <span className="tracking-eyebrow text-xs text-bone/70">
-              Tarifas referenciales
+          <div className="flex shrink-0 flex-col items-start justify-center gap-6 rounded-3xl bg-gradient-to-br from-emerald-deep via-emerald to-emerald-2 p-10 text-bone shadow-lg shadow-emerald-deep/20 lg:h-[60vh] lg:w-[36vw] lg:max-w-[500px] lg:p-12">
+            <span className="tracking-eyebrow text-xs text-mint">
+              ¿Necesitás más?
             </span>
             <p className="font-display text-3xl italic leading-tight text-bone lg:text-4xl">
-              ¿Necesitás un plan mensual o tarifa para empresa?
+              Plan mensual o tarifa para empresa.
             </p>
             <a
               href="#contacto"
