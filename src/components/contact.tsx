@@ -61,22 +61,27 @@ export function Contact() {
     <section
       ref={root}
       id="contacto"
-      className="spotlight relative overflow-hidden bg-night py-28 lg:py-40"
+      className="relative overflow-hidden mesh-beige py-28 lg:py-40"
     >
+      {/* Atmosphere blobs cream */}
       <div
         aria-hidden
-        className="absolute -left-32 bottom-0 h-[500px] w-[500px] rounded-full bg-mint/10 blur-[180px]"
+        className="absolute -left-32 bottom-0 h-[500px] w-[500px] rounded-full bg-emerald/10 blur-[180px]"
+      />
+      <div
+        aria-hidden
+        className="absolute -right-32 top-0 h-[420px] w-[420px] rounded-full bg-mint/15 blur-[180px]"
       />
 
       <div className="relative mx-auto max-w-[1500px] px-6 lg:px-16">
         <div className="ct-eyebrow flex items-center gap-4">
-          <span className="inline-block h-px w-12 bg-mint" />
-          <span className="tracking-eyebrow text-xs text-mint/70">
+          <span className="inline-block h-px w-12 bg-emerald" />
+          <span className="tracking-eyebrow text-xs text-stone">
             Capítulo 05 — Visitanos
           </span>
         </div>
 
-        <h2 className="ct-title mt-6 font-display text-[12vw] leading-[0.92] text-bone sm:text-[8vw] lg:text-7xl xl:text-8xl">
+        <h2 className="ct-title mt-6 font-display text-[12vw] leading-[0.92] text-ink sm:text-[8vw] lg:text-7xl xl:text-8xl">
           <span className="char-mask">
             {"Estamos".split("").map((c, i) => (
               <span key={i} className="char">
@@ -84,14 +89,14 @@ export function Contact() {
               </span>
             ))}
           </span>{" "}
-          <span className="char-mask italic text-bone/50">
+          <span className="char-mask italic text-stone">
             {"listos".split("").map((c, i) => (
               <span key={i} className="char">
                 {c}
               </span>
             ))}
           </span>{" "}
-          <span className="char-mask glow-mint italic">
+          <span className="char-mask glow-emerald italic">
             {"hoy.".split("").map((c, i) => (
               <span key={i} className="char">
                 {c}
@@ -102,10 +107,10 @@ export function Contact() {
 
         <div className="mt-16 grid grid-cols-12 gap-8 lg:gap-12">
           {/* MAP */}
-          <div className="ct-map ring-glow-strong relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-night-2 lg:col-span-6 lg:aspect-auto lg:min-h-[680px]">
+          <div className="ct-map relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-cream shadow-[0_30px_80px_rgba(14,52,34,0.18)] ring-1 ring-emerald/15 lg:col-span-6 lg:aspect-auto lg:min-h-[680px]">
             <iframe
               src={LOCATION.embed}
-              className="map-night absolute inset-0 h-full w-full"
+              className="map-emerald absolute inset-0 h-full w-full"
               style={{ border: 0 }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -113,27 +118,23 @@ export function Contact() {
               title="Parqueo y Lavacar La Esperanza · Cartago"
             />
 
-            {/* Top overlay gradient para mejorar contraste de la card */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/60 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-night/70 to-transparent" />
-
             {/* Floating address card */}
             <div className="pointer-events-none absolute left-6 top-6 right-6 sm:right-auto sm:max-w-xs">
-              <div className="rounded-2xl border border-mint/25 bg-night/85 p-5 backdrop-blur-xl shadow-[0_0_32px_rgba(0,0,0,0.6)]">
-                <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-mint">
+              <div className="rounded-2xl border border-emerald/20 bg-bone/95 p-5 backdrop-blur-xl shadow-[0_12px_32px_rgba(14,52,34,0.15)]">
+                <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-emerald">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-mint pulse-mint" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald pulse-mint" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald" />
                   </span>
                   Ubicación
                 </div>
-                <div className="mt-2 font-display text-2xl italic leading-tight text-bone">
+                <div className="mt-2 font-display text-2xl italic leading-tight text-emerald-deep">
                   Parqueo La Esperanza
                 </div>
-                <div className="mt-2 text-xs text-bone/60">
+                <div className="mt-2 text-xs text-stone">
                   Cartago, Costa Rica
                 </div>
-                <div className="mt-1 font-mono text-[10px] text-mint/50">
+                <div className="mt-1 font-mono text-[10px] text-mist">
                   {LOCATION.lat}, {LOCATION.lng}
                 </div>
               </div>
@@ -144,7 +145,7 @@ export function Contact() {
               href={LOCATION.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-magnet group absolute bottom-6 left-6 right-6 inline-flex items-center justify-center gap-3 rounded-full bg-mint px-6 py-3.5 text-sm font-medium text-night shadow-[0_0_28px_rgba(116,198,157,0.4)] transition-all hover:shadow-[0_0_48px_rgba(116,198,157,0.65)] sm:left-auto sm:right-6 sm:w-auto"
+              className="btn-magnet group absolute bottom-6 left-6 right-6 inline-flex items-center justify-center gap-3 rounded-full bg-emerald px-6 py-3.5 text-sm font-medium text-bone shadow-[0_12px_28px_rgba(14,52,34,0.4)] transition-all hover:bg-emerald-deep sm:left-auto sm:right-6 sm:w-auto"
             >
               Abrir en Google Maps
               <svg
@@ -161,37 +162,37 @@ export function Contact() {
 
           {/* Info column */}
           <div className="ct-info col-span-12 lg:col-span-6">
-            <div className="border-t border-mint/15">
+            <div className="border-t border-emerald/15">
               <a
                 href="tel:+50670207762"
-                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-mint/60">
+                  <div className="text-[10px] tracking-eyebrow text-stone">
                     Teléfono
                   </div>
-                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
                     +506 7020-7762
                   </div>
                 </div>
-                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
                   →
                 </span>
               </a>
 
               <a
                 href="tel:+50688322660"
-                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-mint/60">
+                  <div className="text-[10px] tracking-eyebrow text-stone">
                     Línea 2
                   </div>
-                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
                     +506 8832-2660
                   </div>
                 </div>
-                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
                   →
                 </span>
               </a>
@@ -200,17 +201,17 @@ export function Contact() {
                 href={WA}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-mint/60">
+                  <div className="text-[10px] tracking-eyebrow text-stone">
                     WhatsApp · respuesta inmediata
                   </div>
-                  <div className="mt-1 font-display text-3xl italic text-bone lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl italic text-ink lg:text-4xl">
                     Escribinos
                   </div>
                 </div>
-                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
                   →
                 </span>
               </a>
@@ -219,33 +220,33 @@ export function Contact() {
                 href={LOCATION.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-mint/60">
+                  <div className="text-[10px] tracking-eyebrow text-stone">
                     Dirección
                   </div>
-                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
                     Cartago, CR
                   </div>
                 </div>
-                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
                   →
                 </span>
               </a>
 
-              <div className="ct-row flex items-center justify-between border-b border-mint/15 py-6">
+              <div className="ct-row flex items-center justify-between border-b border-emerald/15 py-6">
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-mint/60">
+                  <div className="text-[10px] tracking-eyebrow text-stone">
                     Horario
                   </div>
-                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
                     6am — 9pm
                   </div>
-                  <div className="mt-2 flex items-center gap-2 text-xs text-mint">
+                  <div className="mt-2 flex items-center gap-2 text-xs text-emerald">
                     <span className="relative flex h-1.5 w-1.5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint-glow opacity-75" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-mint" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald" />
                     </span>
                     Lunes a Domingo · Abierto ahora
                   </div>
@@ -256,7 +257,7 @@ export function Contact() {
             <div className="ct-row mt-10 flex flex-col items-stretch gap-3 sm:flex-row">
               <a
                 href="tel:+50670207762"
-                className="btn-magnet inline-flex flex-1 items-center justify-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-night shadow-[0_0_28px_rgba(116,198,157,0.3)] transition-all hover:shadow-[0_0_48px_rgba(116,198,157,0.55)]"
+                className="btn-magnet inline-flex flex-1 items-center justify-center gap-3 rounded-full bg-emerald px-8 py-4 text-sm font-medium text-bone shadow-[0_8px_24px_rgba(14,52,34,0.25)] transition-all hover:bg-emerald-deep"
               >
                 Llamar ahora
               </a>
@@ -264,7 +265,7 @@ export function Contact() {
                 href={WA}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-mint/40 px-8 py-4 text-sm font-medium text-mint transition-colors hover:bg-mint hover:text-night"
+                className="inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-emerald/30 px-8 py-4 text-sm font-medium text-emerald transition-colors hover:bg-emerald hover:text-bone"
               >
                 WhatsApp
               </a>

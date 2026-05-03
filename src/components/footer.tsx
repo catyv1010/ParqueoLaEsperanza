@@ -1,9 +1,14 @@
-import { Grasshopper } from "@/components/grasshopper";
+import { SkyEffects } from "@/components/sky-effects";
 
 export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-mint/10 bg-night py-16 text-bone lg:py-24">
-      {/* Subtle glow */}
+      {/* Subtle stars */}
+      <div className="absolute inset-0 opacity-50">
+        <SkyEffects stars={30} meteors={2} area="full" />
+      </div>
+
+      {/* Glow */}
       <div
         aria-hidden
         className="absolute left-1/2 top-0 h-[300px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-mint/8 blur-[160px]"
@@ -15,9 +20,6 @@ export function Footer() {
           <h3 className="text-outline-mint font-display text-[18vw] leading-[0.85] lg:text-[14rem]">
             La Esperanza
           </h3>
-          <span className="absolute right-[5%] top-[20%] hidden text-mint/50 lg:block animate-float drop-shadow-[0_0_32px_rgba(116,198,157,0.5)]">
-            <Grasshopper className="h-32 w-32" variant="solid" />
-          </span>
         </div>
 
         <div className="grid grid-cols-12 gap-8 border-t border-mint/10 pt-12">

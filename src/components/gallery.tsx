@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Grasshopper } from "@/components/grasshopper";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -166,7 +165,7 @@ export function Gallery() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/55 via-transparent to-transparent" />
 
-            <figcaption className="absolute bottom-8 left-8 right-8 flex items-end justify-between gap-4">
+            <figcaption className="absolute bottom-8 left-8 right-8">
               <div>
                 <div className="font-display text-3xl italic text-bone lg:text-4xl">
                   Te esperamos.
@@ -175,9 +174,6 @@ export function Gallery() {
                   Parqueo · Lavacar · Cartago, CR
                 </div>
               </div>
-              <span className="hidden text-mint sm:block animate-float drop-shadow-[0_0_24px_rgba(116,198,157,0.5)]">
-                <Grasshopper className="h-12 w-12" variant="solid" />
-              </span>
             </figcaption>
 
             <div className="absolute left-8 top-8 inline-flex items-center gap-2 rounded-full bg-bone/95 px-4 py-2 backdrop-blur-sm">

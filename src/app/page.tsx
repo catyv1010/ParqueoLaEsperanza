@@ -16,22 +16,21 @@ export default function Home() {
       {/* 1. HERO — VERDE nocturno */}
       <Hero />
 
-      {/* Transición verde → beige */}
+      {/* verde → beige */}
       <SectionDivider variant="night-to-cream" />
 
       {/* 2. STORY — BEIGE */}
       <EsperanzaStory />
 
-      {/* Marquee divider en beige */}
       <MarqueeDivider theme="cream" text="La Esperanza" />
 
-      {/* Transición beige → verde */}
+      {/* beige → verde */}
       <SectionDivider variant="cream-to-night" />
 
       {/* 3. SERVICES — VERDE nocturno */}
       <Services />
 
-      {/* Transición verde → beige */}
+      {/* verde → beige */}
       <SectionDivider variant="night-to-cream" />
 
       {/* 4. GALLERY — BEIGE */}
@@ -39,17 +38,13 @@ export default function Home() {
         <Gallery />
       </section>
 
-      {/* Marquee divider en beige */}
       <MarqueeDivider theme="cream" text="Te esperamos" reverse />
 
-      {/* Transición beige → verde */}
-      <SectionDivider variant="cream-to-night" />
-
-      {/* 5. CONTACT — VERDE nocturno */}
+      {/* 5. CONTACT — BEIGE (claro, elegante) */}
       <Contact />
 
-      {/* Marquee divider en verde — antes del footer */}
-      <MarqueeDivider theme="night" text="La Esperanza" />
+      {/* beige → verde para footer */}
+      <SectionDivider variant="cream-to-night" />
 
       {/* 6. FOOTER — VERDE */}
       <Footer />

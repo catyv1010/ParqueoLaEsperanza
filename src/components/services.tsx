@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Grasshopper } from "@/components/grasshopper";
 import { Tilt } from "@/components/tilt";
+import { SkyEffects } from "@/components/sky-effects";
 import { Magnetic } from "@/components/magnetic";
 import { CountUp } from "@/components/count-up";
 import { WA } from "@/lib/links";
@@ -47,12 +47,11 @@ export function Services() {
           scrollTrigger: { trigger: card, start: "top 85%" },
         });
 
-        gsap.from(card.querySelector(".svc-bug"), {
-          scale: 0,
-          rotate: -120,
+        gsap.from(card.querySelector(".svc-num"), {
+          scale: 0.6,
           opacity: 0,
           duration: 1.2,
-          ease: "back.out(1.6)",
+          ease: "expo.out",
           scrollTrigger: { trigger: card, start: "top 80%" },
         });
 
@@ -84,6 +83,11 @@ export function Services() {
       id="servicios"
       className="spotlight relative overflow-hidden bg-night py-28 lg:py-40"
     >
+      {/* Stars */}
+      <div className="absolute inset-0 opacity-70">
+        <SkyEffects stars={50} meteors={3} area="full" />
+      </div>
+
       {/* Background atmosphere */}
       <div
         aria-hidden
@@ -137,9 +141,12 @@ export function Services() {
         <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
           {/* PARQUEO */}
           <Tilt max={5}>
-            <article className="svc-card ring-glow group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-night-2 via-emerald-deep to-night-3 p-10 text-bone transition-all duration-500 hover:shadow-[0_0_60px_rgba(116,198,157,0.25)] lg:aspect-[5/6] lg:p-14">
-              <span className="svc-bug pointer-events-none absolute -right-12 -top-12 text-mint/15 transition-transform duration-700 group-hover:rotate-12 group-hover:scale-110">
-                <Grasshopper className="h-72 w-72 lg:h-96 lg:w-96" variant="solid" />
+            <article className="svc-card glow-on-hover ring-glow group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-night-2 via-emerald-deep to-night-3 p-10 text-bone lg:aspect-[5/6] lg:p-14">
+              <span
+                aria-hidden
+                className="svc-num text-outline pointer-events-none absolute -right-4 -top-10 select-none font-display text-[18rem] italic leading-none text-mint/[0.06] lg:text-[24rem]"
+              >
+                01
               </span>
 
               <div className="relative flex items-start justify-between">
@@ -200,9 +207,12 @@ export function Services() {
 
           {/* LAVADO */}
           <Tilt max={5}>
-            <article className="svc-card ring-glow group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-night-3 via-emerald to-night-2 p-10 text-bone transition-all duration-500 hover:shadow-[0_0_60px_rgba(116,198,157,0.25)] lg:aspect-[5/6] lg:p-14">
-              <span className="svc-bug pointer-events-none absolute -right-12 -top-12 text-mint/15 transition-transform duration-700 group-hover:rotate-12 group-hover:scale-110">
-                <Grasshopper className="h-72 w-72 lg:h-96 lg:w-96" variant="solid" />
+            <article className="svc-card glow-on-hover ring-glow group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-night-3 via-emerald to-night-2 p-10 text-bone lg:aspect-[5/6] lg:p-14">
+              <span
+                aria-hidden
+                className="svc-num text-outline pointer-events-none absolute -right-4 -top-10 select-none font-display text-[18rem] italic leading-none text-mint/[0.06] lg:text-[24rem]"
+              >
+                02
               </span>
 
               <div className="relative flex items-start justify-between">
