@@ -351,7 +351,7 @@ export function Hero() {
           </Magnetic>
           <a
             href="#servicios"
-            className="group inline-flex items-center justify-center gap-2 rounded-full border border-mint/30 px-7 py-3.5 text-sm font-medium text-bone transition-all hover:border-mint hover:bg-mint/10 sm:border-0 sm:px-3 sm:py-0"
+            className="group inline-flex items-center justify-center gap-2 rounded-full border border-mint/40 px-7 py-3.5 text-sm font-medium text-bone backdrop-blur-md transition-all hover:border-mint hover:bg-mint/10"
           >
             Ver servicios
             <svg
