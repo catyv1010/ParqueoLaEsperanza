@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,97 +11,134 @@ if (typeof window !== "undefined") {
 
 const services = [
   {
-    n: "001",
+    n: "01",
     title: "Estacionamiento",
-    sub: "Vigilado 24/7",
-    desc: "Cámaras, personal capacitado y entrada controlada. Tu vehículo seguro de día y de noche.",
+    sub: "vigilado 24/7",
+    desc: "Cámaras y personal capacitado. Día, noche o mensualidad.",
     price: "₡1,000",
     unit: "/ hora",
+    img: "https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1400&q=85&auto=format&fit=crop",
   },
   {
-    n: "002",
+    n: "02",
     title: "Lavado Exterior",
-    sub: "Brillo profundo",
-    desc: "Productos premium que protegen la pintura. Espuma activa, enjuague a presión y secado a mano.",
-    price: "Desde ₡4,000",
+    sub: "espuma + presión",
+    desc: "Productos premium que protegen la pintura. Secado a mano.",
+    price: "₡4,000",
     unit: "",
+    img: "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?w=1400&q=85&auto=format&fit=crop",
   },
   {
-    n: "003",
+    n: "03",
     title: "Lavado Interior",
-    sub: "Detalle profundo",
-    desc: "Aspirado profundo, limpieza de tapicería, tablero y vidrios. Aromas finos a elegir.",
-    price: "Desde ₡5,500",
+    sub: "detalle profundo",
+    desc: "Aspirado, tapicería, tablero y vidrios. Aroma a elegir.",
+    price: "₡5,500",
     unit: "",
+    img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=85&auto=format&fit=crop",
   },
   {
-    n: "004",
-    title: "Lavado Premium",
-    sub: "Ceramic shield",
-    desc: "Encerado, pulido y protección cerámica que repele agua y polvo durante meses.",
-    price: "Desde ₡18,000",
+    n: "04",
+    title: "Premium Cerámico",
+    sub: "protección por meses",
+    desc: "Encerado, pulido y sellado cerámico que repele agua.",
+    price: "₡18,000",
     unit: "",
+    img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1400&q=85&auto=format&fit=crop",
   },
   {
-    n: "005",
+    n: "05",
     title: "Lavado de Motor",
-    sub: "Desengrase técnico",
-    desc: "Limpieza profesional del motor con productos especializados. Cuida cables y conexiones.",
-    price: "Desde ₡8,000",
+    sub: "desengrase técnico",
+    desc: "Limpieza profesional con productos especializados.",
+    price: "₡8,000",
     unit: "",
+    img: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=1400&q=85&auto=format&fit=crop",
   },
   {
-    n: "006",
-    title: "Servicio Express",
+    n: "06",
+    title: "Express",
     sub: "30 minutos",
-    desc: "Lavado completo rápido sin perder calidad. Ideal cuando andás corriendo.",
-    price: "Desde ₡3,500",
+    desc: "Lavado completo rápido sin perder calidad.",
+    price: "₡3,500",
     unit: "",
+    img: "https://images.unsplash.com/photo-1542362567-b07e54358753?w=1400&q=85&auto=format&fit=crop",
   },
 ];
 
 export function Services() {
   const root = useRef<HTMLElement>(null);
+  const track = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!root.current) return;
+    if (!root.current || !track.current) return;
     const ctx = gsap.context(() => {
+      // Header animations
       gsap.from(".svc-eyebrow > *", {
+        y: 20,
         opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: "power3.out",
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: ".svc-eyebrow",
-          start: "top 85%",
-        },
-      });
-
-      gsap.from(".svc-title-word", {
-        yPercent: 110,
-        opacity: 0,
-        duration: 1.2,
-        ease: "expo.out",
+        duration: 0.8,
         stagger: 0.06,
-        scrollTrigger: {
-          trigger: ".svc-title",
-          start: "top 80%",
-        },
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".svc-eyebrow", start: "top 85%" },
       });
 
-      gsap.utils.toArray<HTMLElement>(".svc-row").forEach((row) => {
-        gsap.from(row, {
-          opacity: 0,
-          y: 60,
-          duration: 1.1,
-          ease: "power3.out",
+      gsap.from(".svc-title .char", {
+        yPercent: 110,
+        rotate: 6,
+        duration: 1.1,
+        stagger: 0.02,
+        ease: "expo.out",
+        scrollTrigger: { trigger: ".svc-title", start: "top 80%" },
+      });
+
+      // Horizontal scroll on desktop
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+
+      if (isDesktop && track.current && root.current) {
+        const totalWidth = track.current.scrollWidth - window.innerWidth;
+        gsap.to(track.current, {
+          x: -totalWidth,
+          ease: "none",
           scrollTrigger: {
-            trigger: row,
-            start: "top 88%",
+            trigger: root.current,
+            start: "top top",
+            end: () => `+=${totalWidth}`,
+            scrub: 0.5,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           },
         });
-      });
+
+        // Cards stagger reveal as they come into view (horizontal)
+        gsap.utils.toArray<HTMLElement>(".svc-card").forEach((card, i) => {
+          gsap.from(card, {
+            opacity: 0,
+            y: 60,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "left 80%",
+              containerAnimation: gsap.getById?.("hScroll"),
+              horizontal: true,
+            },
+            delay: i * 0.05,
+          });
+        });
+      } else {
+        // Mobile: vertical fade-in
+        gsap.utils.toArray<HTMLElement>(".svc-card").forEach((card) => {
+          gsap.from(card, {
+            opacity: 0,
+            y: 40,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: { trigger: card, start: "top 88%" },
+          });
+        });
+      }
     }, root);
 
     return () => ctx.revert();
@@ -110,103 +148,128 @@ export function Services() {
     <section
       ref={root}
       id="servicios"
-      className="relative overflow-hidden bg-ink py-32 lg:py-48"
+      className="relative overflow-hidden bg-cream py-24 lg:h-screen lg:py-0"
     >
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute -left-20 top-1/3 h-[500px] w-[500px] rounded-full bg-teal/10 blur-[120px]" />
-      <div className="pointer-events-none absolute -right-20 bottom-1/4 h-[400px] w-[400px] rounded-full bg-amber/10 blur-[120px]" />
-
-      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-12">
-        {/* Header */}
+      {/* Header overlay */}
+      <div className="relative z-10 mx-auto max-w-[1500px] px-6 pt-12 lg:absolute lg:left-1/2 lg:top-12 lg:w-full lg:-translate-x-1/2 lg:px-16">
         <div className="grid grid-cols-12 items-end gap-6">
-          <div className="svc-eyebrow col-span-12 flex items-center gap-4 md:col-span-6">
-            <span className="inline-block h-px w-12 bg-amber/60" />
-            <span className="tracking-eyebrow text-xs text-amber/80">
-              Capítulo 02 — Servicios
+          <div className="svc-eyebrow col-span-12 flex items-center gap-4 lg:col-span-6">
+            <span className="inline-block h-px w-12 bg-terra" />
+            <span className="tracking-eyebrow text-xs text-stone">
+              Capítulo 03 — Servicios
             </span>
           </div>
-          <div className="col-span-12 hidden text-right md:col-span-6 md:block">
-            <span className="tracking-eyebrow text-xs text-mute">
-              06 servicios · todo en un solo lugar
+          <div className="col-span-12 hidden text-right lg:col-span-6 lg:block">
+            <span className="tracking-eyebrow text-xs text-stone">
+              06 servicios — desliza →
             </span>
           </div>
 
-          <h2 className="svc-title col-span-12 mt-10 font-display text-[12vw] leading-[0.9] text-bone sm:text-[8vw] lg:text-[7rem]">
-            <span className="block overflow-hidden">
-              <span className="svc-title-word inline-block">Cuidamos</span>
-            </span>
-            <span className="block overflow-hidden italic text-bone-dim">
-              <span className="svc-title-word inline-block">cada</span>{" "}
-              <span className="svc-title-word inline-block text-amber">
-                detalle.
-              </span>
+          <h2 className="svc-title col-span-12 mt-6 font-display text-[12vw] leading-[0.92] text-ink sm:text-[8vw] lg:mt-8 lg:text-7xl xl:text-8xl">
+            <span className="char-mask">
+              {"Cuidamos".split("").map((c, i) => (
+                <span key={i} className="char">
+                  {c}
+                </span>
+              ))}
+            </span>{" "}
+            <span className="char-mask italic text-stone">
+              {"cada".split("").map((c, i) => (
+                <span key={i} className="char">
+                  {c}
+                </span>
+              ))}
+            </span>{" "}
+            <span className="char-mask italic text-terra">
+              {"detalle.".split("").map((c, i) => (
+                <span key={i} className="char">
+                  {c}
+                </span>
+              ))}
             </span>
           </h2>
         </div>
+      </div>
 
-        {/* Service rows */}
-        <div className="mt-24 border-t border-white/10">
+      {/* Track — horizontal on desktop, vertical on mobile */}
+      <div className="lg:flex lg:h-screen lg:items-center">
+        <div
+          ref={track}
+          className="flex flex-col gap-6 px-6 pt-10 lg:flex-row lg:gap-8 lg:px-0 lg:pl-[10vw] lg:pr-[40vw] lg:pt-40"
+        >
           {services.map((s) => (
             <article
               key={s.n}
-              className="svc-row group relative grid grid-cols-12 items-center gap-6 border-b border-white/10 py-10 transition-colors duration-500 hover:bg-white/[0.02] lg:py-12"
+              className="svc-card group relative flex shrink-0 overflow-hidden rounded-3xl bg-paper shadow-sm shadow-ink/5 lg:h-[60vh] lg:w-[42vw] lg:max-w-[640px]"
             >
-              {/* Hover bar */}
-              <span className="pointer-events-none absolute left-0 top-0 h-px w-0 bg-amber transition-all duration-700 group-hover:w-full" />
+              <div className="relative aspect-[4/5] w-full overflow-hidden lg:h-full lg:w-full">
+                <Image
+                  src={s.img}
+                  alt={s.title}
+                  fill
+                  sizes="(min-width: 1024px) 42vw, 100vw"
+                  className="object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105"
+                />
+                {/* Gradient for legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
 
-              <div className="col-span-2 lg:col-span-1">
-                <span className="font-display text-2xl text-mute transition-colors duration-500 group-hover:text-amber">
+                {/* Number top-left */}
+                <div className="absolute left-6 top-6 font-display text-3xl text-bone">
                   {s.n}
-                </span>
-              </div>
+                </div>
 
-              <div className="col-span-10 lg:col-span-4">
-                <h3 className="font-display text-3xl text-bone lg:text-4xl">
-                  {s.title}
-                </h3>
-                <span className="mt-1 inline-block text-xs tracking-eyebrow text-teal-glow">
-                  {s.sub}
-                </span>
-              </div>
+                {/* Price top-right */}
+                <div className="absolute right-6 top-6 text-right">
+                  <div className="font-display text-2xl text-bone">
+                    {s.price}
+                  </div>
+                  {s.unit && (
+                    <div className="text-[10px] tracking-eyebrow text-bone/70">
+                      {s.unit}
+                    </div>
+                  )}
+                </div>
 
-              <div className="col-span-12 lg:col-span-5">
-                <p className="text-sm leading-relaxed text-bone-dim lg:text-base">
-                  {s.desc}
-                </p>
-              </div>
-
-              <div className="col-span-12 text-left lg:col-span-2 lg:text-right">
-                <div className="font-display text-2xl text-bone">{s.price}</div>
-                {s.unit && (
-                  <div className="text-xs text-mute">{s.unit}</div>
-                )}
+                {/* Bottom text */}
+                <div className="absolute bottom-6 left-6 right-6 text-bone">
+                  <div className="text-[10px] tracking-eyebrow text-bone/70">
+                    {s.sub}
+                  </div>
+                  <h3 className="mt-2 font-display text-4xl leading-tight lg:text-5xl">
+                    {s.title}
+                  </h3>
+                  <p className="mt-3 max-w-sm text-sm text-bone/85">
+                    {s.desc}
+                  </p>
+                </div>
               </div>
             </article>
           ))}
-        </div>
 
-        {/* Tarifas footer note */}
-        <div id="tarifas" className="mt-16 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <p className="max-w-md text-sm leading-relaxed text-mute">
-            Tarifas referenciales. Tenemos planes mensuales y nocturnos
-            especiales para residentes y empresas. Consultá por cotización
-            personalizada.
-          </p>
-          <a
-            href="#contacto"
-            className="group inline-flex items-center gap-3 rounded-full border border-bone/20 px-6 py-3 text-sm text-bone transition-colors hover:border-amber/60 hover:text-amber"
-          >
-            Cotizar mensualidad
-            <svg
-              viewBox="0 0 24 24"
-              className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
+          {/* End-of-track CTA */}
+          <div className="flex shrink-0 flex-col items-start justify-center gap-6 rounded-3xl bg-ink p-10 text-bone lg:h-[60vh] lg:w-[36vw] lg:max-w-[500px]">
+            <span className="tracking-eyebrow text-xs text-bone/70">
+              Tarifas referenciales
+            </span>
+            <p className="font-display text-3xl italic leading-tight text-bone lg:text-4xl">
+              ¿Necesitás un plan mensual o tarifa para empresa?
+            </p>
+            <a
+              href="#contacto"
+              className="btn-magnet inline-flex items-center gap-3 rounded-full bg-terra px-7 py-4 text-sm font-medium text-bone transition-colors hover:bg-terra-2"
             >
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </a>
+              Cotizar
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>

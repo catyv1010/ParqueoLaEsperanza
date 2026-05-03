@@ -17,11 +17,15 @@ export function Cursor() {
     const onMove = (e: MouseEvent) => {
       tx = e.clientX;
       ty = e.clientY;
+      const target = e.target as HTMLElement;
+      if (!ref.current) return;
+      const interactive = target.closest("a, button, [data-cursor='hover']");
+      ref.current.classList.toggle("is-hover", !!interactive);
     };
 
     const tick = () => {
-      cx += (tx - cx) * 0.18;
-      cy += (ty - cy) * 0.18;
+      cx += (tx - cx) * 0.22;
+      cy += (ty - cy) * 0.22;
       if (ref.current) {
         ref.current.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
       }
@@ -37,5 +41,5 @@ export function Cursor() {
     };
   }, []);
 
-  return <div ref={ref} className="cursor-glow hidden md:block" aria-hidden />;
+  return <div ref={ref} className="cursor-dot hidden md:block" aria-hidden />;
 }

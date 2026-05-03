@@ -1,27 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* Cinematic dark palette */
-  --color-midnight: #07091a;
-  --color-midnight-2: #0c1130;
-  --color-ink: #050714;
-  --color-fog: #1a1f3a;
+  /* Editorial cinematic palette — light, warm, dramatic */
+  --color-cream: #f3ede1;
+  --color-bone: #faf6ec;
+  --color-paper: #fdfaf3;
+  --color-ink: #131210;
+  --color-charcoal: #1f1d1a;
+  --color-stone: #65615a;
+  --color-mist: #b6afa1;
+  --color-line: #d9d2c2;
+
+  /* Brand */
+  --color-emerald: #1f5c40;
+  --color-emerald-2: #2d7a55;
   --color-teal: #52b788;
-  --color-teal-glow: #74c69d;
-  --color-amber: #ffb35a;
-  --color-amber-soft: #ffd089;
-  --color-bone: #f5f1e8;
-  --color-bone-dim: #c9c3b3;
-  --color-mute: #6b7088;
+  --color-terra: #c8542a;
+  --color-terra-2: #e07043;
+  --color-gold: #c9a35c;
 
   /* Semantic */
-  --color-background: var(--color-midnight);
-  --color-foreground: var(--color-bone);
-  --color-muted: var(--color-mute);
-  --color-accent: var(--color-teal);
-  --color-cta: var(--color-amber);
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+  --color-accent: var(--color-emerald);
+  --color-cta: var(--color-terra);
 
-  /* Fonts (next/font assigns these) */
+  /* Fonts */
   --font-display: var(--font-fraunces);
   --font-body: var(--font-grotesk);
 
@@ -32,135 +36,78 @@
 
 @layer base {
   * {
-    border-color: rgba(245, 241, 232, 0.08);
+    border-color: rgba(31, 18, 16, 0.08);
   }
 
   html {
-    background: var(--color-ink);
-    color: var(--color-bone);
+    background: var(--color-cream);
+    color: var(--color-ink);
     font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  html.lenis,
-  html.lenis body {
-    height: auto;
-  }
-
   body {
-    background: var(--color-midnight);
+    background: var(--color-cream);
     overflow-x: clip;
   }
 
   ::selection {
-    background: var(--color-amber);
-    color: var(--color-ink);
+    background: var(--color-terra);
+    color: var(--color-bone);
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-ink);
+    background: var(--color-cream);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-fog);
+    background: var(--color-mist);
     border-radius: 8px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-teal);
+    background: var(--color-emerald);
   }
 }
 
 @layer utilities {
-  /* Cinematic film grain */
+  /* Subtle paper grain */
   .grain::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.06;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
 
-  /* Vignette */
-  .vignette::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse at center,
-      transparent 40%,
-      rgba(5, 7, 20, 0.7) 100%
-    );
-  }
-
-  /* Headlight beam (animated) */
-  .headlight-beam {
-    position: absolute;
-    width: 80vw;
-    height: 200vh;
-    background: conic-gradient(
-      from 90deg at 50% 0%,
-      transparent 0deg,
-      rgba(255, 179, 90, 0.18) 8deg,
-      rgba(255, 179, 90, 0.08) 14deg,
-      transparent 22deg
-    );
-    transform-origin: 50% 0%;
-    filter: blur(8px);
-    pointer-events: none;
-  }
-
-  /* Cinematic gradient breathing */
-  .breathe-gradient {
-    background: radial-gradient(
-        ellipse 80% 50% at 20% 30%,
-        rgba(82, 183, 136, 0.18),
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse 60% 40% at 80% 70%,
-        rgba(255, 179, 90, 0.12),
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse 50% 80% at 50% 100%,
-        rgba(116, 198, 157, 0.08),
-        transparent 70%
-      ),
-      var(--color-midnight);
-    background-size: 200% 200%;
-    animation: breathe 18s var(--ease-soft) infinite;
-  }
-
-  @keyframes breathe {
-    0%,
-    100% {
-      background-position: 0% 0%, 100% 100%, 50% 50%;
-    }
-    50% {
-      background-position: 30% 30%, 70% 60%, 60% 40%;
-    }
-  }
-
-  /* Big serif display */
   .font-display {
     font-family: var(--font-display), "DM Serif Display", Georgia, serif;
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     line-height: 0.92;
   }
 
-  /* Tracking */
   .tracking-eyebrow {
     letter-spacing: 0.32em;
     text-transform: uppercase;
+  }
+
+  /* Hero letter split base — letters wrapped in span.char */
+  .char {
+    display: inline-block;
+    transform-origin: 50% 100%;
+    will-change: transform, opacity;
+  }
+  .char-mask {
+    overflow: hidden;
+    display: inline-block;
+    line-height: 1;
+    padding-bottom: 0.12em;
   }
 
   /* Marquee */
@@ -173,67 +120,79 @@
     }
   }
   .animate-marquee {
-    animation: marquee 40s linear infinite;
+    animation: marquee 50s linear infinite;
+    will-change: transform;
+  }
+  .animate-marquee-fast {
+    animation: marquee 28s linear infinite;
   }
 
-  /* Reveal initial states (GSAP animates these) */
-  .reveal-up {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  .reveal-blur {
-    opacity: 0;
-    filter: blur(12px);
-    transform: translateY(20px);
-  }
-
-  /* Custom cursor */
-  .cursor-glow {
+  /* Custom cursor (light theme) */
+  .cursor-dot {
     position: fixed;
     pointer-events: none;
-    width: 32px;
-    height: 32px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(255, 179, 90, 0.4),
-      transparent 70%
-    );
-    mix-blend-mode: screen;
+    background: var(--color-terra);
     z-index: 9998;
     transform: translate(-50%, -50%);
-    transition: width 0.3s var(--ease-soft), height 0.3s var(--ease-soft);
+    mix-blend-mode: difference;
+    transition: width 0.25s var(--ease-soft), height 0.25s var(--ease-soft);
+  }
+  .cursor-dot.is-hover {
+    width: 56px;
+    height: 56px;
+    background: var(--color-bone);
+  }
+
+  /* Scroll progress */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 9997;
+    transform-origin: 0 50%;
+    background: var(--color-terra);
+    transform: scaleX(0);
   }
 
   /* Magnetic button base */
-  .btn-magnetic {
+  .btn-magnet {
     position: relative;
     isolation: isolate;
-    overflow: hidden;
-  }
-  .btn-magnetic::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      circle at var(--mx, 50%) var(--my, 50%),
-      rgba(255, 179, 90, 0.4),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.4s var(--ease-soft);
-    z-index: -1;
-  }
-  .btn-magnetic:hover::before {
-    opacity: 1;
+    will-change: transform;
   }
 
-  /* Hide scrollbar utility */
+  /* Image clip reveal */
+  .clip-reveal {
+    clip-path: inset(0 0 100% 0);
+    will-change: clip-path;
+  }
+
+  /* Image Ken Burns */
+  .ken-burns {
+    will-change: transform;
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
   .no-scrollbar {
-    -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Vertical text */
+  .vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* Outline text */
+  .text-outline {
+    -webkit-text-stroke: 1.5px currentColor;
+    color: transparent;
   }
 }

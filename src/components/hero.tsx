@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitWords } from "@/lib/split-text";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -14,58 +16,89 @@ export function Hero() {
   useEffect(() => {
     if (!root.current) return;
     const ctx = gsap.context(() => {
-      // Headline word-by-word reveal
-      gsap.from(".hero-word", {
-        yPercent: 110,
-        opacity: 0,
-        duration: 1.4,
-        ease: "expo.out",
-        stagger: 0.08,
-        delay: 0.2,
-      });
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      // Eyebrow + subline blur reveal
-      gsap.from(".hero-fade", {
-        opacity: 0,
-        y: 20,
-        filter: "blur(10px)",
-        duration: 1.2,
-        ease: "power3.out",
-        stagger: 0.12,
-        delay: 0.6,
-      });
+      // Image clip-path drop
+      tl.fromTo(
+        ".hero-image-wrap",
+        { clipPath: "inset(45% 8% 45% 8%)" },
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.6,
+          ease: "expo.inOut",
+        }
+      );
 
-      // CTA pop
-      gsap.from(".hero-cta", {
-        opacity: 0,
-        y: 30,
-        scale: 0.95,
-        duration: 1,
-        ease: "back.out(1.4)",
-        stagger: 0.1,
-        delay: 1.2,
-      });
+      // Image gentle scale-in
+      tl.fromTo(
+        ".hero-image",
+        { scale: 1.4 },
+        { scale: 1.05, duration: 1.6, ease: "expo.out" },
+        "<"
+      );
 
-      // Stats reveal
-      gsap.from(".hero-stat", {
-        opacity: 0,
-        y: 16,
-        duration: 0.9,
-        ease: "power2.out",
-        stagger: 0.15,
-        delay: 1.6,
-      });
+      // Eyebrow fade
+      tl.from(
+        ".hero-eyebrow > *",
+        {
+          y: 14,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.06,
+        },
+        "-=0.6"
+      );
 
-      // Marquee + scroll cue
-      gsap.from(".hero-marquee", {
-        opacity: 0,
-        duration: 1.5,
-        delay: 1.8,
-      });
+      // Headline letters
+      tl.from(
+        ".hero-h1 .char",
+        {
+          yPercent: 120,
+          rotate: 8,
+          duration: 1.1,
+          ease: "expo.out",
+          stagger: 0.018,
+        },
+        "-=0.7"
+      );
 
-      // Parallax layers
-      gsap.to(".parallax-slow", {
-        yPercent: 30,
+      // Sub
+      tl.from(
+        ".hero-sub > *",
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.08,
+        },
+        "-=0.5"
+      );
+
+      // Stats
+      tl.from(
+        ".hero-stat",
+        {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power2.out",
+        },
+        "-=0.4"
+      );
+
+      tl.from(
+        ".hero-marquee",
+        { opacity: 0, duration: 0.8 },
+        "-=0.3"
+      );
+
+      // Ken Burns on scroll
+      gsap.to(".hero-image", {
+        scale: 1.25,
+        yPercent: 8,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -75,8 +108,10 @@ export function Hero() {
         },
       });
 
-      gsap.to(".parallax-fast", {
-        yPercent: 60,
+      // Parallax content up
+      gsap.to(".hero-content", {
+        yPercent: -25,
+        opacity: 0.2,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -86,10 +121,9 @@ export function Hero() {
         },
       });
 
-      // Headline drift
-      gsap.to(".hero-headline", {
-        yPercent: -20,
-        opacity: 0.4,
+      // Caption side
+      gsap.to(".hero-side", {
+        yPercent: -60,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -107,156 +141,135 @@ export function Hero() {
     <section
       ref={root}
       id="inicio"
-      className="relative isolate flex min-h-screen flex-col justify-center overflow-hidden vignette breathe-gradient"
+      className="relative isolate min-h-[100svh] overflow-hidden bg-cream"
     >
-      {/* Headlight beams */}
-      <div
-        className="headlight-beam parallax-slow"
-        style={{ top: "-30vh", left: "10%", transform: "rotate(8deg)" }}
-      />
-      <div
-        className="headlight-beam parallax-fast"
-        style={{ top: "-30vh", right: "5%", transform: "rotate(-12deg)" }}
-      />
-
-      {/* Diagonal city lights */}
-      <div className="parallax-slow pointer-events-none absolute inset-0 opacity-40">
-        <div className="absolute left-[8%] top-[20%] h-1.5 w-1.5 rounded-full bg-amber-soft shadow-[0_0_20px_4px_rgba(255,179,90,0.6)]" />
-        <div className="absolute right-[12%] top-[15%] h-1 w-1 rounded-full bg-teal-glow shadow-[0_0_15px_3px_rgba(116,198,157,0.7)]" />
-        <div className="absolute left-[20%] bottom-[25%] h-2 w-2 rounded-full bg-amber shadow-[0_0_24px_6px_rgba(255,179,90,0.5)]" />
-        <div className="absolute right-[18%] bottom-[30%] h-1 w-1 rounded-full bg-bone shadow-[0_0_12px_3px_rgba(245,241,232,0.6)]" />
-        <div className="absolute left-[45%] top-[12%] h-1 w-1 rounded-full bg-teal shadow-[0_0_18px_4px_rgba(82,183,136,0.6)]" />
+      {/* Background image full bleed */}
+      <div className="hero-image-wrap absolute inset-0 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=2400&q=85&auto=format&fit=crop"
+          alt="Auto recibiendo lavado profesional con gotas de agua"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-image ken-burns object-cover"
+        />
+        {/* Warm cinematic overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-ink/20 via-ink/45 to-ink/75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-cream via-transparent to-transparent" />
       </div>
 
-      {/* Big watermark serif "01" — chapter marker */}
-      <div className="parallax-fast pointer-events-none absolute -right-12 top-1/4 select-none font-display text-[28rem] leading-none text-white/[0.025] sm:text-[36rem]">
-        01
+      {/* Vertical text — left edge */}
+      <div className="hero-side absolute left-4 top-1/2 z-10 hidden -translate-y-1/2 lg:left-8 lg:block">
+        <span className="vertical-rl block text-xs tracking-eyebrow text-bone/70">
+          La Esperanza · Costa Rica · est. 2014
+        </span>
       </div>
 
-      {/* Main content */}
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-32 pt-40 lg:px-12 lg:pb-40 lg:pt-48">
-        <div className="grid grid-cols-12 gap-6">
-          {/* Eyebrow */}
-          <div className="col-span-12 mb-12 flex items-center gap-4">
-            <span className="hero-fade inline-block h-px w-12 bg-amber/60" />
-            <span className="hero-fade tracking-eyebrow text-xs text-amber/80">
-              Capítulo 01 — Bienvenida
-            </span>
-            <span className="hero-fade ml-auto hidden items-center gap-2 text-xs text-mute md:flex">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-glow" />
-              </span>
-              Abierto · Lun a Dom · 6am — 9pm
-            </span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="hero-headline col-span-12 font-display text-[15vw] text-bone sm:text-[12vw] lg:text-[10rem] xl:text-[12rem]">
-            <span className="block overflow-hidden">
-              <span className="hero-word inline-block">Tu</span>{" "}
-              <span className="hero-word inline-block">vehículo,</span>
-            </span>
-            <span className="block overflow-hidden italic text-bone-dim">
-              <span className="hero-word inline-block">en</span>{" "}
-              <span className="hero-word inline-block">buenas</span>{" "}
-              <span className="hero-word inline-block text-amber">manos.</span>
-            </span>
-          </h1>
-
-          {/* Subline + CTA */}
-          <div className="col-span-12 mt-12 grid grid-cols-12 gap-6">
-            <p className="hero-fade col-span-12 max-w-md text-base leading-relaxed text-bone-dim md:col-span-5 lg:text-lg">
-              Parqueo vigilado las{" "}
-              <span className="text-bone">24 horas</span> y lavacar profesional
-              en un solo lugar. Cuidamos tu auto como si fuera nuestro.
-            </p>
-
-            <div className="col-span-12 flex flex-col items-start gap-4 sm:flex-row md:col-span-7 md:justify-end">
-              <a
-                href="#contacto"
-                className="hero-cta group btn-magnetic inline-flex items-center gap-3 rounded-full bg-amber px-8 py-4 text-sm font-medium text-ink transition-transform duration-500 hover:scale-[1.02]"
-              >
-                Reservar mi espacio
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </a>
-              <a
-                href="#servicios"
-                className="hero-cta group inline-flex items-center gap-3 rounded-full border border-bone/20 px-8 py-4 text-sm font-medium text-bone transition-colors hover:border-bone/60"
-              >
-                Ver servicios
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-teal-glow transition-transform duration-500 group-hover:translate-y-1" />
-              </a>
-            </div>
-          </div>
-
-          {/* Stats strip */}
-          <div className="col-span-12 mt-24 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-white/5 pt-10 md:grid-cols-4">
-            {[
-              { num: "₡1,000", label: "por hora de parqueo" },
-              { num: "24/7", label: "vigilancia activa" },
-              { num: "+5,000", label: "clientes satisfechos" },
-              { num: "10+", label: "años de experiencia" },
-            ].map((s) => (
-              <div key={s.label} className="hero-stat">
-                <div className="font-display text-4xl text-bone lg:text-5xl">
-                  {s.num}
-                </div>
-                <div className="mt-2 text-xs tracking-eyebrow text-mute">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Right meta */}
+      <div className="hero-side absolute right-4 top-1/2 z-10 hidden -translate-y-1/2 lg:right-8 lg:block">
+        <div className="flex flex-col items-end gap-3 text-bone/70">
+          <span className="font-display text-7xl italic leading-none">N°01</span>
+          <span className="tracking-eyebrow text-[10px]">capítulo</span>
+          <span className="mt-4 inline-block h-32 w-px bg-bone/40" />
         </div>
       </div>
 
-      {/* Bottom marquee */}
-      <div className="hero-marquee relative z-10 overflow-hidden border-y border-white/5 bg-ink/40 py-4 backdrop-blur-sm">
-        <div className="animate-marquee flex shrink-0 items-center gap-12 whitespace-nowrap text-xs tracking-eyebrow text-mute">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex shrink-0 items-center gap-12">
-              <span>★ Vigilancia 24/7</span>
-              <span className="h-1 w-1 rounded-full bg-amber/60" />
-              <span>Lavado premium · cera · cerámica</span>
-              <span className="h-1 w-1 rounded-full bg-teal/60" />
-              <span>Tarifa nocturna disponible</span>
-              <span className="h-1 w-1 rounded-full bg-amber/60" />
-              <span>Mensualidad para residentes</span>
-              <span className="h-1 w-1 rounded-full bg-teal/60" />
-              <span>+506 7020-7762</span>
-              <span className="h-1 w-1 rounded-full bg-amber/60" />
+      {/* Content */}
+      <div className="hero-content relative z-10 mx-auto flex min-h-[100svh] max-w-[1500px] flex-col justify-end px-6 pb-32 pt-32 lg:px-16 lg:pb-40 lg:pt-40">
+        <div className="hero-eyebrow mb-8 flex items-center gap-4 text-bone">
+          <span className="inline-block h-px w-12 bg-terra" />
+          <span className="tracking-eyebrow text-xs text-bone/90">
+            Parqueo · Lavacar · Costa Rica
+          </span>
+        </div>
+
+        <h1 className="hero-h1 max-w-[18ch] font-display text-[15vw] text-bone sm:text-[11vw] lg:text-[8.5rem] xl:text-[10rem]">
+          <SplitWords text="Tu auto," />
+          <br />
+          <span className="italic text-bone/85">
+            <SplitWords text="en buenas" />
+          </span>
+          <br />
+          <span className="italic text-terra-2">
+            <SplitWords text="manos." />
+          </span>
+        </h1>
+
+        <div className="hero-sub mt-12 grid grid-cols-12 gap-6">
+          <p className="col-span-12 max-w-md text-base leading-relaxed text-bone/85 md:col-span-5 lg:text-lg">
+            Parqueo vigilado las{" "}
+            <span className="text-bone underline decoration-terra decoration-2 underline-offset-4">
+              24 horas
+            </span>{" "}
+            y lavacar profesional. Cuidamos tu vehículo como si fuera el
+            nuestro.
+          </p>
+
+          <div className="col-span-12 flex flex-col items-start gap-4 sm:flex-row md:col-span-7 md:items-center md:justify-end">
+            <a
+              href="#contacto"
+              className="btn-magnet group inline-flex items-center gap-3 rounded-full bg-terra px-8 py-4 text-sm font-medium text-bone transition-all duration-500 hover:bg-terra-2"
+            >
+              Reservar mi espacio
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href="#servicios"
+              className="group inline-flex items-center gap-3 text-sm font-medium text-bone"
+            >
+              <span className="relative">
+                Ver servicios
+                <span className="absolute -bottom-1 left-0 h-px w-full bg-bone/50 transition-all duration-500 group-hover:w-0" />
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-terra transition-all duration-500 group-hover:w-full" />
+              </span>
+            </a>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-20 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-bone/20 pt-8 md:grid-cols-4">
+          {[
+            { num: "₡1,000", label: "por hora de parqueo" },
+            { num: "24/7", label: "vigilancia activa" },
+            { num: "+5,000", label: "clientes felices" },
+            { num: "10+", label: "años cuidando autos" },
+          ].map((s) => (
+            <div key={s.label} className="hero-stat">
+              <div className="font-display text-4xl text-bone lg:text-5xl">
+                {s.num}
+              </div>
+              <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
+                {s.label}
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="hero-marquee absolute bottom-24 left-1/2 z-10 -translate-x-1/2 md:bottom-32">
-        <div className="flex flex-col items-center gap-2 text-xs tracking-eyebrow text-mute">
-          <span>Scroll</span>
-          <span className="relative flex h-10 w-px overflow-hidden bg-white/10">
-            <span className="absolute inset-x-0 top-0 h-1/2 animate-[scrollDown_2s_ease-in-out_infinite] bg-amber" />
-          </span>
+      {/* Bottom marquee */}
+      <div className="hero-marquee absolute bottom-0 left-0 right-0 z-10 overflow-hidden border-t border-bone/15 bg-ink/30 py-3 backdrop-blur-md">
+        <div className="animate-marquee flex shrink-0 items-center gap-10 whitespace-nowrap font-display text-xl italic text-bone">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex shrink-0 items-center gap-10">
+              <span>★ Parqueo vigilado 24/7</span>
+              <span className="text-terra-2">·</span>
+              <span>Lavado premium con cera y cerámica</span>
+              <span className="text-terra-2">·</span>
+              <span>Servicio nocturno disponible</span>
+              <span className="text-terra-2">·</span>
+              <span>+506 7020-7762</span>
+              <span className="text-terra-2">·</span>
+            </div>
+          ))}
         </div>
-        <style jsx>{`
-          @keyframes scrollDown {
-            0% {
-              transform: translateY(-100%);
-            }
-            100% {
-              transform: translateY(200%);
-            }
-          }
-        `}</style>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Space_Grotesk } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Cursor } from "@/components/cursor";
+import { ScrollProgress } from "@/components/scroll-progress";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -30,9 +31,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={`${fraunces.variable} ${grotesk.variable}`}>
-      <body className="grain bg-midnight text-bone">
+      <body className="grain bg-cream text-ink">
         <SmoothScroll />
         <Cursor />
+        <ScrollProgress />
         {children}
       </body>
     </html>
