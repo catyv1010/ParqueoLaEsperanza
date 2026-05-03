@@ -72,11 +72,20 @@ export function Footer() {
 
           <div className="col-span-12 md:col-span-3">
             <div className="tracking-eyebrow text-xs text-bone/55">
-              Horario
+              Horario · Ubicación
             </div>
             <ul className="mt-4 space-y-2 text-sm text-bone/85">
-              <li>Lunes a Domingo</li>
-              <li>6:00am — 9:00pm</li>
+              <li>Lunes a Domingo · 6am — 9pm</li>
+              <li>
+                <a
+                  href="https://www.google.com/maps/place/Parqueo+La+Esperanza/@9.862587,-83.9205466,17z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-mint"
+                >
+                  Cartago, Costa Rica →
+                </a>
+              </li>
               <li className="flex items-center gap-2 text-teal">
                 <span className="h-1.5 w-1.5 rounded-full bg-teal" />
                 Abierto ahora

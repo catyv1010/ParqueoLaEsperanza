@@ -216,7 +216,9 @@ export function Gallery() {
             </div>
 
             <a
-              href="#contacto"
+              href="https://www.google.com/maps/place/Parqueo+La+Esperanza/@9.862587,-83.9205466,17z/data=!3m1!4b1!4m6!3m5!1s0x8fa0dfeec24555c1:0x9bbf4c34e384c70e!8m2!3d9.8625817!4d-83.9179717!16s%2Fg%2F11g9h2x9fn"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-magnet group inline-flex w-fit items-center gap-3 rounded-full bg-emerald px-7 py-4 text-sm font-medium text-bone transition-colors hover:bg-emerald-deep"
             >
               Cómo llegar
@@ -227,7 +229,7 @@ export function Gallery() {
                 stroke="currentColor"
                 strokeWidth="2"
               >
-                <path d="M5 12h14M13 5l7 7-7 7" />
+                <path d="M14 3h7v7M10 14L21 3M21 14v7H3V3h7" />
               </svg>
             </a>
           </div>

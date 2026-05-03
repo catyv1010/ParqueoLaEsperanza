@@ -1,16 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { LOCATION, WA } from "@/lib/links";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-
-const WA =
-  "https://wa.me/50670207762?text=Hola!%20Me%20interesa%20informaci%C3%B3n%20sobre%20Parqueo%20y%20Lavacar%20La%20Esperanza";
 
 export function Contact() {
   const root = useRef<HTMLElement>(null);
@@ -37,24 +34,13 @@ export function Contact() {
       });
 
       gsap.fromTo(
-        ".ct-photo",
+        ".ct-map",
         { clipPath: "inset(100% 0% 0% 0%)" },
         {
           clipPath: "inset(0% 0% 0% 0%)",
           duration: 1.6,
           ease: "expo.out",
-          scrollTrigger: { trigger: ".ct-photo", start: "top 85%" },
-        }
-      );
-
-      gsap.fromTo(
-        ".ct-photo img",
-        { scale: 1.4 },
-        {
-          scale: 1.05,
-          duration: 1.6,
-          ease: "expo.out",
-          scrollTrigger: { trigger: ".ct-photo", start: "top 85%" },
+          scrollTrigger: { trigger: ".ct-map", start: "top 85%" },
         }
       );
 
@@ -110,32 +96,69 @@ export function Contact() {
         </h2>
 
         <div className="mt-16 grid grid-cols-12 gap-8 lg:gap-12">
-          {/* Photo */}
-          <div className="ct-photo relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-line lg:col-span-6 lg:aspect-auto lg:min-h-[640px]">
-            <Image
-              src="/foto-parqueo.jpg"
-              alt="Parqueo y Lavacar La Esperanza — entrada del local"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-top"
+          {/* MAP */}
+          <div className="ct-map relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-emerald-deep shadow-2xl shadow-emerald-deep/30 lg:col-span-6 lg:aspect-auto lg:min-h-[640px]">
+            <iframe
+              src={LOCATION.embed}
+              className="absolute inset-0 h-full w-full"
+              style={{ border: 0, filter: "saturate(0.85) contrast(0.95)" }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+              title="Parqueo y Lavacar La Esperanza · Cartago"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 via-transparent to-transparent" />
-            <div className="absolute bottom-8 left-8 right-8 text-bone">
-              <div className="font-display text-3xl italic lg:text-4xl">
-                Te esperamos.
-              </div>
-              <div className="mt-2 text-xs tracking-eyebrow text-bone/85">
-                Cartago, CR · Lun — Dom · 6am a 9pm
+
+            {/* Floating address card */}
+            <div className="pointer-events-none absolute left-6 top-6 right-6 sm:right-auto sm:max-w-xs">
+              <div className="rounded-2xl bg-bone/95 p-5 shadow-xl shadow-emerald-deep/20 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-emerald">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-3 w-3"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" />
+                  </svg>
+                  Ubicación
+                </div>
+                <div className="mt-2 font-display text-2xl italic leading-tight text-emerald-deep">
+                  Parqueo La Esperanza
+                </div>
+                <div className="mt-2 text-xs text-stone">
+                  Cartago, Costa Rica
+                </div>
+                <div className="mt-1 font-mono text-[10px] text-mist">
+                  {LOCATION.lat}, {LOCATION.lng}
+                </div>
               </div>
             </div>
+
+            {/* Open in Maps button */}
+            <a
+              href={LOCATION.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-magnet group absolute bottom-6 left-6 right-6 inline-flex items-center justify-center gap-3 rounded-full bg-emerald-deep px-6 py-3.5 text-sm font-medium text-bone shadow-xl shadow-emerald-deep/40 transition-all hover:bg-emerald sm:left-auto sm:right-6 sm:w-auto"
+            >
+              Abrir en Google Maps
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M14 3h7v7M10 14L21 3M21 14v7H3V3h7" />
+              </svg>
+            </a>
           </div>
 
-          {/* Info */}
+          {/* Info column */}
           <div className="ct-info col-span-12 lg:col-span-6">
-            <div className="border-t border-line">
+            <div className="border-t border-emerald/15">
               <a
                 href="tel:+50670207762"
-                className="ct-row group flex items-center justify-between border-b border-line py-6 transition-colors hover:bg-paper/60"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
               >
                 <div>
                   <div className="text-[10px] tracking-eyebrow text-stone">
@@ -152,7 +175,7 @@ export function Contact() {
 
               <a
                 href="tel:+50688322660"
-                className="ct-row group flex items-center justify-between border-b border-line py-6 transition-colors hover:bg-paper/60"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
               >
                 <div>
                   <div className="text-[10px] tracking-eyebrow text-stone">
@@ -171,7 +194,7 @@ export function Contact() {
                 href={WA}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ct-row group flex items-center justify-between border-b border-line py-6 transition-colors hover:bg-paper/60"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
               >
                 <div>
                   <div className="text-[10px] tracking-eyebrow text-stone">
@@ -186,7 +209,26 @@ export function Contact() {
                 </span>
               </a>
 
-              <div className="ct-row flex items-center justify-between border-b border-line py-6">
+              <a
+                href={LOCATION.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
+              >
+                <div>
+                  <div className="text-[10px] tracking-eyebrow text-stone">
+                    Dirección
+                  </div>
+                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
+                    Cartago, CR
+                  </div>
+                </div>
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
+                  →
+                </span>
+              </a>
+
+              <div className="ct-row flex items-center justify-between border-b border-emerald/15 py-6">
                 <div>
                   <div className="text-[10px] tracking-eyebrow text-stone">
                     Horario
@@ -199,13 +241,12 @@ export function Contact() {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
                       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-2" />
                     </span>
-                    Abierto ahora
+                    Lunes a Domingo · Abierto ahora
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* CTA strip */}
             <div className="ct-row mt-10 flex flex-col items-stretch gap-3 sm:flex-row">
               <a
                 href="tel:+50670207762"
