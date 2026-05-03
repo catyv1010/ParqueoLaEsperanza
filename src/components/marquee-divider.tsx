@@ -35,15 +35,15 @@ export function MarqueeDivider({
 
   return (
     <div
-      className={`relative ${bg} overflow-hidden border-y ${borderColor} py-6 lg:py-8`}
+      className={`relative ${bg} overflow-hidden border-y ${borderColor} py-4 lg:py-8`}
     >
       <div
-        className={`flex shrink-0 items-center gap-12 whitespace-nowrap text-4xl ${textColor} lg:text-6xl ${
+        className={`flex shrink-0 items-center gap-6 whitespace-nowrap text-2xl ${textColor} sm:gap-8 sm:text-3xl lg:gap-12 lg:text-6xl ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
         }`}
       >
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="flex shrink-0 items-center gap-12">
+          <div key={i} className="flex shrink-0 items-center gap-6 sm:gap-8 lg:gap-12">
             {content}
           </div>
         ))}

@@ -160,18 +160,17 @@ export function EsperanzaStory() {
         <div className="-mt-12 max-w-4xl lg:-mt-20">
           <p className="font-display text-2xl leading-[1.32] sm:text-3xl lg:text-[2.6rem] lg:leading-[1.25]">
             {STORY.map((item, i) => (
-              <span
-                key={i}
-                className={`es-word inline-block transition-[color,text-shadow] duration-300 ${
-                  item.accent ? "italic" : ""
-                }`}
-                style={{
-                  marginRight: "0.25em",
-                  color: "rgba(13, 20, 16, 0.18)",
-                }}
-                data-accent={item.accent ? "1" : "0"}
-              >
-                {item.w}
+              <span key={i}>
+                <span
+                  className={`es-word inline transition-[color,text-shadow] duration-300 ${
+                    item.accent ? "italic" : ""
+                  }`}
+                  style={{ color: "rgba(13, 20, 16, 0.18)" }}
+                  data-accent={item.accent ? "1" : "0"}
+                >
+                  {item.w}
+                </span>
+                {i < STORY.length - 1 ? " " : ""}
               </span>
             ))}
           </p>

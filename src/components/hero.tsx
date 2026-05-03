@@ -268,16 +268,18 @@ export function Hero() {
       </svg>
 
       {/* Plate eyebrow top */}
-      <div className="hero-eyebrow-top absolute left-1/2 top-28 z-30 -translate-x-1/2">
-        <div className="flex items-center gap-3 rounded-full border border-mint/25 bg-night/40 px-5 py-2 backdrop-blur-md">
+      <div className="hero-eyebrow-top absolute left-1/2 top-24 z-30 -translate-x-1/2 lg:top-28">
+        <div className="flex items-center gap-2.5 whitespace-nowrap rounded-full border border-mint/25 bg-night/40 px-4 py-1.5 backdrop-blur-md lg:gap-3 lg:px-5 lg:py-2">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-mint pulse-mint" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
           </span>
-          <span className="font-display text-sm italic text-bone">Cartago</span>
+          <span className="font-display text-xs italic text-bone lg:text-sm">
+            Cartago
+          </span>
           <span className="text-bone/40">·</span>
-          <span className="tracking-eyebrow text-[9px] text-bone/65">
-            Costa Rica · Abierto ahora
+          <span className="tracking-eyebrow text-[8px] text-bone/65 lg:text-[9px]">
+            Costa Rica · Abierto
           </span>
         </div>
       </div>
@@ -290,27 +292,27 @@ export function Hero() {
       </div>
 
       {/* MAIN content centered */}
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1300px] flex-col items-center justify-center gap-10 px-6 pb-32 pt-40 text-center lg:gap-12 lg:pt-44">
-        {/* Eyebrow line */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1300px] flex-col items-center justify-center gap-8 px-5 pb-24 pt-36 text-center sm:px-6 lg:gap-12 lg:pb-32 lg:pt-44">
+        {/* Eyebrow line — sin reglas en mobile */}
         <div className="hero-eyebrow-line flex items-center gap-4 text-mint/70">
-          <span className="inline-block h-px w-10 bg-mint/50" />
-          <span className="tracking-eyebrow text-[10px]">
-            Parqueo · Lavacar · Vigilado 24/7
+          <span className="hidden h-px w-10 bg-mint/50 sm:inline-block" />
+          <span className="tracking-eyebrow text-[9px] lg:text-[10px]">
+            Parqueo · Lavacar · 24/7
           </span>
-          <span className="inline-block h-px w-10 bg-mint/50" />
+          <span className="hidden h-px w-10 bg-mint/50 sm:inline-block" />
         </div>
 
         {/* HEADLINE */}
         <div className="hero-title-wrap">
           <h1 className="hero-title font-display leading-[0.95] text-bone">
-            <span className="char-mask block text-[clamp(2.2rem,4.5vw,4.5rem)] tracking-tight">
+            <span className="char-mask block text-[clamp(1.7rem,4.5vw,4.5rem)] tracking-tight">
               {"Parqueo y Lavacar".split("").map((c, i) => (
                 <span key={i} className="char">
                   {c === " " ? " " : c}
                 </span>
               ))}
             </span>
-            <span className="char-mask glow-mint mt-3 block text-[clamp(3.2rem,8vw,8.5rem)] italic leading-[1.02]">
+            <span className="char-mask glow-mint mt-2 block text-[clamp(2.6rem,8vw,8.5rem)] italic leading-[1.02] lg:mt-3">
               {"La Esperanza".split("").map((c, i) => (
                 <span key={i + 100} className="char">
                   {c === " " ? " " : c}
@@ -321,7 +323,7 @@ export function Hero() {
         </div>
 
         {/* Subtitle */}
-        <p className="hero-sub max-w-2xl text-base leading-relaxed text-bone/80 lg:text-xl">
+        <p className="hero-sub max-w-2xl text-sm leading-relaxed text-bone/80 sm:text-base lg:text-xl">
           Tu vehículo, en buenas manos. Vigilancia las{" "}
           <span className="text-mint underline decoration-mint/60 decoration-1 underline-offset-4">
             24 horas
@@ -399,8 +401,8 @@ export function Hero() {
       </div>
 
       {/* PHOTO BANNER bottom — wide aspect, contained */}
-      <div className="relative z-10 mx-auto mb-16 max-w-[1300px] px-6 lg:px-12">
-        <figure className="hero-banner ring-glow-strong relative aspect-[16/7] overflow-hidden rounded-2xl">
+      <div className="relative z-10 mx-auto mb-12 max-w-[1300px] px-5 sm:px-6 lg:mb-16 lg:px-12">
+        <figure className="hero-banner ring-glow-strong relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/9] lg:aspect-[16/7]">
           <Image
             src="/foto-parqueo.jpg"
             alt="Parqueo y Lavacar La Esperanza — Cartago"
