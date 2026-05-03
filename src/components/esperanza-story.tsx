@@ -9,34 +9,54 @@ if (typeof window !== "undefined") {
 }
 
 const STORY = [
-  { w: "La" },
-  { w: "esperanza", accent: true },
-  { w: "es" },
-  { w: "ese" },
-  { w: "símbolo" },
-  { w: "verde", accent: true },
+  { w: "Nacimos" },
+  { w: "por" },
+  { w: "una" },
+  { w: "idea" },
+  { w: "simple:", accent: true },
   { w: "que" },
-  { w: "trae" },
-  { w: "buena" },
-  { w: "suerte", accent: true },
   { w: "en" },
-  { w: "Costa" },
-  { w: "Rica." },
-  { w: "Calma," },
-  { w: "paciencia" },
+  { w: "Cartago" },
+  { w: "hubiera" },
+  { w: "un" },
+  { w: "lugar" },
+  { w: "verdaderamente" },
+  { w: "seguro", accent: true },
+  { w: "para" },
+  { w: "tu" },
+  { w: "carro," },
   { w: "y" },
-  { w: "cuidado", accent: true },
-  { w: "—" },
+  { w: "un" },
+  { w: "lavacar", accent: true },
+  { w: "profesional" },
+  { w: "que" },
+  { w: "lo" },
+  { w: "cuidara", accent: true },
+  { w: "como" },
+  { w: "si" },
+  { w: "fuera" },
+  { w: "nuestro." },
+  { w: "Más" },
+  { w: "de" },
+  { w: "diez" },
+  { w: "años" },
+  { w: "después," },
+  { w: "seguimos" },
+  { w: "haciendo" },
   { w: "exactamente" },
+  { w: "eso" },
+  { w: "—" },
+  { w: "protegiendo" },
   { w: "lo" },
   { w: "que" },
-  { w: "sentimos" },
-  { w: "por" },
-  { w: "cada" },
-  { w: "carro", accent: true },
-  { w: "que" },
-  { w: "nos" },
-  { w: "confías.", accent: true },
+  { w: "más" },
+  { w: "importa:", accent: true },
+  { w: "tu" },
+  { w: "vehículo,", accent: true },
+  { w: "tu" },
+  { w: "tiempo,", accent: true },
+  { w: "tu" },
+  { w: "tranquilidad.", accent: true },
 ];
 
 export function EsperanzaStory() {
@@ -66,7 +86,6 @@ export function EsperanzaStory() {
         });
       });
 
-      // Watermark slow horizontal
       gsap.to(".es-watermark", {
         xPercent: -10,
         ease: "none",
@@ -78,7 +97,6 @@ export function EsperanzaStory() {
         },
       });
 
-      // Decorative line draw on scroll
       gsap.fromTo(
         ".es-line",
         { scaleX: 0 },
@@ -89,6 +107,15 @@ export function EsperanzaStory() {
           scrollTrigger: { trigger: ".es-line", start: "top 85%" },
         }
       );
+
+      gsap.from(".es-quote-mark", {
+        scale: 0,
+        rotate: -30,
+        opacity: 0,
+        duration: 1.4,
+        ease: "back.out(1.6)",
+        scrollTrigger: { trigger: ".es-quote-mark", start: "top 85%" },
+      });
     }, root);
 
     return () => ctx.revert();
@@ -99,12 +126,12 @@ export function EsperanzaStory() {
       ref={root}
       className="relative overflow-hidden mesh-beige py-32 lg:py-44"
     >
-      {/* Watermark gigante outline emerald */}
+      {/* Watermark gigante */}
       <span
         aria-hidden
         className="es-watermark text-outline-emerald pointer-events-none absolute -bottom-6 left-0 select-none whitespace-nowrap font-display text-[28vw] italic leading-none opacity-25 lg:text-[20rem]"
       >
-        esperanza
+        nuestra historia
       </span>
 
       {/* Decorative blob */}
@@ -112,16 +139,25 @@ export function EsperanzaStory() {
         aria-hidden
         className="absolute -right-20 top-20 h-[420px] w-[420px] rounded-full bg-emerald/10 blur-[160px]"
       />
+      <div
+        aria-hidden
+        className="absolute -left-32 bottom-40 h-[360px] w-[360px] rounded-full bg-mint/15 blur-[160px]"
+      />
 
       <div className="relative mx-auto max-w-[1200px] px-6 lg:px-12">
         <div className="es-eyebrow flex items-center gap-4">
           <span className="es-line inline-block h-px w-12 bg-emerald origin-left" />
           <span className="tracking-eyebrow text-xs text-stone">
-            Capítulo 02 — Por qué La Esperanza
+            Capítulo 02 — Nuestra historia
           </span>
         </div>
 
-        <div className="mt-16 max-w-4xl">
+        {/* Big quote mark decorativo */}
+        <div className="es-quote-mark mt-8 font-display text-[8rem] italic leading-none text-emerald/25 lg:text-[12rem]">
+          &ldquo;
+        </div>
+
+        <div className="-mt-12 max-w-4xl lg:-mt-20">
           <p className="font-display text-2xl leading-[1.32] sm:text-3xl lg:text-[2.6rem] lg:leading-[1.25]">
             {STORY.map((item, i) => (
               <span
@@ -143,7 +179,7 @@ export function EsperanzaStory() {
           <div className="mt-14 flex items-center gap-4">
             <span className="inline-block h-px w-8 bg-emerald/40" />
             <span className="tracking-eyebrow text-[10px] text-stone">
-              — el equipo La Esperanza, Cartago
+              — el equipo La Esperanza, Cartago · est. 2014
             </span>
           </div>
         </div>
