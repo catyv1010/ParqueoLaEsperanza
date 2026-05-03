@@ -83,9 +83,9 @@ export function Services() {
       id="servicios"
       className="spotlight relative overflow-hidden bg-night py-28 lg:py-40"
     >
-      {/* Stars */}
+      {/* Stars sutiles */}
       <div className="absolute inset-0 opacity-70">
-        <SkyEffects stars={50} meteors={3} area="full" />
+        <SkyEffects stars={50} area="full" />
       </div>
 
       {/* Background atmosphere */}

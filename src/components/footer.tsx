@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="relative overflow-hidden border-t border-mint/10 bg-night py-16 text-bone lg:py-24">
       {/* Subtle stars */}
       <div className="absolute inset-0 opacity-50">
-        <SkyEffects stars={30} meteors={2} area="full" />
+        <SkyEffects stars={30} area="full" />
       </div>
 
       {/* Glow */}

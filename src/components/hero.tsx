@@ -9,6 +9,7 @@ import { CountUp } from "@/components/count-up";
 import { SkyEffects } from "@/components/sky-effects";
 import { Constellation } from "@/components/constellation";
 import { Particles } from "@/components/particles";
+import { Aurora } from "@/components/aurora";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -207,15 +208,18 @@ export function Hero() {
       id="inicio"
       className="spotlight relative isolate min-h-[100svh] overflow-hidden mesh-night"
     >
+      {/* AURORA boreal — ondas suaves de luz */}
+      <Aurora />
+
       {/* 3 LAYERS of stars con parallax distinto */}
       <div className="stars-back absolute inset-0">
-        <SkyEffects stars={35} meteors={0} area="full" />
+        <SkyEffects stars={35} area="full" />
       </div>
       <div className="stars-mid absolute inset-0">
-        <SkyEffects stars={50} meteors={0} area="full" />
+        <SkyEffects stars={50} area="full" />
       </div>
       <div className="stars-front absolute inset-0">
-        <SkyEffects stars={30} meteors={6} area="full" />
+        <SkyEffects stars={30} area="full" />
       </div>
 
       {/* Constelación SVG */}
