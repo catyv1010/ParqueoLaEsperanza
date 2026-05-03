@@ -82,7 +82,7 @@ export function Services() {
     <section
       ref={root}
       id="servicios"
-      className="relative overflow-hidden bg-night py-28 lg:py-40"
+      className="spotlight relative overflow-hidden bg-night py-28 lg:py-40"
     >
       {/* Background atmosphere */}
       <div

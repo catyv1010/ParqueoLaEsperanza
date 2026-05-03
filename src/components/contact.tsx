@@ -61,7 +61,7 @@ export function Contact() {
     <section
       ref={root}
       id="contacto"
-      className="relative overflow-hidden bg-night py-28 lg:py-40"
+      className="spotlight relative overflow-hidden bg-night py-28 lg:py-40"
     >
       <div
         aria-hidden

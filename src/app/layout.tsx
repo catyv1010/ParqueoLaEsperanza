@@ -3,6 +3,7 @@ import { Fraunces, Space_Grotesk } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Cursor } from "@/components/cursor";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { SpotlightTracker } from "@/components/spotlight-tracker";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -35,6 +36,7 @@ export default function RootLayout({
         <SmoothScroll />
         <Cursor />
         <ScrollProgress />
+        <SpotlightTracker />
         {children}
       </body>
     </html>

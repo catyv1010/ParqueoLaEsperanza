@@ -64,7 +64,6 @@ export function EsperanzaStory() {
         scrollTrigger: { trigger: ".es-bug-wrap", start: "top 80%" },
       });
 
-      // Word fill on scroll
       gsap.utils.toArray<HTMLElement>(".es-word").forEach((w) => {
         ScrollTrigger.create({
           trigger: w,
@@ -77,7 +76,7 @@ export function EsperanzaStory() {
         });
       });
 
-      // Bug parallax
+      // Bug parallax + rotation
       gsap.to(".es-bug", {
         yPercent: -25,
         rotate: 12,
@@ -90,7 +89,7 @@ export function EsperanzaStory() {
         },
       });
 
-      // Watermark word slow scroll
+      // Watermark slow horizontal
       gsap.to(".es-watermark", {
         xPercent: -8,
         ease: "none",
@@ -101,6 +100,14 @@ export function EsperanzaStory() {
           scrub: true,
         },
       });
+
+      // Morphing blob slow rotation
+      gsap.to(".es-blob", {
+        rotate: 360,
+        duration: 60,
+        repeat: -1,
+        ease: "none",
+      });
     }, root);
 
     return () => ctx.revert();
@@ -109,51 +116,55 @@ export function EsperanzaStory() {
   return (
     <section
       ref={root}
-      className="relative overflow-hidden bg-night py-32 lg:py-48"
+      className="relative overflow-hidden mesh-beige py-32 lg:py-48"
     >
-      {/* Background watermark */}
+      {/* Watermark gigante */}
       <span
         aria-hidden
-        className="es-watermark pointer-events-none absolute -bottom-10 left-0 select-none whitespace-nowrap font-display text-[28vw] italic leading-none text-mint/[0.04] lg:text-[20rem]"
+        className="es-watermark text-outline-emerald pointer-events-none absolute -bottom-10 left-0 select-none whitespace-nowrap font-display text-[28vw] italic leading-none opacity-20 lg:text-[20rem]"
       >
         esperanza
       </span>
 
-      {/* Mesh blob */}
+      {/* Morphing blob decorativo */}
       <div
         aria-hidden
-        className="absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-emerald/15 blur-[160px]"
+        className="es-blob morph-shape absolute -right-20 top-20 h-[420px] w-[420px] bg-gradient-to-br from-emerald/15 via-mint/20 to-transparent blur-3xl"
       />
 
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="es-eyebrow flex items-center gap-4">
-          <span className="inline-block h-px w-12 bg-mint" />
-          <span className="tracking-eyebrow text-xs text-mint/70">
+          <span className="inline-block h-px w-12 bg-emerald" />
+          <span className="tracking-eyebrow text-xs text-stone">
             Capítulo 02 — Por qué La Esperanza
           </span>
         </div>
 
         <div className="mt-12 grid grid-cols-12 items-start gap-10 lg:gap-16">
-          {/* Big floating chapulín */}
+          {/* Big chapulín verde */}
           <div className="es-bug-wrap col-span-12 flex justify-center lg:col-span-4 lg:justify-start">
             <div className="es-bug relative">
-              <div className="absolute inset-0 -z-10 scale-150 rounded-full bg-mint/15 blur-3xl" />
-              <span className="text-mint animate-float drop-shadow-[0_0_40px_rgba(116,198,157,0.4)]">
-                <Grasshopper className="h-56 w-56 lg:h-80 lg:w-80" />
+              <div className="absolute inset-0 -z-10 scale-150 rounded-full bg-emerald/20 blur-3xl" />
+              <span className="text-emerald animate-float drop-shadow-[0_0_40px_rgba(31,92,64,0.35)]">
+                <Grasshopper className="h-56 w-56 lg:h-80 lg:w-80" variant="solid" />
               </span>
             </div>
           </div>
 
-          {/* Story text */}
+          {/* Story text — gris ink que se ilumina en emerald */}
           <div className="col-span-12 lg:col-span-8">
-            <p className="font-display text-3xl leading-[1.25] sm:text-4xl lg:text-[3.2rem] lg:leading-[1.18]">
+            <p className="font-display text-3xl leading-[1.25] text-ink/15 sm:text-4xl lg:text-[3.2rem] lg:leading-[1.18]">
               {STORY.map((item, i) => (
                 <span
                   key={i}
-                  className={`es-word scroll-fill-word ${
-                    item.accent ? "is-accent italic" : ""
+                  className={`es-word inline-block transition-[color,text-shadow] duration-300 ${
+                    item.accent ? "italic" : ""
                   }`}
-                  style={{ marginRight: "0.25em" }}
+                  style={{
+                    marginRight: "0.25em",
+                    color: "rgba(13, 20, 16, 0.18)",
+                  }}
+                  data-accent={item.accent ? "1" : "0"}
                 >
                   {item.w}
                 </span>
@@ -161,14 +172,24 @@ export function EsperanzaStory() {
             </p>
 
             <div className="mt-12 flex items-center gap-4">
-              <span className="inline-block h-px w-8 bg-mint/40" />
-              <span className="tracking-eyebrow text-[10px] text-mint/60">
+              <span className="inline-block h-px w-8 bg-emerald/40" />
+              <span className="tracking-eyebrow text-[10px] text-stone">
                 — el equipo La Esperanza, Cartago
               </span>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        :global(.es-word.is-on) {
+          color: rgba(13, 20, 16, 0.95) !important;
+        }
+        :global(.es-word.is-on[data-accent="1"]) {
+          color: var(--color-emerald) !important;
+          text-shadow: 0 0 24px rgba(31, 92, 64, 0.25);
+        }
+      `}</style>
     </section>
   );
 }
