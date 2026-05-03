@@ -208,4 +208,50 @@
   .animate-hop {
     animation: hop 3.5s ease-in-out infinite;
   }
+
+  /* 3D tilt card */
+  .tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1200px;
+    will-change: transform;
+    transition: transform 0.6s var(--ease-soft);
+  }
+  .tilt-card-inner {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.4s var(--ease-soft);
+  }
+
+  /* Scroll-fill text (Apple style) */
+  .scroll-fill-word {
+    display: inline-block;
+    color: rgba(13, 20, 16, 0.18);
+    transition: color 0.2s linear;
+    will-change: color;
+  }
+  .scroll-fill-word.is-on {
+    color: rgba(13, 20, 16, 1);
+  }
+
+  /* Magnetic shift base */
+  .magnetic {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  /* Sparkle burst */
+  @keyframes spark {
+    0% { transform: scale(0) rotate(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: scale(1.4) rotate(180deg); opacity: 0; }
+  }
+  .spark {
+    position: absolute;
+    pointer-events: none;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, rgba(183,228,199,0.95), transparent 60%);
+    border-radius: 50%;
+    animation: spark 0.9s ease-out forwards;
+  }
 }

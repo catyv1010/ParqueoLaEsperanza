@@ -3,6 +3,7 @@ import { Fraunces, Space_Grotesk } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Cursor } from "@/components/cursor";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { BgMorph } from "@/components/bg-morph";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -35,6 +36,7 @@ export default function RootLayout({
         <SmoothScroll />
         <Cursor />
         <ScrollProgress />
+        <BgMorph />
         {children}
       </body>
     </html>

@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
-import { Showcase } from "@/components/showcase";
+import { EsperanzaStory } from "@/components/esperanza-story";
+import { Promesa } from "@/components/promesa";
 import { Services } from "@/components/services";
 import { Gallery } from "@/components/gallery";
 import { Contact } from "@/components/contact";
@@ -11,7 +12,8 @@ export default function Home() {
     <main className="relative">
       <Navbar />
       <Hero />
-      <Showcase />
+      <EsperanzaStory />
+      <Promesa />
       <Services />
       <section id="galeria">
         <Gallery />

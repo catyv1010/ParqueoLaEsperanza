@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Grasshopper } from "@/components/grasshopper";
 import { SkyEffects } from "@/components/sky-effects";
+import { Tilt } from "@/components/tilt";
+import { Magnetic } from "@/components/magnetic";
+import { CountUp } from "@/components/count-up";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +21,6 @@ export function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      // Cartago plate
       tl.from(".hero-plate", {
         opacity: 0,
         y: -16,
@@ -27,7 +28,6 @@ export function Hero() {
         ease: "power3.out",
       });
 
-      // Massive headline letters cascade
       tl.from(
         ".hero-h1 .char",
         {
@@ -41,25 +41,11 @@ export function Hero() {
         "-=0.6"
       );
 
-      // Grasshopper bounces in
-      tl.from(
-        ".hero-grasshopper",
-        {
-          scale: 0,
-          rotate: -120,
-          opacity: 0,
-          duration: 1.4,
-          ease: "back.out(1.6)",
-        },
-        "-=1.0"
-      );
-
-      // Photo card clip reveal
       tl.fromTo(
         ".hero-image-card",
         { clipPath: "inset(0% 0% 100% 0%)" },
         { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "expo.inOut" },
-        "-=0.9"
+        "-=1.0"
       );
       tl.fromTo(
         ".hero-image-card img",
@@ -68,7 +54,6 @@ export function Hero() {
         "<"
       );
 
-      // Sub + CTAs + stats
       tl.from(
         ".hero-fade > *",
         {
@@ -95,7 +80,7 @@ export function Hero() {
 
       tl.from(".hero-marquee", { opacity: 0, duration: 0.8 }, "-=0.3");
 
-      // Photo Ken Burns on scroll
+      // Photo Ken Burns
       gsap.to(".hero-image-card img", {
         scale: 1.18,
         ease: "none",
@@ -109,7 +94,7 @@ export function Hero() {
 
       // Card subtle parallax
       gsap.to(".hero-image-card", {
-        yPercent: -18,
+        yPercent: -20,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -119,9 +104,9 @@ export function Hero() {
         },
       });
 
-      // Headline parallax (smaller offset, fades out)
+      // Headline parallax
       gsap.to(".hero-h1", {
-        yPercent: -18,
+        yPercent: -15,
         opacity: 0.3,
         ease: "none",
         scrollTrigger: {
@@ -135,19 +120,6 @@ export function Hero() {
       // Side text parallax
       gsap.to(".hero-side", {
         yPercent: -60,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      // Grasshopper drift
-      gsap.to(".hero-grasshopper", {
-        yPercent: -40,
-        rotate: 12,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -175,10 +147,9 @@ export function Hero() {
         <div className="absolute bottom-0 left-1/2 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-emerald/20 blur-[160px]" />
       </div>
 
-      {/* Star rain + meteors + bubbles */}
       <SkyEffects stars={70} meteors={7} bubbles={26} />
 
-      {/* CARTAGO plate top center */}
+      {/* CARTAGO plate */}
       <div className="hero-plate absolute left-1/2 top-24 z-30 -translate-x-1/2 lg:top-28">
         <div className="flex items-center gap-3 rounded-full border border-mint/30 bg-emerald-deep/60 px-5 py-2 backdrop-blur-md">
           <span className="relative flex h-2 w-2">
@@ -202,25 +173,24 @@ export function Hero() {
         </span>
       </div>
 
-      {/* MASSIVE wordmark — full bleed */}
-      <div className="relative z-10 mx-auto max-w-[1700px] px-6 pt-44 lg:px-12 lg:pt-48">
-        <h1 className="hero-h1 font-display text-[16vw] leading-[0.85] text-bone sm:text-[14vw] lg:text-[13vw]">
-          <span className="char-mask block">
+      {/* HEADLINE — broken in 3 lines for legibility */}
+      <div className="relative z-10 mx-auto max-w-[1500px] px-6 pt-44 lg:px-12 lg:pt-48">
+        <h1 className="hero-h1 font-display leading-[0.92] text-bone">
+          <span className="char-mask block text-[clamp(3.5rem,9vw,9.5rem)]">
             {"Parqueo".split("").map((c, i) => (
               <span key={i} className="char">
                 {c}
               </span>
             ))}
-            <span className="inline-block" style={{ width: "0.25em" }} />
-            <span className="italic text-bone/85">
-              {"y Lavacar".split("").map((c, i) => (
-                <span key={i + 100} className="char">
-                  {c}
-                </span>
-              ))}
-            </span>
           </span>
-          <span className="char-mask block italic text-mint">
+          <span className="char-mask block text-[clamp(3rem,8vw,8.5rem)] italic text-bone/85">
+            {"y Lavacar".split("").map((c, i) => (
+              <span key={i + 100} className="char">
+                {c}
+              </span>
+            ))}
+          </span>
+          <span className="char-mask block text-[clamp(3.5rem,10vw,10.5rem)] italic text-mint">
             {"La Esperanza".split("").map((c, i) => (
               <span key={i + 200} className="char">
                 {c}
@@ -230,39 +200,31 @@ export function Hero() {
         </h1>
       </div>
 
-      {/* Floating grasshopper big */}
-      <div className="hero-grasshopper pointer-events-none absolute right-[6%] top-[18%] z-20 hidden text-mint lg:block">
-        <span className="block animate-hop drop-shadow-[0_8px_30px_rgba(116,198,157,0.6)]">
-          <Grasshopper className="h-40 w-40 xl:h-56 xl:w-56" />
-        </span>
-      </div>
-
-      {/* Bottom content row: photo + sub + stats */}
-      <div className="relative z-10 mx-auto mt-12 grid max-w-[1700px] grid-cols-12 gap-8 px-6 pb-32 lg:mt-20 lg:gap-12 lg:px-12 lg:pb-32">
-        {/* Real photo card */}
+      {/* Bottom row: photo + sub + stats */}
+      <div className="relative z-10 mx-auto mt-12 grid max-w-[1500px] grid-cols-12 gap-8 px-6 pb-32 lg:mt-16 lg:gap-12 lg:px-12 lg:pb-32">
+        {/* Photo with 3D tilt */}
         <div className="col-span-12 lg:col-span-5">
-          <figure className="hero-image-card relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl shadow-emerald-deep/60 ring-1 ring-mint/15 lg:aspect-[4/5]">
-            <Image
-              src="/foto-parqueo.jpg"
-              alt="Parqueo y Lavacar La Esperanza — entrada con vehículos"
-              fill
-              priority
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover object-top"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/55 via-transparent to-transparent" />
+          <Tilt max={8} className="block">
+            <figure className="hero-image-card relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl shadow-emerald-deep/60 ring-1 ring-mint/15">
+              <Image
+                src="/foto-parqueo.jpg"
+                alt="Parqueo y Lavacar La Esperanza — entrada con vehículos"
+                fill
+                priority
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover object-top"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/55 via-transparent to-transparent" />
 
-            <figcaption className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
-              <div className="rounded-full bg-bone/95 px-4 py-2 backdrop-blur-sm">
-                <span className="text-[10px] tracking-eyebrow text-emerald-deep">
-                  Nuestro parqueo · Cartago
-                </span>
-              </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-mint">
-                <Grasshopper className="h-6 w-6" variant="solid" />
-              </div>
-            </figcaption>
-          </figure>
+              <figcaption className="absolute bottom-5 left-5 right-5">
+                <div className="inline-block rounded-full bg-bone/95 px-4 py-2 backdrop-blur-sm">
+                  <span className="text-[10px] tracking-eyebrow text-emerald-deep">
+                    Nuestro parqueo · Cartago
+                  </span>
+                </div>
+              </figcaption>
+            </figure>
+          </Tilt>
         </div>
 
         {/* Sub + CTA */}
@@ -277,9 +239,10 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <a
+            <Magnetic
               href="#contacto"
-              className="btn-magnet group inline-flex items-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-emerald-deep transition-all duration-500 hover:bg-bone"
+              strength={0.45}
+              className="btn-magnet group inline-flex items-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-emerald-deep transition-colors duration-500 hover:bg-bone"
             >
               Reservar mi espacio
               <svg
@@ -291,7 +254,7 @@ export function Hero() {
               >
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
-            </a>
+            </Magnetic>
             <a
               href="#servicios"
               className="group inline-flex items-center gap-3 text-sm font-medium text-bone"
@@ -304,28 +267,47 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Stats */}
+          {/* Stats with count-up */}
           <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-bone/15 pt-8 sm:grid-cols-4">
-            {[
-              { num: "₡1,000", label: "por hora" },
-              { num: "24/7", label: "vigilancia" },
-              { num: "+5,000", label: "clientes" },
-              { num: "10+", label: "años" },
-            ].map((s) => (
-              <div key={s.label} className="hero-stat">
-                <div className="font-display text-3xl text-bone lg:text-5xl">
-                  {s.num}
-                </div>
-                <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
-                  {s.label}
-                </div>
+            <div className="hero-stat">
+              <div className="font-display text-3xl text-bone lg:text-5xl">
+                <span>₡</span>
+                <CountUp to={1000} format="comma" />
               </div>
-            ))}
+              <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
+                por hora
+              </div>
+            </div>
+            <div className="hero-stat">
+              <div className="font-display text-3xl text-bone lg:text-5xl">
+                <CountUp to={24} suffix="/7" />
+              </div>
+              <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
+                vigilancia
+              </div>
+            </div>
+            <div className="hero-stat">
+              <div className="font-display text-3xl text-bone lg:text-5xl">
+                <span>+</span>
+                <CountUp to={5000} format="comma" />
+              </div>
+              <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
+                clientes
+              </div>
+            </div>
+            <div className="hero-stat">
+              <div className="font-display text-3xl text-bone lg:text-5xl">
+                <CountUp to={10} suffix="+" />
+              </div>
+              <div className="mt-2 text-[10px] tracking-eyebrow text-bone/70">
+                años
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom marquee */}
+      {/* Marquee */}
       <div className="hero-marquee absolute bottom-0 left-0 right-0 z-10 overflow-hidden border-t border-bone/15 bg-emerald-deep/70 py-3 backdrop-blur-md">
         <div className="animate-marquee flex shrink-0 items-center gap-10 whitespace-nowrap font-display text-xl italic text-bone">
           {Array.from({ length: 4 }).map((_, i) => (
