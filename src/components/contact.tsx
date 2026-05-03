@@ -106,46 +106,48 @@ export function Contact() {
         </h2>
 
         <div className="mt-16 grid grid-cols-12 gap-8 lg:gap-12">
-          {/* MAP */}
-          <div className="ct-map relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-cream shadow-[0_30px_80px_rgba(14,52,34,0.18)] ring-1 ring-emerald/15 lg:col-span-6 lg:aspect-auto lg:min-h-[680px]">
-            <iframe
-              src={LOCATION.embed}
-              className="map-emerald absolute inset-0 h-full w-full"
-              style={{ border: 0 }}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-              title="Parqueo y Lavacar La Esperanza · Cartago"
-            />
+          {/* MAP COLUMN — map + button stacked */}
+          <div className="col-span-12 flex flex-col gap-4 lg:col-span-6">
+            <div className="ct-map relative aspect-[4/5] overflow-hidden rounded-3xl bg-cream shadow-[0_30px_80px_rgba(14,52,34,0.18)] ring-1 ring-emerald/15 lg:aspect-auto lg:min-h-[600px]">
+              <iframe
+                src={LOCATION.embed}
+                className="map-emerald absolute inset-0 h-full w-full"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+                title="Parqueo y Lavacar La Esperanza · Cartago"
+              />
 
-            {/* Floating address card — top-left, OPACO para tapar el "Ver en Google Maps" nativo cortado */}
-            <div className="pointer-events-none absolute left-6 right-6 top-6 sm:right-auto sm:max-w-xs">
-              <div className="rounded-2xl border border-emerald/25 bg-bone p-5 shadow-[0_12px_32px_rgba(14,52,34,0.22)]">
-                <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-emerald">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald pulse-mint" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald" />
-                  </span>
-                  Ubicación
-                </div>
-                <div className="mt-2 font-display text-2xl italic leading-tight text-emerald-deep">
-                  Parqueo La Esperanza
-                </div>
-                <div className="mt-2 text-xs text-stone">
-                  Cartago, Costa Rica
-                </div>
-                <div className="mt-1 font-mono text-[10px] text-mist">
-                  {LOCATION.lat}, {LOCATION.lng}
+              {/* Address card — top-left opaco para tapar el control nativo de Google */}
+              <div className="pointer-events-none absolute left-6 right-6 top-6 sm:right-auto sm:max-w-xs">
+                <div className="rounded-2xl border border-emerald/25 bg-bone p-5 shadow-[0_12px_32px_rgba(14,52,34,0.22)]">
+                  <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-emerald">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-emerald pulse-mint" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald" />
+                    </span>
+                    Ubicación
+                  </div>
+                  <div className="mt-2 font-display text-2xl italic leading-tight text-emerald-deep">
+                    Parqueo La Esperanza
+                  </div>
+                  <div className="mt-2 text-xs text-stone">
+                    Cartago, Costa Rica
+                  </div>
+                  <div className="mt-1 font-mono text-[10px] text-mist">
+                    {LOCATION.lat}, {LOCATION.lng}
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Open in Maps button — bottom-right */}
+            {/* Open in Maps button — DEBAJO del mapa, no absolute, full width siempre */}
             <a
               href={LOCATION.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-magnet group absolute bottom-6 left-6 right-6 inline-flex items-center justify-center gap-3 rounded-full bg-emerald px-6 py-3.5 text-sm font-medium text-bone shadow-[0_12px_28px_rgba(14,52,34,0.4)] transition-all hover:bg-emerald-deep sm:left-auto sm:right-6 sm:w-auto"
+              className="btn-magnet group inline-flex items-center justify-center gap-3 rounded-full bg-emerald px-6 py-4 text-sm font-medium text-bone shadow-[0_12px_28px_rgba(14,52,34,0.3)] transition-all hover:bg-emerald-deep hover:shadow-[0_12px_36px_rgba(14,52,34,0.45)]"
             >
               Abrir en Google Maps
               <svg
