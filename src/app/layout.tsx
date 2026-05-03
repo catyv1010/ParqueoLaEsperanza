@@ -1,31 +1,40 @@
 import type { Metadata } from "next";
+import { Fraunces, Space_Grotesk } from "next/font/google";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { Cursor } from "@/components/cursor";
 import "./globals.css";
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Parqueo y Lavacar La Esperanza — Tu parqueo y lavacar de confianza",
+  title: "Parqueo y Lavacar La Esperanza — Tu vehículo, en buenas manos",
   description:
-    "Parqueo y Lavacar La Esperanza — Tu parqueo y lavacar de confianza en Costa Rica. Servicios de parqueo por hora, mensual y nocturno. Lavado exterior, interior y premium. Seguro, accesible y con la mejor atención.",
+    "Parqueo vigilado 24/7 y lavacar profesional en Costa Rica. Tarifa: ₡1,000/hora. Servicio nocturno, mensualidad y lavado premium con protección cerámica.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦗</text></svg>"
-        />
-      </head>
-      <body>{children}</body>
+    <html lang="es" className={`${fraunces.variable} ${grotesk.variable}`}>
+      <body className="grain bg-midnight text-bone">
+        <SmoothScroll />
+        <Cursor />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,21 +1,88 @@
-import { Car } from "lucide-react";
-
 export function Footer() {
   return (
-    <footer className="border-t border-border/60 bg-white/60 py-8 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 sm:flex-row sm:justify-between">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
-            <Car className="h-4 w-4" />
-          </div>
-          <span className="text-sm font-semibold text-foreground">
-            Parqueo y Lavacar La Esperanza
-          </span>
+    <footer className="relative overflow-hidden border-t border-white/5 bg-ink py-16 lg:py-20">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+        {/* Massive serif wordmark */}
+        <div className="pointer-events-none mb-16 select-none overflow-hidden">
+          <h3 className="font-display text-[18vw] leading-[0.85] text-bone/[0.06] lg:text-[14rem]">
+            La Esperanza
+          </h3>
         </div>
-        <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} La Esperanza. Todos los derechos
-          reservados.
-        </p>
+
+        <div className="grid grid-cols-12 gap-8 border-t border-white/10 pt-10">
+          <div className="col-span-12 md:col-span-5">
+            <div className="font-display text-2xl text-bone">
+              Parqueo y Lavacar{" "}
+              <span className="italic text-bone-dim">La Esperanza</span>
+            </div>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-mute">
+              Tu vehículo, en buenas manos. Parqueo seguro y lavacar profesional
+              en Costa Rica.
+            </p>
+          </div>
+
+          <div className="col-span-6 md:col-span-2">
+            <div className="tracking-eyebrow text-xs text-mute">Navegá</div>
+            <ul className="mt-4 space-y-2 text-sm text-bone-dim">
+              <li>
+                <a href="#inicio" className="hover:text-amber">
+                  Inicio
+                </a>
+              </li>
+              <li>
+                <a href="#servicios" className="hover:text-amber">
+                  Servicios
+                </a>
+              </li>
+              <li>
+                <a href="#tarifas" className="hover:text-amber">
+                  Tarifas
+                </a>
+              </li>
+              <li>
+                <a href="#contacto" className="hover:text-amber">
+                  Contacto
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="col-span-6 md:col-span-2">
+            <div className="tracking-eyebrow text-xs text-mute">Contacto</div>
+            <ul className="mt-4 space-y-2 text-sm text-bone-dim">
+              <li>
+                <a href="tel:+50670207762" className="hover:text-amber">
+                  +506 7020-7762
+                </a>
+              </li>
+              <li>
+                <a href="tel:+50688322660" className="hover:text-amber">
+                  +506 8832-2660
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="col-span-12 md:col-span-3">
+            <div className="tracking-eyebrow text-xs text-mute">Horario</div>
+            <ul className="mt-4 space-y-2 text-sm text-bone-dim">
+              <li>Lunes a Domingo</li>
+              <li>6:00am — 9:00pm</li>
+              <li className="flex items-center gap-2 text-teal-glow">
+                <span className="h-1.5 w-1.5 rounded-full bg-teal" />
+                Abierto ahora
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 text-xs text-mute sm:flex-row sm:items-center">
+          <p>
+            © {new Date().getFullYear()} Parqueo y Lavacar La Esperanza. Todos
+            los derechos reservados.
+          </p>
+          <p className="tracking-eyebrow">Costa Rica · Hecho con cariño</p>
+        </div>
       </div>
     </footer>
   );

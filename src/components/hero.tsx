@@ -1,179 +1,262 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { PhoneCall, MapPin, ChevronDown } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function Hero() {
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!root.current) return;
+    const ctx = gsap.context(() => {
+      // Headline word-by-word reveal
+      gsap.from(".hero-word", {
+        yPercent: 110,
+        opacity: 0,
+        duration: 1.4,
+        ease: "expo.out",
+        stagger: 0.08,
+        delay: 0.2,
+      });
+
+      // Eyebrow + subline blur reveal
+      gsap.from(".hero-fade", {
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)",
+        duration: 1.2,
+        ease: "power3.out",
+        stagger: 0.12,
+        delay: 0.6,
+      });
+
+      // CTA pop
+      gsap.from(".hero-cta", {
+        opacity: 0,
+        y: 30,
+        scale: 0.95,
+        duration: 1,
+        ease: "back.out(1.4)",
+        stagger: 0.1,
+        delay: 1.2,
+      });
+
+      // Stats reveal
+      gsap.from(".hero-stat", {
+        opacity: 0,
+        y: 16,
+        duration: 0.9,
+        ease: "power2.out",
+        stagger: 0.15,
+        delay: 1.6,
+      });
+
+      // Marquee + scroll cue
+      gsap.from(".hero-marquee", {
+        opacity: 0,
+        duration: 1.5,
+        delay: 1.8,
+      });
+
+      // Parallax layers
+      gsap.to(".parallax-slow", {
+        yPercent: 30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.to(".parallax-fast", {
+        yPercent: 60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Headline drift
+      gsap.to(".hero-headline", {
+        yPercent: -20,
+        opacity: 0.4,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-green-50 to-secondary/20" />
+    <section
+      ref={root}
+      id="inicio"
+      className="relative isolate flex min-h-screen flex-col justify-center overflow-hidden vignette breathe-gradient"
+    >
+      {/* Headlight beams */}
+      <div
+        className="headlight-beam parallax-slow"
+        style={{ top: "-30vh", left: "10%", transform: "rotate(8deg)" }}
+      />
+      <div
+        className="headlight-beam parallax-fast"
+        style={{ top: "-30vh", right: "5%", transform: "rotate(-12deg)" }}
+      />
 
-      {/* Decorative circles */}
-      <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-      <div className="absolute -bottom-32 -left-32 h-[500px] w-[500px] rounded-full bg-cta/5 blur-3xl" />
+      {/* Diagonal city lights */}
+      <div className="parallax-slow pointer-events-none absolute inset-0 opacity-40">
+        <div className="absolute left-[8%] top-[20%] h-1.5 w-1.5 rounded-full bg-amber-soft shadow-[0_0_20px_4px_rgba(255,179,90,0.6)]" />
+        <div className="absolute right-[12%] top-[15%] h-1 w-1 rounded-full bg-teal-glow shadow-[0_0_15px_3px_rgba(116,198,157,0.7)]" />
+        <div className="absolute left-[20%] bottom-[25%] h-2 w-2 rounded-full bg-amber shadow-[0_0_24px_6px_rgba(255,179,90,0.5)]" />
+        <div className="absolute right-[18%] bottom-[30%] h-1 w-1 rounded-full bg-bone shadow-[0_0_12px_3px_rgba(245,241,232,0.6)]" />
+        <div className="absolute left-[45%] top-[12%] h-1 w-1 rounded-full bg-teal shadow-[0_0_18px_4px_rgba(82,183,136,0.6)]" />
+      </div>
 
-      <div className="relative mx-auto max-w-6xl px-6 py-20 lg:py-32">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-          {/* Text Content */}
-          <div className="flex flex-col gap-6">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-white/80 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
-              <MapPin className="h-4 w-4" />
-              Servicio de confianza
-            </div>
+      {/* Big watermark serif "01" — chapter marker */}
+      <div className="parallax-fast pointer-events-none absolute -right-12 top-1/4 select-none font-display text-[28rem] leading-none text-white/[0.025] sm:text-[36rem]">
+        01
+      </div>
 
-            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Parqueo y Lavacar{" "}
-              <span className="text-primary">La Esperanza</span>
-            </h1>
+      {/* Main content */}
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-32 pt-40 lg:px-12 lg:pb-40 lg:pt-48">
+        <div className="grid grid-cols-12 gap-6">
+          {/* Eyebrow */}
+          <div className="col-span-12 mb-12 flex items-center gap-4">
+            <span className="hero-fade inline-block h-px w-12 bg-amber/60" />
+            <span className="hero-fade tracking-eyebrow text-xs text-amber/80">
+              Capítulo 01 — Bienvenida
+            </span>
+            <span className="hero-fade ml-auto hidden items-center gap-2 text-xs text-mute md:flex">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-glow" />
+              </span>
+              Abierto · Lun a Dom · 6am — 9pm
+            </span>
+          </div>
 
-            <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
-              Tu vehiculo seguro y reluciente en un solo lugar. Ofrecemos
-              estacionamiento vigilado las 24 horas y servicio profesional de
-              lavado de autos con los mejores productos del mercado.
+          {/* Headline */}
+          <h1 className="hero-headline col-span-12 font-display text-[15vw] text-bone sm:text-[12vw] lg:text-[10rem] xl:text-[12rem]">
+            <span className="block overflow-hidden">
+              <span className="hero-word inline-block">Tu</span>{" "}
+              <span className="hero-word inline-block">vehículo,</span>
+            </span>
+            <span className="block overflow-hidden italic text-bone-dim">
+              <span className="hero-word inline-block">en</span>{" "}
+              <span className="hero-word inline-block">buenas</span>{" "}
+              <span className="hero-word inline-block text-amber">manos.</span>
+            </span>
+          </h1>
+
+          {/* Subline + CTA */}
+          <div className="col-span-12 mt-12 grid grid-cols-12 gap-6">
+            <p className="hero-fade col-span-12 max-w-md text-base leading-relaxed text-bone-dim md:col-span-5 lg:text-lg">
+              Parqueo vigilado las{" "}
+              <span className="text-bone">24 horas</span> y lavacar profesional
+              en un solo lugar. Cuidamos tu auto como si fuera nuestro.
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button size="lg" variant="cta" className="gap-2">
-                <PhoneCall className="h-4 w-4" />
-                Contactanos
-              </Button>
-              <Button size="lg" variant="outline" className="gap-2">
+            <div className="col-span-12 flex flex-col items-start gap-4 sm:flex-row md:col-span-7 md:justify-end">
+              <a
+                href="#contacto"
+                className="hero-cta group btn-magnetic inline-flex items-center gap-3 rounded-full bg-amber px-8 py-4 text-sm font-medium text-ink transition-transform duration-500 hover:scale-[1.02]"
+              >
+                Reservar mi espacio
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
+              <a
+                href="#servicios"
+                className="hero-cta group inline-flex items-center gap-3 rounded-full border border-bone/20 px-8 py-4 text-sm font-medium text-bone transition-colors hover:border-bone/60"
+              >
                 Ver servicios
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </div>
-
-            {/* Trust indicators */}
-            <div className="mt-4 flex items-center gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-cta" />
-                Abierto ahora
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary" />
-                Vigilancia 24/7
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-secondary" />
-                +10 anos de experiencia
-              </div>
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-teal-glow transition-transform duration-500 group-hover:translate-y-1" />
+              </a>
             </div>
           </div>
 
-          {/* Visual Element */}
-          <div className="relative hidden lg:block">
-            <div className="relative aspect-square overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-secondary/10 to-cta/10 p-1">
-              <div className="flex h-full w-full flex-col items-center justify-center rounded-2xl bg-white/60 backdrop-blur-sm">
-                {/* Car wash illustration with SVG */}
-                <svg
-                  viewBox="0 0 200 200"
-                  className="h-48 w-48 text-primary"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Car body */}
-                  <rect
-                    x="30"
-                    y="110"
-                    width="140"
-                    height="40"
-                    rx="8"
-                    fill="currentColor"
-                    opacity="0.2"
-                  />
-                  <rect
-                    x="50"
-                    y="85"
-                    width="100"
-                    height="35"
-                    rx="6"
-                    fill="currentColor"
-                    opacity="0.3"
-                  />
-                  {/* Wheels */}
-                  <circle
-                    cx="65"
-                    cy="155"
-                    r="14"
-                    fill="currentColor"
-                    opacity="0.5"
-                  />
-                  <circle cx="65" cy="155" r="6" fill="white" />
-                  <circle
-                    cx="135"
-                    cy="155"
-                    r="14"
-                    fill="currentColor"
-                    opacity="0.5"
-                  />
-                  <circle cx="135" cy="155" r="6" fill="white" />
-                  {/* Water drops */}
-                  <circle
-                    cx="80"
-                    cy="50"
-                    r="4"
-                    fill="#52B788"
-                    opacity="0.6"
-                  />
-                  <circle
-                    cx="100"
-                    cy="35"
-                    r="5"
-                    fill="#52B788"
-                    opacity="0.4"
-                  />
-                  <circle
-                    cx="120"
-                    cy="55"
-                    r="3"
-                    fill="#52B788"
-                    opacity="0.7"
-                  />
-                  <circle
-                    cx="60"
-                    cy="65"
-                    r="3"
-                    fill="#52B788"
-                    opacity="0.5"
-                  />
-                  <circle
-                    cx="140"
-                    cy="45"
-                    r="4"
-                    fill="#52B788"
-                    opacity="0.5"
-                  />
-                  {/* Sparkles */}
-                  <path
-                    d="M155 25l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"
-                    fill="#74C69D"
-                    opacity="0.6"
-                  />
-                  <path
-                    d="M45 40l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"
-                    fill="#74C69D"
-                    opacity="0.4"
-                  />
-                </svg>
-                <p className="mt-4 text-lg font-semibold text-primary">
-                  Tu vehiculo, nuestra prioridad
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Limpieza profesional garantizada
-                </p>
+          {/* Stats strip */}
+          <div className="col-span-12 mt-24 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-white/5 pt-10 md:grid-cols-4">
+            {[
+              { num: "₡1,000", label: "por hora de parqueo" },
+              { num: "24/7", label: "vigilancia activa" },
+              { num: "+5,000", label: "clientes satisfechos" },
+              { num: "10+", label: "años de experiencia" },
+            ].map((s) => (
+              <div key={s.label} className="hero-stat">
+                <div className="font-display text-4xl text-bone lg:text-5xl">
+                  {s.num}
+                </div>
+                <div className="mt-2 text-xs tracking-eyebrow text-mute">
+                  {s.label}
+                </div>
               </div>
-            </div>
-
-            {/* Floating badge */}
-            <div className="absolute -bottom-4 -left-4 rounded-2xl border border-border bg-white p-4 shadow-lg">
-              <div className="text-2xl font-bold text-primary">+5,000</div>
-              <div className="text-sm text-muted-foreground">
-                Clientes satisfechos
-              </div>
-            </div>
+            ))}
           </div>
         </div>
+      </div>
+
+      {/* Bottom marquee */}
+      <div className="hero-marquee relative z-10 overflow-hidden border-y border-white/5 bg-ink/40 py-4 backdrop-blur-sm">
+        <div className="animate-marquee flex shrink-0 items-center gap-12 whitespace-nowrap text-xs tracking-eyebrow text-mute">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex shrink-0 items-center gap-12">
+              <span>★ Vigilancia 24/7</span>
+              <span className="h-1 w-1 rounded-full bg-amber/60" />
+              <span>Lavado premium · cera · cerámica</span>
+              <span className="h-1 w-1 rounded-full bg-teal/60" />
+              <span>Tarifa nocturna disponible</span>
+              <span className="h-1 w-1 rounded-full bg-amber/60" />
+              <span>Mensualidad para residentes</span>
+              <span className="h-1 w-1 rounded-full bg-teal/60" />
+              <span>+506 7020-7762</span>
+              <span className="h-1 w-1 rounded-full bg-amber/60" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="hero-marquee absolute bottom-24 left-1/2 z-10 -translate-x-1/2 md:bottom-32">
+        <div className="flex flex-col items-center gap-2 text-xs tracking-eyebrow text-mute">
+          <span>Scroll</span>
+          <span className="relative flex h-10 w-px overflow-hidden bg-white/10">
+            <span className="absolute inset-x-0 top-0 h-1/2 animate-[scrollDown_2s_ease-in-out_infinite] bg-amber" />
+          </span>
+        </div>
+        <style jsx>{`
+          @keyframes scrollDown {
+            0% {
+              transform: translateY(-100%);
+            }
+            100% {
+              transform: translateY(200%);
+            }
+          }
+        `}</style>
       </div>
     </section>
   );

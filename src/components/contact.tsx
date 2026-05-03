@@ -1,115 +1,190 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Phone, MapPin, Clock, Mail } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const contactInfo = [
-  {
-    icon: <Phone className="h-5 w-5" />,
-    label: "Telefono",
-    value: "+506 7020-7762 / 8832-2660",
-    href: "tel:+50670207762",
-  },
-  {
-    icon: <Mail className="h-5 w-5" />,
-    label: "Correo",
-    value: "info@laesperanza.com",
-    href: "mailto:info@laesperanza.com",
-  },
-  {
-    icon: <MapPin className="h-5 w-5" />,
-    label: "Direccion",
-    value: "Ciudad de Guatemala, Guatemala",
-    href: "#",
-  },
-  {
-    icon: <Clock className="h-5 w-5" />,
-    label: "Horario",
-    value: "Lunes a Domingo, 6:00 AM - 9:00 PM",
-    href: "#",
-  },
-];
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const WA = "https://wa.me/50670207762?text=Hola!%20Me%20interesa%20informaci%C3%B3n%20sobre%20Parqueo%20y%20Lavacar%20La%20Esperanza";
 
 export function Contact() {
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!root.current) return;
+    const ctx = gsap.context(() => {
+      gsap.from(".ct-eyebrow > *", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.08,
+        scrollTrigger: { trigger: ".ct-eyebrow", start: "top 85%" },
+      });
+
+      gsap.from(".ct-word", {
+        yPercent: 110,
+        opacity: 0,
+        duration: 1.2,
+        ease: "expo.out",
+        stagger: 0.06,
+        scrollTrigger: { trigger: ".ct-title", start: "top 80%" },
+      });
+
+      gsap.from(".ct-card", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.1,
+        scrollTrigger: { trigger: ".ct-grid", start: "top 80%" },
+      });
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={root}
       id="contacto"
-      className="relative py-20 lg:py-32"
+      className="relative overflow-hidden bg-midnight py-32 lg:py-48"
     >
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent" />
+      {/* Glow */}
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-amber/8 blur-[140px]" />
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        {/* Section Header */}
-        <div className="text-center">
-          <span className="inline-block rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
-            Contacto
+      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-12">
+        {/* Header */}
+        <div className="ct-eyebrow flex items-center gap-4">
+          <span className="inline-block h-px w-12 bg-amber/60" />
+          <span className="tracking-eyebrow text-xs text-amber/80">
+            Capítulo 03 — Visitanos
           </span>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            Visitanos hoy
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Estamos listos para atenderte. Contactanos o visitanos en nuestra
-            ubicacion.
-          </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {/* Contact Cards */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {contactInfo.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="group cursor-pointer"
-              >
-                <Card className="flex h-full flex-col items-center gap-3 border-border/60 bg-white/80 p-6 text-center backdrop-blur-sm transition-all duration-200 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
-                    {item.icon}
+        <h2 className="ct-title mt-10 font-display text-[12vw] leading-[0.9] text-bone sm:text-[9vw] lg:text-[8rem]">
+          <span className="block overflow-hidden">
+            <span className="ct-word inline-block">Estamos</span>{" "}
+            <span className="ct-word inline-block italic text-bone-dim">
+              listos
+            </span>
+          </span>
+          <span className="block overflow-hidden">
+            <span className="ct-word inline-block italic text-bone-dim">
+              para
+            </span>{" "}
+            <span className="ct-word inline-block text-amber">atenderte.</span>
+          </span>
+        </h2>
+
+        <div className="ct-grid mt-20 grid grid-cols-12 gap-6">
+          {/* Info cards */}
+          <div className="col-span-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7">
+            <a
+              href="tel:+50670207762"
+              className="ct-card group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-ink/40 p-8 transition-all duration-500 hover:border-amber/40 hover:bg-ink/60"
+            >
+              <span className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-teal/10 blur-3xl transition-opacity duration-700 group-hover:bg-amber/20" />
+              <span className="relative tracking-eyebrow text-xs text-mute">
+                Llamanos
+              </span>
+              <div className="relative mt-12">
+                <div className="font-display text-2xl text-bone lg:text-3xl">
+                  +506 7020-7762
+                </div>
+                <div className="mt-1 text-sm text-bone-dim">
+                  +506 8832-2660
+                </div>
+              </div>
+            </a>
+
+            <a
+              href={WA}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ct-card group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-ink/40 p-8 transition-all duration-500 hover:border-teal/40 hover:bg-ink/60"
+            >
+              <span className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-teal/15 blur-3xl" />
+              <span className="relative tracking-eyebrow text-xs text-mute">
+                WhatsApp
+              </span>
+              <div className="relative mt-12">
+                <div className="font-display text-2xl text-bone lg:text-3xl">
+                  Escribinos
+                </div>
+                <div className="mt-1 text-sm text-bone-dim">
+                  Respuesta inmediata
+                </div>
+              </div>
+            </a>
+
+            <div className="ct-card relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-ink/40 p-8 sm:col-span-2">
+              <span className="tracking-eyebrow text-xs text-mute">
+                Horario
+              </span>
+              <div className="mt-12 grid grid-cols-2 gap-4">
+                <div>
+                  <div className="font-display text-xl text-bone lg:text-2xl">
+                    Lunes — Domingo
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">
-                      {item.label}
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-foreground">
-                      {item.value}
-                    </p>
+                  <div className="mt-1 text-sm text-bone-dim">
+                    Sin descanso
                   </div>
-                </Card>
-              </a>
-            ))}
+                </div>
+                <div>
+                  <div className="font-display text-xl text-bone lg:text-2xl">
+                    6:00am — 9:00pm
+                  </div>
+                  <div className="mt-1 flex items-center gap-2 text-sm text-teal-glow">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-teal" />
+                    </span>
+                    Abierto ahora
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* CTA Card */}
-          <Card className="flex flex-col justify-center border-primary/20 bg-gradient-to-br from-primary to-primary/80 p-8 text-white lg:p-10">
-            <h3 className="text-2xl font-bold">
-              Reserva tu espacio
-            </h3>
-            <p className="mt-3 text-base leading-relaxed text-white/80">
-              Asegura un lugar para tu vehiculo y agenda tu lavado profesional.
-              Atendemos con cita previa y servicio directo. Tu satisfaccion es
-              nuestra prioridad.
-            </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Button
-                size="lg"
-                variant="cta"
-                className="gap-2"
-              >
-                <Phone className="h-4 w-4" />
-                Llamar ahora
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="gap-2 border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-              >
-                <Mail className="h-4 w-4" />
-                Enviar mensaje
-              </Button>
+          {/* Big CTA card */}
+          <div className="ct-card relative col-span-12 flex flex-col justify-between overflow-hidden rounded-3xl border border-amber/20 bg-gradient-to-br from-amber/15 via-amber/5 to-transparent p-10 lg:col-span-5">
+            <div className="pointer-events-none absolute -bottom-20 -right-20 h-80 w-80 rounded-full bg-amber/20 blur-[80px]" />
+
+            <span className="relative tracking-eyebrow text-xs text-amber">
+              Reservá hoy
+            </span>
+
+            <div className="relative mt-16">
+              <h3 className="font-display text-4xl leading-tight text-bone lg:text-5xl">
+                Asegurá tu espacio.
+              </h3>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-bone-dim">
+                Con cita previa atendemos más rápido. Llamanos o escribinos por
+                WhatsApp y coordinamos en minutos.
+              </p>
+
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="tel:+50670207762"
+                  className="btn-magnetic inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-4 text-sm font-medium text-ink transition-transform hover:scale-[1.02]"
+                >
+                  Llamar ahora
+                </a>
+                <a
+                  href={WA}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-bone/20 px-7 py-4 text-sm font-medium text-bone transition-colors hover:border-bone/60"
+                >
+                  WhatsApp
+                </a>
+              </div>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
