@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Monogram } from "@/components/monogram";
+import { Grasshopper } from "@/components/grasshopper";
 
 const links = [
   { label: "Inicio", href: "#inicio" },
@@ -33,8 +33,10 @@ export function Navbar() {
       >
         <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 lg:px-12">
           <a href="#inicio" className="group flex items-center gap-3">
-            <span className="text-mint transition-all group-hover:text-bone">
-              <Monogram className="h-9 w-9" />
+            <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-mint/30 bg-mint/8 backdrop-blur-md transition-all group-hover:border-mint group-hover:bg-mint/15">
+              <span className="text-mint transition-transform duration-500 group-hover:scale-110">
+                <Grasshopper className="h-6 w-6" variant="solid" />
+              </span>
             </span>
             <span className="hidden flex-col leading-tight sm:flex">
               <span className="font-display text-lg italic text-bone">
@@ -94,8 +96,8 @@ export function Navbar() {
           >
             <X className="h-7 w-7" />
           </button>
-          <span className="mb-4 text-mint">
-            <Monogram className="h-24 w-24" />
+          <span className="mb-4 flex h-24 w-24 items-center justify-center rounded-full border border-mint/30 bg-mint/10 text-mint">
+            <Grasshopper className="h-14 w-14" variant="solid" />
           </span>
           {links.map((l) => (
             <a

@@ -118,9 +118,9 @@ export function Contact() {
               title="Parqueo y Lavacar La Esperanza · Cartago"
             />
 
-            {/* Floating address card */}
-            <div className="pointer-events-none absolute left-6 top-6 right-6 sm:right-auto sm:max-w-xs">
-              <div className="rounded-2xl border border-emerald/20 bg-bone/95 p-5 backdrop-blur-xl shadow-[0_12px_32px_rgba(14,52,34,0.15)]">
+            {/* Floating address card — top-right para no chocar con "Ver en Google Maps" nativo */}
+            <div className="pointer-events-none absolute right-6 top-6 left-6 sm:left-auto sm:max-w-xs">
+              <div className="rounded-2xl border border-emerald/20 bg-bone/97 p-5 backdrop-blur-xl shadow-[0_12px_32px_rgba(14,52,34,0.18)]">
                 <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-emerald">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full rounded-full bg-emerald pulse-mint" />
@@ -140,7 +140,7 @@ export function Contact() {
               </div>
             </div>
 
-            {/* Open in Maps button */}
+            {/* Open in Maps button — bottom-right */}
             <a
               href={LOCATION.url}
               target="_blank"
