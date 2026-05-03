@@ -1,20 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  /* Editorial cinematic palette — light, warm, dramatic */
-  --color-cream: #f3ede1;
+  /* Editorial cinematic palette — green-forward (esperanza, chapulín CR) */
+  --color-cream: #f3ede0;
   --color-bone: #faf6ec;
   --color-paper: #fdfaf3;
-  --color-ink: #131210;
-  --color-charcoal: #1f1d1a;
-  --color-stone: #65615a;
-  --color-mist: #b6afa1;
-  --color-line: #d9d2c2;
+  --color-ink: #0d1410;
+  --color-charcoal: #1a2018;
+  --color-stone: #5a6058;
+  --color-mist: #a9b0a4;
+  --color-line: #d6d2c3;
 
-  /* Brand */
+  /* Brand — esperanza green */
   --color-emerald: #1f5c40;
   --color-emerald-2: #2d7a55;
+  --color-emerald-deep: #0e3422;
   --color-teal: #52b788;
+  --color-teal-glow: #74c69d;
+  --color-mint: #b7e4c7;
+
+  /* Warm accents (small) */
   --color-terra: #c8542a;
   --color-terra-2: #e07043;
   --color-gold: #c9a35c;
@@ -23,7 +28,7 @@
   --color-background: var(--color-cream);
   --color-foreground: var(--color-ink);
   --color-accent: var(--color-emerald);
-  --color-cta: var(--color-terra);
+  --color-cta: var(--color-emerald);
 
   /* Fonts */
   --font-display: var(--font-fraunces);
@@ -36,7 +41,7 @@
 
 @layer base {
   * {
-    border-color: rgba(31, 18, 16, 0.08);
+    border-color: rgba(31, 92, 64, 0.12);
   }
 
   html {
@@ -53,7 +58,7 @@
   }
 
   ::selection {
-    background: var(--color-terra);
+    background: var(--color-emerald);
     color: var(--color-bone);
   }
 
@@ -64,7 +69,7 @@
     background: var(--color-cream);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-mist);
+    background: var(--color-emerald-2);
     border-radius: 8px;
   }
   ::-webkit-scrollbar-thumb:hover {
@@ -97,7 +102,7 @@
     text-transform: uppercase;
   }
 
-  /* Hero letter split base — letters wrapped in span.char */
+  /* Letter split base */
   .char {
     display: inline-block;
     transform-origin: 50% 100%;
@@ -127,14 +132,14 @@
     animation: marquee 28s linear infinite;
   }
 
-  /* Custom cursor (light theme) */
+  /* Custom cursor */
   .cursor-dot {
     position: fixed;
     pointer-events: none;
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--color-terra);
+    background: var(--color-emerald);
     z-index: 9998;
     transform: translate(-50%, -50%);
     mix-blend-mode: difference;
@@ -155,24 +160,20 @@
     height: 2px;
     z-index: 9997;
     transform-origin: 0 50%;
-    background: var(--color-terra);
+    background: var(--color-emerald);
     transform: scaleX(0);
   }
 
-  /* Magnetic button base */
   .btn-magnet {
     position: relative;
     isolation: isolate;
     will-change: transform;
   }
 
-  /* Image clip reveal */
   .clip-reveal {
     clip-path: inset(0 0 100% 0);
     will-change: clip-path;
   }
-
-  /* Image Ken Burns */
   .ken-burns {
     will-change: transform;
   }
@@ -184,15 +185,27 @@
     scrollbar-width: none;
   }
 
-  /* Vertical text */
   .vertical-rl {
     writing-mode: vertical-rl;
     text-orientation: mixed;
   }
 
-  /* Outline text */
   .text-outline {
     -webkit-text-stroke: 1.5px currentColor;
     color: transparent;
+  }
+
+  /* Tropical leaf decoration */
+  .leaf-shadow {
+    filter: drop-shadow(0 8px 24px rgba(31, 92, 64, 0.25));
+  }
+
+  /* Esperanza floating */
+  @keyframes hop {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-6px) rotate(2deg); }
+  }
+  .animate-hop {
+    animation: hop 3.5s ease-in-out infinite;
   }
 }

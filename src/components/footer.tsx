@@ -1,12 +1,17 @@
+import { Grasshopper } from "@/components/grasshopper";
+
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-ink py-16 text-bone lg:py-24">
+    <footer className="relative overflow-hidden bg-emerald-deep py-16 text-bone lg:py-24">
       <div className="mx-auto max-w-[1500px] px-6 lg:px-16">
-        {/* Massive serif wordmark */}
-        <div className="pointer-events-none mb-16 select-none overflow-hidden">
+        {/* Massive serif wordmark + grasshopper */}
+        <div className="pointer-events-none relative mb-16 select-none overflow-hidden">
           <h3 className="font-display text-[18vw] leading-[0.85] text-bone/[0.08] lg:text-[14rem]">
             La Esperanza
           </h3>
+          <span className="absolute right-[5%] top-[20%] hidden text-mint/30 lg:block">
+            <Grasshopper className="h-32 w-32" />
+          </span>
         </div>
 
         <div className="grid grid-cols-12 gap-8 border-t border-bone/10 pt-12">
@@ -25,22 +30,22 @@ export function Footer() {
             <div className="tracking-eyebrow text-xs text-bone/55">Navegá</div>
             <ul className="mt-4 space-y-2 text-sm text-bone/85">
               <li>
-                <a href="#inicio" className="hover:text-terra-2">
+                <a href="#inicio" className="hover:text-mint">
                   Inicio
                 </a>
               </li>
               <li>
-                <a href="#servicios" className="hover:text-terra-2">
+                <a href="#servicios" className="hover:text-mint">
                   Servicios
                 </a>
               </li>
               <li>
-                <a href="#galeria" className="hover:text-terra-2">
+                <a href="#galeria" className="hover:text-mint">
                   Galería
                 </a>
               </li>
               <li>
-                <a href="#contacto" className="hover:text-terra-2">
+                <a href="#contacto" className="hover:text-mint">
                   Contacto
                 </a>
               </li>
@@ -53,12 +58,12 @@ export function Footer() {
             </div>
             <ul className="mt-4 space-y-2 text-sm text-bone/85">
               <li>
-                <a href="tel:+50670207762" className="hover:text-terra-2">
+                <a href="tel:+50670207762" className="hover:text-mint">
                   +506 7020-7762
                 </a>
               </li>
               <li>
-                <a href="tel:+50688322660" className="hover:text-terra-2">
+                <a href="tel:+50688322660" className="hover:text-mint">
                   +506 8832-2660
                 </a>
               </li>

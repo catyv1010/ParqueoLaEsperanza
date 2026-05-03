@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Grasshopper } from "@/components/grasshopper";
 
 const links = [
   { label: "Inicio", href: "#inicio" },
@@ -26,37 +27,31 @@ export function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
           scrolled
-            ? "bg-cream/85 backdrop-blur-xl border-b border-line/60 text-ink"
+            ? "bg-cream/85 backdrop-blur-xl border-b border-emerald/15 text-ink"
             : "bg-transparent text-bone"
         }`}
       >
-        <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 lg:px-12">
+        <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-4 lg:px-12">
           <a href="#inicio" className="group flex items-center gap-3">
             <span
-              className={`relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border transition-colors ${
-                scrolled ? "border-ink/20" : "border-bone/40"
+              className={`relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full transition-colors ${
+                scrolled ? "bg-emerald/10" : "bg-bone/15 backdrop-blur-md"
               }`}
             >
-              <svg
-                viewBox="0 0 24 24"
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              >
-                <path d="M3 12 L7 7 L17 7 L21 12 L21 18 L18 18 L18 16 L6 16 L6 18 L3 18 Z" />
-                <circle cx="8" cy="18" r="1.6" fill="currentColor" />
-                <circle cx="16" cy="18" r="1.6" fill="currentColor" />
-              </svg>
+              <span className="animate-hop">
+                <Grasshopper className="h-7 w-7" />
+              </span>
             </span>
             <span className="hidden flex-col leading-tight sm:flex">
-              <span className="font-display text-lg italic">La Esperanza</span>
+              <span className="font-display text-xl italic">
+                La Esperanza
+              </span>
               <span
                 className={`text-[10px] tracking-eyebrow ${
-                  scrolled ? "text-stone" : "text-bone/70"
+                  scrolled ? "text-emerald" : "text-bone/80"
                 }`}
               >
-                Parqueo · Lavacar
+                Parqueo · Lavacar · CR
               </span>
             </span>
           </a>
@@ -66,10 +61,10 @@ export function Navbar() {
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="group relative text-sm font-medium opacity-85 transition-opacity hover:opacity-100"
+                  className="group relative text-sm font-medium opacity-90 transition-opacity hover:opacity-100"
                 >
                   {l.label}
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-terra transition-all duration-500 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-emerald transition-all duration-500 group-hover:w-full" />
                 </a>
               </li>
             ))}
@@ -77,10 +72,10 @@ export function Navbar() {
 
           <a
             href="#contacto"
-            className={`btn-magnet group hidden items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-all duration-500 md:inline-flex ${
+            className={`btn-magnet group hidden items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-500 md:inline-flex ${
               scrolled
-                ? "bg-ink text-bone hover:bg-terra"
-                : "bg-bone text-ink hover:bg-terra hover:text-bone"
+                ? "bg-emerald text-bone hover:bg-emerald-deep"
+                : "bg-bone text-ink hover:bg-emerald hover:text-bone"
             }`}
           >
             Reservar
@@ -113,12 +108,15 @@ export function Navbar() {
           >
             <X className="h-7 w-7" />
           </button>
+          <span className="animate-hop mb-4">
+            <Grasshopper className="h-20 w-20" />
+          </span>
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="font-display text-5xl italic text-ink transition-colors hover:text-terra"
+              className="font-display text-5xl italic text-ink transition-colors hover:text-emerald"
             >
               {l.label}
             </a>

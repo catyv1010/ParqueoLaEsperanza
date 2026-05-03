@@ -79,7 +79,7 @@ export function Contact() {
     >
       <div className="mx-auto max-w-[1500px] px-6 lg:px-16">
         <div className="ct-eyebrow flex items-center gap-4">
-          <span className="inline-block h-px w-12 bg-terra" />
+          <span className="inline-block h-px w-12 bg-emerald" />
           <span className="tracking-eyebrow text-xs text-stone">
             Capítulo 05 — Visitanos
           </span>
@@ -100,7 +100,7 @@ export function Contact() {
               </span>
             ))}
           </span>{" "}
-          <span className="char-mask italic text-terra">
+          <span className="char-mask italic text-emerald">
             {"hoy.".split("").map((c, i) => (
               <span key={i} className="char">
                 {c}
@@ -113,19 +113,19 @@ export function Contact() {
           {/* Photo */}
           <div className="ct-photo relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-line lg:col-span-6 lg:aspect-auto lg:min-h-[640px]">
             <Image
-              src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=1800&q=85&auto=format&fit=crop"
-              alt="Auto siendo cuidado profesionalmente"
+              src="https://images.unsplash.com/photo-1605618826115-fb9e775cf36b?w=1800&q=85&auto=format&fit=crop"
+              alt="Lavacar profesional con manguera y espuma"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 via-transparent to-transparent" />
             <div className="absolute bottom-8 left-8 right-8 text-bone">
               <div className="font-display text-3xl italic lg:text-4xl">
                 Te esperamos.
               </div>
-              <div className="mt-2 text-xs tracking-eyebrow text-bone/80">
-                Lun — Dom · 6am a 9pm
+              <div className="mt-2 text-xs tracking-eyebrow text-bone/85">
+                Lun — Dom · 6am a 9pm · Pura vida 🇨🇷
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@ export function Contact() {
                     +506 7020-7762
                   </div>
                 </div>
-                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-terra">
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
                   →
                 </span>
               </a>
@@ -162,7 +162,7 @@ export function Contact() {
                     +506 8832-2660
                   </div>
                 </div>
-                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-terra">
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
                   →
                 </span>
               </a>
@@ -181,7 +181,7 @@ export function Contact() {
                     Escribinos
                   </div>
                 </div>
-                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-terra">
+                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
                   →
                 </span>
               </a>
@@ -209,7 +209,7 @@ export function Contact() {
             <div className="ct-row mt-10 flex flex-col items-stretch gap-3 sm:flex-row">
               <a
                 href="tel:+50670207762"
-                className="btn-magnet inline-flex flex-1 items-center justify-center gap-3 rounded-full bg-ink px-8 py-4 text-sm font-medium text-bone transition-colors hover:bg-terra"
+                className="btn-magnet inline-flex flex-1 items-center justify-center gap-3 rounded-full bg-emerald px-8 py-4 text-sm font-medium text-bone transition-colors hover:bg-emerald-deep"
               >
                 Llamar ahora
               </a>
@@ -217,7 +217,7 @@ export function Contact() {
                 href={WA}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-ink/20 px-8 py-4 text-sm font-medium text-ink transition-colors hover:border-terra hover:text-terra"
+                className="inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-emerald/30 px-8 py-4 text-sm font-medium text-emerald transition-colors hover:bg-emerald hover:text-bone"
               >
                 WhatsApp
               </a>

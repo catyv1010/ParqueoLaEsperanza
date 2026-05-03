@@ -11,45 +11,45 @@ if (typeof window !== "undefined") {
 
 const photos = [
   {
-    src: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1200&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1601925240970-98447081d56e?w=1200&q=85&auto=format&fit=crop",
     span: "row-span-2",
-    cap: "Detalle · gota",
+    cap: "Lavado · espuma activa",
   },
   {
-    src: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=1200&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1200&q=85&auto=format&fit=crop",
     span: "",
-    cap: "Clásicos",
+    cap: "Parqueo vigilado",
   },
   {
-    src: "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?w=1200&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1200&q=85&auto=format&fit=crop",
     span: "",
-    cap: "Brillo",
+    cap: "Detalle · espuma",
   },
   {
-    src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1605618826115-fb9e775cf36b?w=1200&q=85&auto=format&fit=crop",
     span: "row-span-2",
-    cap: "Premium",
+    cap: "Manguera · enjuague",
   },
   {
-    src: "https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?w=1200&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1200&q=85&auto=format&fit=crop",
     span: "",
-    cap: "Parqueo",
+    cap: "Detallado interior",
   },
   {
-    src: "https://images.unsplash.com/photo-1542362567-b07e54358753?w=1200&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=1200&q=85&auto=format&fit=crop",
     span: "",
-    cap: "Detalle",
+    cap: "Pickup · CR",
   },
 ];
 
 const marqueePhotos = [
-  "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1601925240970-98447081d56e?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=600&q=80&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=600&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=600&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?w=600&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1542362567-b07e54358753?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1605618826115-fb9e775cf36b?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=600&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80&auto=format&fit=crop",
 ];
 
 export function Gallery() {
@@ -58,7 +58,6 @@ export function Gallery() {
   useEffect(() => {
     if (!root.current) return;
     const ctx = gsap.context(() => {
-      // Header
       gsap.from(".gal-eyebrow > *", {
         y: 20,
         opacity: 0,
@@ -77,7 +76,6 @@ export function Gallery() {
         scrollTrigger: { trigger: ".gal-title", start: "top 80%" },
       });
 
-      // Clip-path reveal each photo
       gsap.utils.toArray<HTMLElement>(".gal-photo").forEach((p, i) => {
         gsap.fromTo(
           p,
@@ -102,7 +100,6 @@ export function Gallery() {
           }
         );
 
-        // Continuous parallax
         gsap.to(p.querySelector(".gal-img"), {
           yPercent: -10,
           ease: "none",
@@ -125,10 +122,9 @@ export function Gallery() {
       className="relative overflow-hidden bg-cream py-24 lg:py-32"
     >
       <div className="mx-auto max-w-[1500px] px-6 lg:px-16">
-        {/* Header */}
         <div className="grid grid-cols-12 items-end gap-6">
           <div className="gal-eyebrow col-span-12 flex items-center gap-4 lg:col-span-6">
-            <span className="inline-block h-px w-12 bg-terra" />
+            <span className="inline-block h-px w-12 bg-emerald" />
             <span className="tracking-eyebrow text-xs text-stone">
               Capítulo 04 — Galería
             </span>
@@ -143,13 +139,13 @@ export function Gallery() {
               ))}
             </span>{" "}
             <span className="char-mask italic text-stone">
-              {"auto".split("").map((c, i) => (
+              {"carro".split("").map((c, i) => (
                 <span key={i} className="char">
                   {c}
                 </span>
               ))}
             </span>{" "}
-            <span className="char-mask italic text-terra">
+            <span className="char-mask italic text-emerald">
               {"importa.".split("").map((c, i) => (
                 <span key={i} className="char">
                   {c}
@@ -159,7 +155,6 @@ export function Gallery() {
           </h2>
         </div>
 
-        {/* Photo grid */}
         <div className="mt-16 grid auto-rows-[28vw] grid-cols-2 gap-4 sm:auto-rows-[22vw] sm:gap-6 lg:auto-rows-[18vw] lg:grid-cols-3">
           {photos.map((p, i) => (
             <figure
@@ -175,7 +170,7 @@ export function Gallery() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <figcaption className="absolute bottom-4 left-4 right-4 translate-y-2 text-bone opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                 <span className="tracking-eyebrow text-[10px]">{p.cap}</span>
               </figcaption>
@@ -184,8 +179,7 @@ export function Gallery() {
         </div>
       </div>
 
-      {/* Photo marquee */}
-      <div className="mt-24 overflow-hidden border-y border-line py-8">
+      <div className="mt-24 overflow-hidden border-y border-emerald/15 bg-paper py-8">
         <div className="animate-marquee-fast flex shrink-0 items-center gap-6 whitespace-nowrap">
           {[...marqueePhotos, ...marqueePhotos].map((src, i) => (
             <div

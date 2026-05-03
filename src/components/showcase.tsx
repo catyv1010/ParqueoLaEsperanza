@@ -12,24 +12,24 @@ if (typeof window !== "undefined") {
 const slides = [
   {
     n: "01",
-    eyebrow: "Parqueo seguro",
+    eyebrow: "Parqueo vigilado",
     title: "Tranquilidad las 24 horas.",
-    body: "Cámaras de seguridad, personal capacitado y entrada controlada. Tu vehículo descansa, vos descansás.",
-    img: "https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?w=1800&q=85&auto=format&fit=crop",
+    body: "Cámaras, personal capacitado y entrada controlada. Tu carro descansa seguro, vos descansás tranquilo.",
+    img: "https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1800&q=85&auto=format&fit=crop",
   },
   {
     n: "02",
-    eyebrow: "Lavado profesional",
+    eyebrow: "Lavado con espuma",
     title: "Brillo que se nota.",
     body: "Espuma activa, enjuague a presión y secado a mano con productos premium que cuidan la pintura.",
-    img: "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?w=1800&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1800&q=85&auto=format&fit=crop",
   },
   {
     n: "03",
-    eyebrow: "Protección cerámica",
-    title: "Cuidado que dura meses.",
-    body: "Sellado cerámico que repele agua, polvo y rayos UV. Tu auto luce como nuevo por más tiempo.",
-    img: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1800&q=85&auto=format&fit=crop",
+    eyebrow: "Detalle interior",
+    title: "Cuidado en cada rincón.",
+    body: "Aspirado profundo, limpieza de tapicería, tablero y vidrios. Tu carro vuelve a sentirse nuevo.",
+    img: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1800&q=85&auto=format&fit=crop",
   },
 ];
 

@@ -12,9 +12,9 @@ if (typeof window !== "undefined") {
 const services = [
   {
     n: "01",
-    title: "Estacionamiento",
+    title: "Parqueo",
     sub: "vigilado 24/7",
-    desc: "Cámaras y personal capacitado. Día, noche o mensualidad.",
+    desc: "Cámaras y personal capacitado. Por hora, día, noche o mensualidad.",
     price: "₡1,000",
     unit: "/ hora",
     img: "https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=1400&q=85&auto=format&fit=crop",
@@ -23,46 +23,46 @@ const services = [
     n: "02",
     title: "Lavado Exterior",
     sub: "espuma + presión",
-    desc: "Productos premium que protegen la pintura. Secado a mano.",
+    desc: "Espuma activa, enjuague a presión y secado a mano con productos que cuidan la pintura.",
     price: "₡4,000",
     unit: "",
-    img: "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?w=1400&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1400&q=85&auto=format&fit=crop",
   },
   {
     n: "03",
     title: "Lavado Interior",
     sub: "detalle profundo",
-    desc: "Aspirado, tapicería, tablero y vidrios. Aroma a elegir.",
+    desc: "Aspirado, tapicería, tablero y vidrios impecables. Aroma natural a elegir.",
     price: "₡5,500",
     unit: "",
-    img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1400&q=85&auto=format&fit=crop",
   },
   {
     n: "04",
     title: "Premium Cerámico",
-    sub: "protección por meses",
-    desc: "Encerado, pulido y sellado cerámico que repele agua.",
+    sub: "protección meses",
+    desc: "Encerado, pulido y sellado cerámico que repele agua y polvo por meses.",
     price: "₡18,000",
     unit: "",
-    img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1400&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1601925240970-98447081d56e?w=1400&q=85&auto=format&fit=crop",
   },
   {
     n: "05",
     title: "Lavado de Motor",
     sub: "desengrase técnico",
-    desc: "Limpieza profesional con productos especializados.",
+    desc: "Limpieza profesional del motor con productos especializados que cuidan cables.",
     price: "₡8,000",
     unit: "",
-    img: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=1400&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1400&q=85&auto=format&fit=crop",
   },
   {
     n: "06",
     title: "Express",
     sub: "30 minutos",
-    desc: "Lavado completo rápido sin perder calidad.",
+    desc: "Lavado completo rápido sin perder calidad. Ideal cuando andás corriendo.",
     price: "₡3,500",
     unit: "",
-    img: "https://images.unsplash.com/photo-1542362567-b07e54358753?w=1400&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1605618826115-fb9e775cf36b?w=1400&q=85&auto=format&fit=crop",
   },
 ];
 
@@ -180,7 +180,7 @@ export function Services() {
                 </span>
               ))}
             </span>{" "}
-            <span className="char-mask italic text-terra">
+            <span className="char-mask italic text-emerald">
               {"detalle.".split("").map((c, i) => (
                 <span key={i} className="char">
                   {c}
@@ -256,7 +256,7 @@ export function Services() {
             </p>
             <a
               href="#contacto"
-              className="btn-magnet inline-flex items-center gap-3 rounded-full bg-terra px-7 py-4 text-sm font-medium text-bone transition-colors hover:bg-terra-2"
+              className="btn-magnet inline-flex items-center gap-3 rounded-full bg-mint px-7 py-4 text-sm font-medium text-emerald-deep transition-colors hover:bg-bone"
             >
               Cotizar
               <svg
