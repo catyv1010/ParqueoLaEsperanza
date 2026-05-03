@@ -97,7 +97,7 @@ export function Gallery() {
           </div>
           <div className="col-span-12 hidden text-right lg:col-span-6 lg:block">
             <span className="tracking-eyebrow text-xs text-stone">
-              San José · Costa Rica
+              Cartago · Costa Rica
             </span>
           </div>
 
@@ -146,7 +146,7 @@ export function Gallery() {
                   Te esperamos.
                 </div>
                 <div className="mt-2 text-xs tracking-eyebrow text-bone/85">
-                  Parqueo · Lavacar · San José, CR
+                  Parqueo · Lavacar · Cartago, CR
                 </div>
               </div>
               <span className="hidden text-mint sm:block">
@@ -161,7 +161,7 @@ export function Gallery() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald" />
               </span>
               <span className="text-[10px] tracking-eyebrow text-emerald-deep">
-                Foto real · sin retoques
+                Cartago · Costa Rica
               </span>
             </div>
           </figure>

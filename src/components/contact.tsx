@@ -125,7 +125,7 @@ export function Contact() {
                 Te esperamos.
               </div>
               <div className="mt-2 text-xs tracking-eyebrow text-bone/85">
-                Lun — Dom · 6am a 9pm · Pura vida 🇨🇷
+                Cartago, CR · Lun — Dom · 6am a 9pm
               </div>
             </div>
           </div>

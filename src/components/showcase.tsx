@@ -26,9 +26,9 @@ const slides = [
   },
   {
     n: "03",
-    eyebrow: "Detalle interior",
-    title: "Cuidado en cada rincón.",
-    body: "Aspirado profundo, limpieza de tapicería, tablero y vidrios. Tu carro vuelve a sentirse nuevo.",
+    eyebrow: "Hecho con cariño tico",
+    title: "Atención que se siente.",
+    body: "Más de 10 años cuidando carros en Cartago. Cada cliente es parte de la familia.",
     bg: "from-emerald-2 via-teal to-mint",
   },
 ];
@@ -38,86 +38,99 @@ export function Showcase() {
 
   useEffect(() => {
     if (!root.current) return;
+
     const ctx = gsap.context(() => {
       const panels = gsap.utils.toArray<HTMLElement>(".showcase-panel");
-      const total = panels.length;
+      const texts = gsap.utils.toArray<HTMLElement>(".showcase-text");
+      const bugs = gsap.utils.toArray<HTMLElement>(".showcase-bug");
+      const dots = gsap.utils.toArray<HTMLElement>(".showcase-dot");
 
-      ScrollTrigger.create({
-        trigger: root.current,
-        start: "top top",
-        end: () => `+=${window.innerHeight * total}`,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-      });
+      // Initial states
+      gsap.set(panels, { opacity: 0 });
+      gsap.set(panels[0], { opacity: 1 });
+      gsap.set(texts, { opacity: 0, y: 40 });
+      gsap.set(texts[0], { opacity: 1, y: 0 });
+      gsap.set(bugs, { opacity: 0, rotate: -30, scale: 0.9 });
+      gsap.set(bugs[0], { opacity: 0.5, rotate: 0, scale: 1 });
+      dots.forEach((d, i) =>
+        d.classList.toggle("is-active", i === 0)
+      );
 
-      panels.forEach((panel, i) => {
-        const start = i / total;
-        const end = (i + 1) / total;
-
-        if (i === 0) {
-          gsap.set(panel, { opacity: 1, scale: 1 });
-        } else {
-          gsap.set(panel, { opacity: 0, scale: 1.02 });
-        }
-
-        ScrollTrigger.create({
+      // Master pinned timeline — total scroll length is 2x viewport
+      // (one viewport per transition, not per panel — avoids "stuck" feeling)
+      const tl = gsap.timeline({
+        scrollTrigger: {
           trigger: root.current,
-          start: () => `top+=${start * window.innerHeight * total} top`,
-          end: () => `top+=${end * window.innerHeight * total} top`,
+          start: "top top",
+          end: () => `+=${window.innerHeight * 2}`,
+          pin: true,
           scrub: 0.6,
-          onUpdate: (self) => {
-            const p = self.progress;
-            gsap.to(panel, {
-              opacity: p < 0.5 ? p * 2 : 2 - p * 2,
-              scale: 1 + (1 - Math.abs(0.5 - p) * 2) * 0.02,
-              duration: 0.2,
-              overwrite: "auto",
-            });
-
-            const textPanels =
-              root.current?.querySelectorAll(".showcase-text");
-            textPanels?.forEach((t, ti) => {
-              const isActive = ti === i;
-              gsap.to(t, {
-                opacity: isActive ? 1 : 0,
-                y: isActive ? 0 : 30,
-                duration: 0.4,
-                overwrite: "auto",
-              });
-            });
-
-            const grasshoppers =
-              root.current?.querySelectorAll(".showcase-bug");
-            grasshoppers?.forEach((g, gi) => {
-              gsap.to(g, {
-                opacity: gi === i ? 0.5 : 0,
-                rotate: gi === i ? 0 : -20,
-                duration: 0.4,
-                overwrite: "auto",
-              });
-            });
-
-            const dots = root.current?.querySelectorAll(".showcase-dot");
-            dots?.forEach((d, di) => {
-              d.classList.toggle("is-active", di === i);
-            });
-          },
-        });
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
       });
 
-      const firstText = root.current?.querySelector(".showcase-text");
-      if (firstText) gsap.set(firstText, { opacity: 1, y: 0 });
-      gsap.set(
-        gsap.utils.toArray(".showcase-text").slice(1) as HTMLElement[],
-        { opacity: 0, y: 30 }
-      );
-      const firstBug = root.current?.querySelector(".showcase-bug");
-      if (firstBug) gsap.set(firstBug, { opacity: 0.5, rotate: 0 });
-      gsap.set(
-        gsap.utils.toArray(".showcase-bug").slice(1) as HTMLElement[],
-        { opacity: 0, rotate: -20 }
-      );
+      // Transition 1 → 2
+      tl.to(
+        panels[0],
+        { opacity: 0, duration: 1, ease: "power2.inOut" },
+        0
+      )
+        .to(
+          texts[0],
+          { opacity: 0, y: -40, duration: 1, ease: "power2.inOut" },
+          0
+        )
+        .to(
+          bugs[0],
+          { opacity: 0, rotate: 30, scale: 0.9, duration: 1, ease: "power2.inOut" },
+          0
+        )
+        .to(panels[1], { opacity: 1, duration: 1, ease: "power2.inOut" }, 0)
+        .to(
+          texts[1],
+          { opacity: 1, y: 0, duration: 1, ease: "power2.inOut" },
+          0
+        )
+        .to(
+          bugs[1],
+          { opacity: 0.5, rotate: 0, scale: 1, duration: 1, ease: "power2.inOut" },
+          0
+        )
+        .call(() => {
+          dots.forEach((d, i) => d.classList.toggle("is-active", i === 1));
+        }, [], 0.5);
+
+      // Transition 2 → 3
+      tl.to(
+        panels[1],
+        { opacity: 0, duration: 1, ease: "power2.inOut" },
+        1
+      )
+        .to(
+          texts[1],
+          { opacity: 0, y: -40, duration: 1, ease: "power2.inOut" },
+          1
+        )
+        .to(
+          bugs[1],
+          { opacity: 0, rotate: 30, scale: 0.9, duration: 1, ease: "power2.inOut" },
+          1
+        )
+        .to(panels[2], { opacity: 1, duration: 1, ease: "power2.inOut" }, 1)
+        .to(
+          texts[2],
+          { opacity: 1, y: 0, duration: 1, ease: "power2.inOut" },
+          1
+        )
+        .to(
+          bugs[2],
+          { opacity: 0.5, rotate: 0, scale: 1, duration: 1, ease: "power2.inOut" },
+          1
+        )
+        .call(() => {
+          dots.forEach((d, i) => d.classList.toggle("is-active", i === 2));
+        }, [], 1.5);
     }, root);
 
     return () => ctx.revert();
@@ -130,17 +143,15 @@ export function Showcase() {
     >
       {/* Color stack */}
       <div className="absolute inset-0">
-        {slides.map((s, i) => (
+        {slides.map((s) => (
           <div
             key={s.n}
             className={`showcase-panel absolute inset-0 bg-gradient-to-br ${s.bg}`}
           >
-            {/* Decorative giant chapter number */}
             <span className="pointer-events-none absolute -right-10 -top-10 select-none font-display text-[40rem] leading-none text-bone/[0.05]">
               {s.n}
             </span>
-            {/* Decorative grasshopper */}
-            <span className="showcase-bug pointer-events-none absolute right-[8%] top-[30%] hidden text-mint/40 lg:block">
+            <span className="showcase-bug pointer-events-none absolute right-[8%] top-[28%] hidden text-mint/40 lg:block">
               <Grasshopper className="h-72 w-72 xl:h-96 xl:w-96" />
             </span>
           </div>
