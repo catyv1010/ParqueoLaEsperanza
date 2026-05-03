@@ -124,7 +124,7 @@ export function EsperanzaStory() {
   return (
     <section
       ref={root}
-      className="relative overflow-hidden mesh-beige py-32 lg:py-44"
+      className="relative overflow-hidden mesh-beige py-20 lg:py-44"
     >
       {/* Watermark gigante */}
       <span
@@ -153,12 +153,15 @@ export function EsperanzaStory() {
         </div>
 
         {/* Big quote mark decorativo */}
-        <div className="es-quote-mark mt-8 font-display text-[8rem] italic leading-none text-emerald/25 lg:text-[12rem]">
+        <div
+          aria-hidden
+          className="es-quote-mark pointer-events-none mt-6 font-display text-[6rem] italic leading-[0.5] text-emerald/20 lg:mt-10 lg:text-[12rem]"
+        >
           &ldquo;
         </div>
 
-        <div className="-mt-12 max-w-4xl lg:-mt-20">
-          <p className="font-display text-2xl leading-[1.32] sm:text-3xl lg:text-[2.6rem] lg:leading-[1.25]">
+        <div className="mt-2 max-w-4xl lg:-mt-12">
+          <p className="font-display text-xl leading-[1.4] sm:text-2xl sm:leading-[1.32] lg:text-[2.6rem] lg:leading-[1.25]">
             {STORY.map((item, i) => (
               <span key={i}>
                 <span
@@ -175,10 +178,10 @@ export function EsperanzaStory() {
             ))}
           </p>
 
-          <div className="mt-14 flex items-center gap-4">
+          <div className="mt-10 flex items-center gap-4 lg:mt-14">
             <span className="inline-block h-px w-8 bg-emerald/40" />
             <span className="tracking-eyebrow text-[10px] text-stone">
-              — el equipo La Esperanza, Cartago · est. 2014
+              — equipo La Esperanza · Cartago
             </span>
           </div>
         </div>

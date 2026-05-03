@@ -332,11 +332,11 @@ export function Hero() {
         </p>
 
         {/* CTAs */}
-        <div className="hero-cta flex flex-col items-center gap-5 sm:flex-row">
+        <div className="hero-cta flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-5">
           <Magnetic
             href="#contacto"
             strength={0.4}
-            className="btn-magnet group inline-flex items-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-night shadow-[0_0_36px_rgba(116,198,157,0.35)] transition-all duration-500 hover:shadow-[0_0_60px_rgba(116,198,157,0.65)]"
+            className="btn-magnet group inline-flex items-center justify-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-night shadow-[0_0_36px_rgba(116,198,157,0.35)] transition-all duration-500 hover:shadow-[0_0_60px_rgba(116,198,157,0.65)]"
           >
             Reservar mi espacio
             <svg
@@ -351,13 +351,18 @@ export function Hero() {
           </Magnetic>
           <a
             href="#servicios"
-            className="group inline-flex items-center gap-3 text-sm font-medium text-bone/85"
+            className="group inline-flex items-center justify-center gap-2 rounded-full border border-mint/30 px-7 py-3.5 text-sm font-medium text-bone transition-all hover:border-mint hover:bg-mint/10 sm:border-0 sm:px-3 sm:py-0"
           >
-            <span className="relative">
-              Ver servicios
-              <span className="absolute -bottom-1 left-0 h-px w-full bg-bone/30 transition-all duration-500 group-hover:w-0" />
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-mint transition-all duration-500 group-hover:w-full" />
-            </span>
+            Ver servicios
+            <svg
+              viewBox="0 0 24 24"
+              className="h-3.5 w-3.5 text-mint transition-transform duration-500 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </a>
         </div>
 
