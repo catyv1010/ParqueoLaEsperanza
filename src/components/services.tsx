@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Tilt } from "@/components/tilt";
@@ -47,11 +48,33 @@ export function Services() {
           scrollTrigger: { trigger: card, start: "top 85%" },
         });
 
+        gsap.fromTo(
+          card.querySelector(".svc-photo"),
+          { clipPath: "inset(0% 0% 100% 0%)" },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.5,
+            ease: "expo.inOut",
+            scrollTrigger: { trigger: card, start: "top 80%" },
+          }
+        );
+        gsap.fromTo(
+          card.querySelector(".svc-photo img"),
+          { scale: 1.4 },
+          {
+            scale: 1.05,
+            duration: 1.5,
+            ease: "expo.out",
+            scrollTrigger: { trigger: card, start: "top 80%" },
+          }
+        );
+
         gsap.from(card.querySelector(".svc-num"), {
-          scale: 0.6,
+          yPercent: 30,
           opacity: 0,
-          duration: 1.2,
+          duration: 1,
           ease: "expo.out",
+          delay: 0.4,
           scrollTrigger: { trigger: card, start: "top 80%" },
         });
 
@@ -63,6 +86,23 @@ export function Services() {
           ease: "power3.out",
           scrollTrigger: { trigger: card, start: "top 75%" },
         });
+      });
+
+      // Drops para lavacar card
+      gsap.utils.toArray<HTMLElement>(".svc-drop").forEach((drop, i) => {
+        gsap.fromTo(
+          drop,
+          { y: -10, opacity: 0 },
+          {
+            y: 60,
+            opacity: 1,
+            duration: 2.2 + i * 0.3,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+            delay: i * 0.4,
+          }
+        );
       });
 
       gsap.from(".svc-cta", {
@@ -88,7 +128,6 @@ export function Services() {
         <SkyEffects stars={50} area="full" />
       </div>
 
-      {/* Background atmosphere */}
       <div
         aria-hidden
         className="absolute -left-32 top-1/3 h-[500px] w-[500px] rounded-full bg-emerald/20 blur-[180px]"
@@ -137,38 +176,56 @@ export function Services() {
           </h2>
         </div>
 
-        {/* TWO BIG cards */}
+        {/* TWO BIG cards con foto */}
         <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
           {/* PARQUEO */}
-          <Tilt max={5}>
-            <article className="svc-card glow-on-hover ring-glow group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-night-2 via-emerald-deep to-night-3 p-10 text-bone lg:aspect-[5/6] lg:p-14">
-              <span
-                aria-hidden
-                className="svc-num text-outline pointer-events-none absolute -right-4 -top-10 select-none font-display text-[18rem] italic leading-none text-mint/[0.06] lg:text-[24rem]"
-              >
-                01
-              </span>
+          <Tilt max={4}>
+            <article className="svc-card glow-on-hover ring-glow group relative flex h-full flex-col overflow-hidden rounded-3xl bg-gradient-to-br from-night-2 via-emerald-deep to-night-3 text-bone">
+              {/* Photo header — dramatic green */}
+              <div className="svc-photo relative h-[280px] overflow-hidden lg:h-[340px]">
+                <Image
+                  src="/foto-parqueo.jpg"
+                  alt="Parqueo La Esperanza Cartago"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
+                  style={{ filter: "saturate(0.85) brightness(0.9) contrast(1.05)" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-night-2/30 via-emerald-deep/40 to-night-2" />
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-deep/40 via-transparent to-transparent mix-blend-overlay" />
 
-              <div className="relative flex items-start justify-between">
-                <div className="font-display text-6xl italic text-mint lg:text-7xl">
+                {/* Number floating */}
+                <div className="svc-num absolute left-8 top-8 font-display text-7xl italic text-mint glow-mint lg:text-8xl">
                   01
                 </div>
-                <div className="text-right">
-                  <div className="font-display text-4xl text-bone lg:text-5xl">
-                    <span>₡</span>
-                    <CountUp to={1000} format="comma" />
+
+                {/* Price chip floating */}
+                <div className="absolute right-8 top-8 rounded-full border border-mint/30 bg-night/70 px-4 py-2 backdrop-blur-md">
+                  <div className="flex items-baseline gap-1 font-display text-bone">
+                    <span className="text-sm">₡</span>
+                    <span className="text-2xl">
+                      <CountUp to={1000} format="comma" />
+                    </span>
+                    <span className="text-[9px] tracking-eyebrow text-mint/80">
+                      / hora
+                    </span>
                   </div>
-                  <div className="text-[10px] tracking-eyebrow text-mint/70">
-                    por hora
+                </div>
+
+                {/* Eyebrow chip bottom */}
+                <div className="absolute bottom-6 left-8">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-mint/30 bg-night/70 px-3 py-1.5 backdrop-blur-md">
+                    <span className="h-1.5 w-1.5 rounded-full bg-mint shadow-[0_0_8px_rgba(116,198,157,0.8)]" />
+                    <span className="text-[9px] tracking-eyebrow text-bone">
+                      vigilado 24/7
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className="relative">
-                <div className="text-[10px] tracking-eyebrow text-mint/70">
-                  vigilado 24/7
-                </div>
-                <h3 className="mt-3 font-display text-6xl leading-tight text-bone lg:text-7xl">
+              {/* Content */}
+              <div className="relative flex flex-1 flex-col p-10 lg:p-12">
+                <h3 className="font-display text-5xl leading-tight text-bone lg:text-6xl">
                   Parqueo
                 </h3>
                 <p className="mt-5 max-w-md text-base leading-relaxed text-bone/75 lg:text-lg">
@@ -177,14 +234,14 @@ export function Services() {
                   WhatsApp.
                 </p>
 
-                <ul className="mt-6 space-y-2 text-sm text-bone/70">
+                <ul className="mt-6 space-y-2.5 text-sm text-bone/70">
                   <li className="svc-detail flex items-center gap-3">
                     <span className="h-1 w-4 bg-mint" />
                     <span>Cubierto · 100% del lote</span>
                   </li>
                   <li className="svc-detail flex items-center gap-3">
                     <span className="h-1 w-4 bg-mint" />
-                    <span>Cámaras 24/7 + personal</span>
+                    <span>Cámaras 24/7 + personal en sitio</span>
                   </li>
                   <li className="svc-detail flex items-center gap-3">
                     <span className="h-1 w-4 bg-mint" />
@@ -197,7 +254,7 @@ export function Services() {
                   target="_blank"
                   rel="noopener noreferrer"
                   strength={0.35}
-                  className="mt-8 inline-flex items-center gap-2 text-xs font-medium text-mint underline decoration-2 underline-offset-4 transition-colors hover:text-bone"
+                  className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-medium text-mint underline decoration-2 underline-offset-4 transition-colors hover:text-bone"
                 >
                   Plan diario o mensual →
                 </Magnetic>
@@ -206,35 +263,70 @@ export function Services() {
           </Tilt>
 
           {/* LAVADO */}
-          <Tilt max={5}>
-            <article className="svc-card glow-on-hover ring-glow group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-night-3 via-emerald to-night-2 p-10 text-bone lg:aspect-[5/6] lg:p-14">
-              <span
-                aria-hidden
-                className="svc-num text-outline pointer-events-none absolute -right-4 -top-10 select-none font-display text-[18rem] italic leading-none text-mint/[0.06] lg:text-[24rem]"
-              >
-                02
-              </span>
+          <Tilt max={4}>
+            <article className="svc-card glow-on-hover ring-glow group relative flex h-full flex-col overflow-hidden rounded-3xl bg-gradient-to-br from-night-3 via-emerald to-night-2 text-bone">
+              {/* Photo header — fresh mint tint */}
+              <div className="svc-photo relative h-[280px] overflow-hidden lg:h-[340px]">
+                <Image
+                  src="/foto-parqueo.jpg"
+                  alt="Lavacar La Esperanza Cartago"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover object-top transition-transform duration-1000 group-hover:scale-105"
+                  style={{ filter: "saturate(1.15) brightness(1.05) hue-rotate(15deg)" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-mint/15 via-emerald/30 to-night-2" />
+                <div className="absolute inset-0 bg-gradient-to-br from-mint/25 via-transparent to-transparent mix-blend-overlay" />
 
-              <div className="relative flex items-start justify-between">
-                <div className="font-display text-6xl italic text-mint lg:text-7xl">
+                {/* Animated water drops */}
+                <div aria-hidden className="pointer-events-none absolute inset-0">
+                  {[18, 32, 52, 68, 82].map((left, i) => (
+                    <span
+                      key={i}
+                      className="svc-drop absolute h-3 w-3 rounded-full"
+                      style={{
+                        left: `${left}%`,
+                        top: `${10 + (i % 3) * 8}%`,
+                        background:
+                          "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(183,228,199,0.6) 50%, transparent 80%)",
+                        boxShadow: "0 0 12px rgba(183,228,199,0.55)",
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Number floating */}
+                <div className="svc-num absolute left-8 top-8 font-display text-7xl italic text-mint glow-mint lg:text-8xl">
                   02
                 </div>
-                <div className="text-right">
-                  <div className="font-display text-3xl text-bone/80 lg:text-4xl">
-                    desde
+
+                {/* Price chip */}
+                <div className="absolute right-8 top-8 rounded-full border border-mint/30 bg-night/70 px-4 py-2 backdrop-blur-md">
+                  <div className="flex items-baseline gap-1 font-display text-bone">
+                    <span className="text-[10px] tracking-eyebrow text-mint/80">
+                      desde
+                    </span>
+                    <span className="text-sm">₡</span>
+                    <span className="text-2xl">
+                      <CountUp to={6000} format="comma" />
+                    </span>
                   </div>
-                  <div className="font-display text-4xl text-bone lg:text-5xl">
-                    <span>₡</span>
-                    <CountUp to={6000} format="comma" />
+                </div>
+
+                {/* Eyebrow chip bottom */}
+                <div className="absolute bottom-6 left-8">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-mint/30 bg-night/70 px-3 py-1.5 backdrop-blur-md">
+                    <span className="h-1.5 w-1.5 rounded-full bg-mint shadow-[0_0_8px_rgba(116,198,157,0.8)]" />
+                    <span className="text-[9px] tracking-eyebrow text-bone">
+                      espuma · presión · cariño
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className="relative">
-                <div className="text-[10px] tracking-eyebrow text-mint/70">
-                  espuma · presión · cariño
-                </div>
-                <h3 className="mt-3 font-display text-6xl leading-tight text-bone lg:text-7xl">
+              {/* Content */}
+              <div className="relative flex flex-1 flex-col p-10 lg:p-12">
+                <h3 className="font-display text-5xl leading-tight text-bone lg:text-6xl">
                   Lavacar
                 </h3>
                 <p className="mt-5 max-w-md text-base leading-relaxed text-bone/75 lg:text-lg">
@@ -242,7 +334,7 @@ export function Services() {
                   la pintura como si fuera nuestra. Tarifa según el vehículo.
                 </p>
 
-                <ul className="mt-6 space-y-2 text-sm text-bone/70">
+                <ul className="mt-6 space-y-2.5 text-sm text-bone/70">
                   <li className="svc-detail flex items-center gap-3">
                     <span className="h-1 w-4 bg-mint" />
                     <span>Espuma activa premium</span>
@@ -262,7 +354,7 @@ export function Services() {
                   target="_blank"
                   rel="noopener noreferrer"
                   strength={0.35}
-                  className="mt-8 inline-flex items-center gap-2 text-xs font-medium text-mint underline decoration-2 underline-offset-4 transition-colors hover:text-bone"
+                  className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-medium text-mint underline decoration-2 underline-offset-4 transition-colors hover:text-bone"
                 >
                   Cotizá tu vehículo →
                 </Magnetic>
