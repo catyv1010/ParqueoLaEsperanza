@@ -7,7 +7,7 @@ import { Grasshopper } from "@/components/grasshopper";
 const links = [
   { label: "Inicio", href: "#inicio" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Galería", href: "#galeria" },
+  { label: "Lugar", href: "#galeria" },
   { label: "Contacto", href: "#contacto" },
 ];
 
@@ -16,7 +16,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -27,30 +27,22 @@ export function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
           scrolled
-            ? "bg-cream/85 backdrop-blur-xl border-b border-emerald/15 text-ink"
-            : "bg-transparent text-bone"
+            ? "bg-night/85 backdrop-blur-xl border-b border-mint/10"
+            : "bg-transparent"
         }`}
       >
-        <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-4 lg:px-12">
+        <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 lg:px-12">
           <a href="#inicio" className="group flex items-center gap-3">
-            <span
-              className={`relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full transition-colors ${
-                scrolled ? "bg-emerald/10" : "bg-bone/15 backdrop-blur-md"
-              }`}
-            >
-              <span className="animate-hop">
-                <Grasshopper className="h-7 w-7" />
+            <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-mint/10 ring-1 ring-mint/20 transition-all group-hover:bg-mint/20">
+              <span className="text-mint">
+                <Grasshopper className="h-6 w-6" variant="solid" />
               </span>
             </span>
             <span className="hidden flex-col leading-tight sm:flex">
-              <span className="font-display text-xl italic">
+              <span className="font-display text-lg italic text-bone">
                 La Esperanza
               </span>
-              <span
-                className={`text-[10px] tracking-eyebrow ${
-                  scrolled ? "text-emerald" : "text-bone/80"
-                }`}
-              >
+              <span className="tracking-eyebrow text-[9px] text-mint/70">
                 Parqueo · Lavacar · CR
               </span>
             </span>
@@ -61,10 +53,10 @@ export function Navbar() {
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="group relative text-sm font-medium opacity-90 transition-opacity hover:opacity-100"
+                  className="group relative text-sm font-medium text-bone/80 transition-colors hover:text-bone"
                 >
                   {l.label}
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-emerald transition-all duration-500 group-hover:w-full" />
+                  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-mint transition-all duration-500 group-hover:w-full" />
                 </a>
               </li>
             ))}
@@ -72,11 +64,7 @@ export function Navbar() {
 
           <a
             href="#contacto"
-            className={`btn-magnet group hidden items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-500 md:inline-flex ${
-              scrolled
-                ? "bg-emerald text-bone hover:bg-emerald-deep"
-                : "bg-bone text-ink hover:bg-emerald hover:text-bone"
-            }`}
+            className="btn-magnet group hidden items-center gap-2 rounded-full bg-mint px-5 py-2.5 text-sm font-medium text-night shadow-[0_0_24px_rgba(116,198,157,0.3)] transition-all duration-500 hover:shadow-[0_0_36px_rgba(116,198,157,0.55)] md:inline-flex"
           >
             Reservar
             <svg
@@ -92,7 +80,7 @@ export function Navbar() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden"
+            className="text-bone md:hidden"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -101,22 +89,22 @@ export function Navbar() {
       </header>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-cream md:hidden">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-night/98 backdrop-blur-xl md:hidden">
           <button
             onClick={() => setOpen(false)}
-            className="absolute right-6 top-6 text-ink"
+            className="absolute right-6 top-6 text-bone"
           >
             <X className="h-7 w-7" />
           </button>
-          <span className="animate-hop mb-4">
-            <Grasshopper className="h-20 w-20" />
+          <span className="mb-4 text-mint">
+            <Grasshopper className="h-20 w-20" variant="solid" />
           </span>
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="font-display text-5xl italic text-ink transition-colors hover:text-emerald"
+              className="font-display text-5xl italic text-bone transition-colors hover:text-mint"
             >
               {l.label}
             </a>

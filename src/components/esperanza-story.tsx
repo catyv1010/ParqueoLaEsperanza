@@ -1,47 +1,43 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Tilt } from "@/components/tilt";
+import { Grasshopper } from "@/components/grasshopper";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 const STORY = [
-  "La",
-  "esperanza",
-  "es",
-  "ese",
-  "chapulín",
-  "verde",
-  "que",
-  "en",
-  "Costa",
-  "Rica",
-  "trae",
-  "buena",
-  "suerte.",
-  "Un",
-  "símbolo",
-  "de",
-  "calma,",
-  "paciencia",
-  "y",
-  "cuidado",
-  "—",
-  "exactamente",
-  "lo",
-  "que",
-  "sentimos",
-  "por",
-  "cada",
-  "carro",
-  "que",
-  "nos",
-  "confías.",
+  { w: "La" },
+  { w: "esperanza", accent: true },
+  { w: "es" },
+  { w: "ese" },
+  { w: "chapulín" },
+  { w: "verde", accent: true },
+  { w: "que" },
+  { w: "trae" },
+  { w: "buena" },
+  { w: "suerte", accent: true },
+  { w: "en" },
+  { w: "Costa" },
+  { w: "Rica." },
+  { w: "Calma," },
+  { w: "paciencia" },
+  { w: "y" },
+  { w: "cuidado", accent: true },
+  { w: "—" },
+  { w: "exactamente" },
+  { w: "lo" },
+  { w: "que" },
+  { w: "sentimos" },
+  { w: "por" },
+  { w: "cada" },
+  { w: "carro", accent: true },
+  { w: "que" },
+  { w: "nos" },
+  { w: "confías.", accent: true },
 ];
 
 export function EsperanzaStory() {
@@ -59,33 +55,20 @@ export function EsperanzaStory() {
         scrollTrigger: { trigger: ".es-eyebrow", start: "top 85%" },
       });
 
-      // Photo clip + scale reveal
-      gsap.fromTo(
-        ".es-photo",
-        { clipPath: "inset(0% 100% 0% 0%)" },
-        {
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 1.6,
-          ease: "expo.inOut",
-          scrollTrigger: { trigger: ".es-photo", start: "top 80%" },
-        }
-      );
-      gsap.fromTo(
-        ".es-photo img",
-        { scale: 1.4 },
-        {
-          scale: 1.05,
-          duration: 1.6,
-          ease: "expo.out",
-          scrollTrigger: { trigger: ".es-photo", start: "top 80%" },
-        }
-      );
+      gsap.from(".es-bug", {
+        scale: 0,
+        rotate: -120,
+        opacity: 0,
+        duration: 1.4,
+        ease: "back.out(1.5)",
+        scrollTrigger: { trigger: ".es-bug-wrap", start: "top 80%" },
+      });
 
-      // Word-by-word color fill on scroll
-      gsap.utils.toArray<HTMLElement>(".es-word").forEach((w, i) => {
+      // Word fill on scroll
+      gsap.utils.toArray<HTMLElement>(".es-word").forEach((w) => {
         ScrollTrigger.create({
           trigger: w,
-          start: "top 75%",
+          start: "top 78%",
           end: "top 55%",
           scrub: true,
           onUpdate: (self) => {
@@ -94,9 +77,22 @@ export function EsperanzaStory() {
         });
       });
 
-      // Photo subtle parallax
-      gsap.to(".es-photo img", {
-        yPercent: -8,
+      // Bug parallax
+      gsap.to(".es-bug", {
+        yPercent: -25,
+        rotate: 12,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // Watermark word slow scroll
+      gsap.to(".es-watermark", {
+        xPercent: -8,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -113,62 +109,63 @@ export function EsperanzaStory() {
   return (
     <section
       ref={root}
-      className="relative overflow-hidden py-24 lg:py-40"
+      className="relative overflow-hidden bg-night py-32 lg:py-48"
     >
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-        <div className="grid grid-cols-12 items-start gap-10 lg:gap-16">
-          {/* Photo of real katydid */}
-          <div className="col-span-12 lg:col-span-5">
-            <Tilt max={8}>
-              <figure className="es-photo relative aspect-[3/4] overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-deep via-emerald to-emerald-2 shadow-2xl shadow-emerald-deep/30">
-                <Image
-                  src="https://images.unsplash.com/photo-1567113463300-102a7eb3cb26?w=1200&q=85&auto=format&fit=crop"
-                  alt="Esperanza, el chapulín verde de Costa Rica"
-                  fill
-                  sizes="(min-width: 1024px) 35vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/55 via-transparent to-transparent" />
-                <figcaption className="absolute bottom-5 left-5 right-5">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-bone/95 px-4 py-2 backdrop-blur-sm">
-                    <span className="text-[10px] tracking-eyebrow text-emerald-deep">
-                      Esperanza · Tettigoniidae · CR
-                    </span>
-                  </div>
-                </figcaption>
-              </figure>
-            </Tilt>
+      {/* Background watermark */}
+      <span
+        aria-hidden
+        className="es-watermark pointer-events-none absolute -bottom-10 left-0 select-none whitespace-nowrap font-display text-[28vw] italic leading-none text-mint/[0.04] lg:text-[20rem]"
+      >
+        esperanza
+      </span>
+
+      {/* Mesh blob */}
+      <div
+        aria-hidden
+        className="absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-emerald/15 blur-[160px]"
+      />
+
+      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-16">
+        <div className="es-eyebrow flex items-center gap-4">
+          <span className="inline-block h-px w-12 bg-mint" />
+          <span className="tracking-eyebrow text-xs text-mint/70">
+            Capítulo 02 — Por qué La Esperanza
+          </span>
+        </div>
+
+        <div className="mt-12 grid grid-cols-12 items-start gap-10 lg:gap-16">
+          {/* Big floating chapulín */}
+          <div className="es-bug-wrap col-span-12 flex justify-center lg:col-span-4 lg:justify-start">
+            <div className="es-bug relative">
+              <div className="absolute inset-0 -z-10 scale-150 rounded-full bg-mint/15 blur-3xl" />
+              <span className="text-mint animate-float drop-shadow-[0_0_40px_rgba(116,198,157,0.4)]">
+                <Grasshopper className="h-56 w-56 lg:h-80 lg:w-80" />
+              </span>
+            </div>
           </div>
 
           {/* Story text */}
-          <div className="col-span-12 lg:col-span-7">
-            <div className="es-eyebrow flex items-center gap-4">
-              <span className="inline-block h-px w-12 bg-emerald" />
-              <span className="tracking-eyebrow text-xs text-stone">
-                Por qué La Esperanza
-              </span>
-            </div>
-
-            <p className="mt-10 font-display text-3xl leading-[1.25] text-ink sm:text-4xl lg:text-[3.4rem]">
-              {STORY.map((w, i) => (
+          <div className="col-span-12 lg:col-span-8">
+            <p className="font-display text-3xl leading-[1.25] sm:text-4xl lg:text-[3.2rem] lg:leading-[1.18]">
+              {STORY.map((item, i) => (
                 <span
                   key={i}
                   className={`es-word scroll-fill-word ${
-                    w === "esperanza" ||
-                    w === "verde" ||
-                    w === "suerte." ||
-                    w === "cuidado" ||
-                    w === "carro" ||
-                    w === "confías."
-                      ? "italic"
-                      : ""
+                    item.accent ? "is-accent italic" : ""
                   }`}
                   style={{ marginRight: "0.25em" }}
                 >
-                  {w}
+                  {item.w}
                 </span>
               ))}
             </p>
+
+            <div className="mt-12 flex items-center gap-4">
+              <span className="inline-block h-px w-8 bg-mint/40" />
+              <span className="tracking-eyebrow text-[10px] text-mint/60">
+                — el equipo La Esperanza, Cartago
+              </span>
+            </div>
           </div>
         </div>
       </div>

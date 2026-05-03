@@ -35,11 +35,11 @@ export function Contact() {
 
       gsap.fromTo(
         ".ct-map",
-        { clipPath: "inset(100% 0% 0% 0%)" },
+        { clipPath: "inset(0% 100% 0% 0%)" },
         {
           clipPath: "inset(0% 0% 0% 0%)",
           duration: 1.6,
-          ease: "expo.out",
+          ease: "expo.inOut",
           scrollTrigger: { trigger: ".ct-map", start: "top 85%" },
         }
       );
@@ -48,7 +48,7 @@ export function Contact() {
         opacity: 0,
         y: 30,
         duration: 0.7,
-        stagger: 0.08,
+        stagger: 0.07,
         ease: "power3.out",
         scrollTrigger: { trigger: ".ct-info", start: "top 80%" },
       });
@@ -61,17 +61,22 @@ export function Contact() {
     <section
       ref={root}
       id="contacto"
-      className="relative overflow-hidden bg-cream py-24 lg:py-32"
+      className="relative overflow-hidden bg-night py-28 lg:py-40"
     >
-      <div className="mx-auto max-w-[1500px] px-6 lg:px-16">
+      <div
+        aria-hidden
+        className="absolute -left-32 bottom-0 h-[500px] w-[500px] rounded-full bg-mint/10 blur-[180px]"
+      />
+
+      <div className="relative mx-auto max-w-[1500px] px-6 lg:px-16">
         <div className="ct-eyebrow flex items-center gap-4">
-          <span className="inline-block h-px w-12 bg-emerald" />
-          <span className="tracking-eyebrow text-xs text-stone">
+          <span className="inline-block h-px w-12 bg-mint" />
+          <span className="tracking-eyebrow text-xs text-mint/70">
             Capítulo 05 — Visitanos
           </span>
         </div>
 
-        <h2 className="ct-title mt-6 font-display text-[12vw] leading-[0.92] text-ink sm:text-[8vw] lg:text-7xl xl:text-8xl">
+        <h2 className="ct-title mt-6 font-display text-[12vw] leading-[0.92] text-bone sm:text-[8vw] lg:text-7xl xl:text-8xl">
           <span className="char-mask">
             {"Estamos".split("").map((c, i) => (
               <span key={i} className="char">
@@ -79,14 +84,14 @@ export function Contact() {
               </span>
             ))}
           </span>{" "}
-          <span className="char-mask italic text-stone">
+          <span className="char-mask italic text-bone/50">
             {"listos".split("").map((c, i) => (
               <span key={i} className="char">
                 {c}
               </span>
             ))}
           </span>{" "}
-          <span className="char-mask italic text-emerald">
+          <span className="char-mask glow-mint italic">
             {"hoy.".split("").map((c, i) => (
               <span key={i} className="char">
                 {c}
@@ -97,37 +102,38 @@ export function Contact() {
 
         <div className="mt-16 grid grid-cols-12 gap-8 lg:gap-12">
           {/* MAP */}
-          <div className="ct-map relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-emerald-deep shadow-2xl shadow-emerald-deep/30 lg:col-span-6 lg:aspect-auto lg:min-h-[640px]">
+          <div className="ct-map ring-glow-strong relative col-span-12 aspect-[4/5] overflow-hidden rounded-3xl bg-night-2 lg:col-span-6 lg:aspect-auto lg:min-h-[680px]">
             <iframe
               src={LOCATION.embed}
-              className="absolute inset-0 h-full w-full"
-              style={{ border: 0, filter: "saturate(0.85) contrast(0.95)" }}
+              className="map-night absolute inset-0 h-full w-full"
+              style={{ border: 0 }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
               title="Parqueo y Lavacar La Esperanza · Cartago"
             />
 
+            {/* Top overlay gradient para mejorar contraste de la card */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/60 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-night/70 to-transparent" />
+
             {/* Floating address card */}
             <div className="pointer-events-none absolute left-6 top-6 right-6 sm:right-auto sm:max-w-xs">
-              <div className="rounded-2xl bg-bone/95 p-5 shadow-xl shadow-emerald-deep/20 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-emerald">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-3 w-3"
-                    fill="currentColor"
-                  >
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" />
-                  </svg>
+              <div className="rounded-2xl border border-mint/25 bg-night/85 p-5 backdrop-blur-xl shadow-[0_0_32px_rgba(0,0,0,0.6)]">
+                <div className="flex items-center gap-2 text-[10px] tracking-eyebrow text-mint">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-mint pulse-mint" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
+                  </span>
                   Ubicación
                 </div>
-                <div className="mt-2 font-display text-2xl italic leading-tight text-emerald-deep">
+                <div className="mt-2 font-display text-2xl italic leading-tight text-bone">
                   Parqueo La Esperanza
                 </div>
-                <div className="mt-2 text-xs text-stone">
+                <div className="mt-2 text-xs text-bone/60">
                   Cartago, Costa Rica
                 </div>
-                <div className="mt-1 font-mono text-[10px] text-mist">
+                <div className="mt-1 font-mono text-[10px] text-mint/50">
                   {LOCATION.lat}, {LOCATION.lng}
                 </div>
               </div>
@@ -138,7 +144,7 @@ export function Contact() {
               href={LOCATION.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-magnet group absolute bottom-6 left-6 right-6 inline-flex items-center justify-center gap-3 rounded-full bg-emerald-deep px-6 py-3.5 text-sm font-medium text-bone shadow-xl shadow-emerald-deep/40 transition-all hover:bg-emerald sm:left-auto sm:right-6 sm:w-auto"
+              className="btn-magnet group absolute bottom-6 left-6 right-6 inline-flex items-center justify-center gap-3 rounded-full bg-mint px-6 py-3.5 text-sm font-medium text-night shadow-[0_0_28px_rgba(116,198,157,0.4)] transition-all hover:shadow-[0_0_48px_rgba(116,198,157,0.65)] sm:left-auto sm:right-6 sm:w-auto"
             >
               Abrir en Google Maps
               <svg
@@ -155,37 +161,37 @@ export function Contact() {
 
           {/* Info column */}
           <div className="ct-info col-span-12 lg:col-span-6">
-            <div className="border-t border-emerald/15">
+            <div className="border-t border-mint/15">
               <a
                 href="tel:+50670207762"
-                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
+                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-stone">
+                  <div className="text-[10px] tracking-eyebrow text-mint/60">
                     Teléfono
                   </div>
-                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
                     +506 7020-7762
                   </div>
                 </div>
-                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
+                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
                   →
                 </span>
               </a>
 
               <a
                 href="tel:+50688322660"
-                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
+                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-stone">
+                  <div className="text-[10px] tracking-eyebrow text-mint/60">
                     Línea 2
                   </div>
-                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
                     +506 8832-2660
                   </div>
                 </div>
-                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
+                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
                   →
                 </span>
               </a>
@@ -194,17 +200,17 @@ export function Contact() {
                 href={WA}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
+                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-stone">
+                  <div className="text-[10px] tracking-eyebrow text-mint/60">
                     WhatsApp · respuesta inmediata
                   </div>
-                  <div className="mt-1 font-display text-3xl italic text-ink lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl italic text-bone lg:text-4xl">
                     Escribinos
                   </div>
                 </div>
-                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
+                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
                   →
                 </span>
               </a>
@@ -213,33 +219,33 @@ export function Contact() {
                 href={LOCATION.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ct-row group flex items-center justify-between border-b border-emerald/15 py-6 transition-colors hover:bg-paper/60"
+                className="ct-row group flex items-center justify-between border-b border-mint/15 py-6 transition-colors hover:bg-night-2/40"
               >
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-stone">
+                  <div className="text-[10px] tracking-eyebrow text-mint/60">
                     Dirección
                   </div>
-                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
                     Cartago, CR
                   </div>
                 </div>
-                <span className="font-display text-2xl text-stone transition-all group-hover:translate-x-1 group-hover:text-emerald">
+                <span className="font-display text-2xl text-bone/40 transition-all group-hover:translate-x-1 group-hover:text-mint">
                   →
                 </span>
               </a>
 
-              <div className="ct-row flex items-center justify-between border-b border-emerald/15 py-6">
+              <div className="ct-row flex items-center justify-between border-b border-mint/15 py-6">
                 <div>
-                  <div className="text-[10px] tracking-eyebrow text-stone">
+                  <div className="text-[10px] tracking-eyebrow text-mint/60">
                     Horario
                   </div>
-                  <div className="mt-1 font-display text-3xl text-ink lg:text-4xl">
+                  <div className="mt-1 font-display text-3xl text-bone lg:text-4xl">
                     6am — 9pm
                   </div>
-                  <div className="mt-2 flex items-center gap-2 text-xs text-emerald">
+                  <div className="mt-2 flex items-center gap-2 text-xs text-mint">
                     <span className="relative flex h-1.5 w-1.5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-2" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint-glow opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-mint" />
                     </span>
                     Lunes a Domingo · Abierto ahora
                   </div>
@@ -250,7 +256,7 @@ export function Contact() {
             <div className="ct-row mt-10 flex flex-col items-stretch gap-3 sm:flex-row">
               <a
                 href="tel:+50670207762"
-                className="btn-magnet inline-flex flex-1 items-center justify-center gap-3 rounded-full bg-emerald px-8 py-4 text-sm font-medium text-bone transition-colors hover:bg-emerald-deep"
+                className="btn-magnet inline-flex flex-1 items-center justify-center gap-3 rounded-full bg-mint px-8 py-4 text-sm font-medium text-night shadow-[0_0_28px_rgba(116,198,157,0.3)] transition-all hover:shadow-[0_0_48px_rgba(116,198,157,0.55)]"
               >
                 Llamar ahora
               </a>
@@ -258,7 +264,7 @@ export function Contact() {
                 href={WA}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-emerald/30 px-8 py-4 text-sm font-medium text-emerald transition-colors hover:bg-emerald hover:text-bone"
+                className="inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-mint/40 px-8 py-4 text-sm font-medium text-mint transition-colors hover:bg-mint hover:text-night"
               >
                 WhatsApp
               </a>
